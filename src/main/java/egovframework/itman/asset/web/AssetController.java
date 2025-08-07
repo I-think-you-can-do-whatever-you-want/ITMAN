@@ -84,8 +84,8 @@ public class AssetController {
     //-------------------------------------조회-----------------------------------------
     @RequestMapping("/itman/assetsList.do")
     public String selectAssetsList(AssetVO vo, Pagination pagination , Model model
-    , @RequestParam(required = false, defaultValue = "1") int page
-    , @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+    , @RequestParam(defaultValue = "1") int page
+    , @RequestParam(defaultValue = "1") int range) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -298,8 +298,8 @@ public class AssetController {
 
     @RequestMapping("/itman/asset/assetEmployeeInfoEdit.do")
     public String assetEmployeeInfoEdit(EmployeeVO vo, AssetVO assetVO ,Model model, Pagination pagination
-            , @RequestParam(required = false, defaultValue = "1") int page
-            , @RequestParam(required = false, defaultValue = "1") int range ) throws Exception {
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range ) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);

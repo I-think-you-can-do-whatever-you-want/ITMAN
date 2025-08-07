@@ -48,8 +48,8 @@ public class EmployeeController {
 
     @RequestMapping("/itman/employeeList.do")
     public String selectEmployeeList(EmployeeVO vo, Pagination pagination, Model model
-            , @RequestParam(required = false, defaultValue = "1") int page
-            , @RequestParam(required = false, defaultValue = "1") int range
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range
     ) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -281,8 +281,8 @@ public class EmployeeController {
 
     @RequestMapping("/itman/popup/searchPop.do")
     public String searchPop(EmployeeVO vo, Pagination pagination, Model model
-            , @RequestParam(required = false, defaultValue = "1") int page
-            , @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);

@@ -19,8 +19,8 @@ public class PositionController {
 
     @RequestMapping("/itman/spotList.do")
     public String selectPositionList(PositionVO vo, Model model, Pagination pagination
-    , @RequestParam(required = false, defaultValue = "1") int page
-    , @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+    , @RequestParam(defaultValue = "1") int page
+    , @RequestParam(defaultValue = "1") int range) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
