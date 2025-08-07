@@ -63,7 +63,6 @@ public class EmployeeController {
         List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
         //페이징 구현
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt); // 전체 건수 조회
         model.addAttribute("resultList", list);
         return "itman/public/html/ingroup/emploList";
     }
@@ -294,8 +293,6 @@ public class EmployeeController {
         List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
         //페이징 구현
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt); // 전체 건수 조회
-
         model.addAttribute("employeeList", list);
         return "itman/public/html/popup/searchPop";
     }

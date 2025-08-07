@@ -45,8 +45,6 @@ public class SupplierController {
         List<SupplierVO> list = supplierService.selectSupplierList(pagination);
 
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt); // 전체 건수 조회
-
         model.addAttribute("supplierList", list);
         return "itman/public/html/popup/supplierPop";
     }

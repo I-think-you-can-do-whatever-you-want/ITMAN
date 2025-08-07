@@ -28,7 +28,6 @@ public class PositionController {
         pagination.pageInfo(page, range, listCnt);
         List<PositionVO> list = positionService.selectPositionList(pagination);
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt);
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/spotList";

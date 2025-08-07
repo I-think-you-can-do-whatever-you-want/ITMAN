@@ -97,7 +97,6 @@ public class AssetController {
 
         List<AssetVO> list = assetService.selectAssetList(pagination);
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt);
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/assetsList";
@@ -313,7 +312,6 @@ public class AssetController {
         List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
         //페이징 구현
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt); // 전체 건수 조회
         model.addAttribute("asset", targetVO);
         model.addAttribute("employeeList", list);
 

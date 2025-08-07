@@ -34,7 +34,6 @@ public class DivisionController {
 
         List<DivisionVO> list = divisionService.selectDivisionList(pagination);
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt);
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/departList";
