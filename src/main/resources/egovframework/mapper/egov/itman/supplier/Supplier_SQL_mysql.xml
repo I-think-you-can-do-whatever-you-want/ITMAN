@@ -8,12 +8,28 @@
         WHERE   DEL_YN = 'N'
         AND GRO_IDX = #{searching.groIdx}
         <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
-            AND (
-            SUP_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-            OR SUP_MAIL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-            OR SUP_TEL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-            OR SUP_BNUM LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-            )
+        <choose>
+            <when test="searching.searchCondition == 'supName'">
+            AND SUP_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+            </when>
+            <when test="searching.searchCondition == 'supBnum'">
+            AND SUP_BNUM LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+            </when>
+            <when test="searching.searchCondition == 'supMail'">
+            AND SUP_MAIL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+            </when>
+            <when test="searching.searchCondition == 'supTel'">
+            AND SUP_TEL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+            </when>
+            <otherwise>
+                AND (
+                SUP_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                OR SUP_BNUM LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                OR SUP_MAIL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                OR SUP_TEL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                )
+            </otherwise>
+        </choose>
         </if>
     </sql>
 

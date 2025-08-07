@@ -16,10 +16,25 @@ public class SupplierController {
     @Resource(name = "supplierService")
     SupplierServiceImpl supplierService;
 
+    @RequestMapping("/itman/supplierList.do")
+    public String selectSupplierList(SupplierVO vo, Pagination pagination ,Model model
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range) throws Exception {
+        String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
+        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        int listCnt = supplierService.selectSupplierListCnt(pagination);
+        pagination.pageInfo(page, range, listCnt);
+
+        List<SupplierVO> list = supplierService.selectSupplierList(pagination);
+        model.addAttribute("pagination", pagination);
+        model.addAttribute("resultList", list);
+        return "itman/public/html/ingroup/buyList";
+    }
+
     @RequestMapping("/popup/supplierPop.do")
     public String supplierPop(SupplierVO vo, Pagination pagination, Model model
-    , @RequestParam(defaultValue = "1") int page
-    , @RequestParam(defaultValue = "1") int range) throws Exception {
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -34,5 +49,17 @@ public class SupplierController {
 
         model.addAttribute("supplierList", list);
         return "itman/public/html/popup/supplierPop";
+    }
+
+    @RequestMapping("/itman/supplierEdit.do")
+    public String supplierEdit(SupplierVO vo, Model model) throws Exception {
+
+        return "itman/public/html/popup/contEditItmSupplier";
+    }
+
+    @RequestMapping("/itman/confirmSupplierDel.do")
+    public String confirmSupplierDel(SupplierVO vo, Model model) throws Exception {
+
+        return "itman/public/html/popup/listDelete";
     }
 }
