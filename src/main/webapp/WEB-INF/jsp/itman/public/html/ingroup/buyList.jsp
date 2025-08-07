@@ -87,7 +87,6 @@
 			<p class="total">총 <span>${pagination.listCnt}</span>건의 결과가 있습니다.</p>
 		</div>
 
-        <?=$test?>
 		<!-- 글쓰기 버튼-->
 		<p class="addContent"><a onclick="window.open('/itman/asset/contWriteSupplier.do', '구매처 추가 팝업', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="edit">><span></span><span></span><span></span></a></p>
 		<div class="Basic">
