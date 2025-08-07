@@ -101,6 +101,7 @@
 				</li>
 				<c:if test="${!empty resultList}">
 					<c:forEach var="supply" items="${resultList}">
+						<input type="hidden" name="supIdx" value="${supply.supIdx}"/>
 						<li>
 							<p class="num">${supply.rowNum}</p>
 							<p class="tit">${supply.supName}</p>

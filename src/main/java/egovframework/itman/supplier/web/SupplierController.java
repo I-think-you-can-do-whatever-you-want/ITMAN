@@ -5,6 +5,7 @@ import egovframework.itman.supplier.service.SupplierVO;
 import egovframework.itman.supplier.service.impl.SupplierServiceImpl;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -51,13 +52,28 @@ public class SupplierController {
 
     @RequestMapping("/itman/supplierEdit.do")
     public String supplierEdit(SupplierVO vo, Model model) throws Exception {
-
+        SupplierVO supply = supplierService.selectSupplyView(vo);
+        model.addAttribute("supply", supply);
         return "itman/public/html/popup/contEditItmSupplier";
+    }
+
+    @PostMapping("/itman/updateSupplier.do")
+    public String updateSupply(SupplierVO vo, Model model) throws Exception {
+        supplierService.updateSupply(vo);
+        model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
+        return "itman/common/scriptResponse";
     }
 
     @RequestMapping("/itman/confirmSupplierDel.do")
     public String confirmSupplierDel(SupplierVO vo, Model model) throws Exception {
-
+        model.addAttribute("supply", vo);
         return "itman/public/html/popup/listDelete";
+    }
+
+    @PostMapping("/itman/deleteSupplier.do")
+    public String deleteSupply(SupplierVO vo, Model model) throws Exception {
+        supplierService.deleteSupply(vo);
+        model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
+        return "itman/common/scriptResponse";
     }
 }

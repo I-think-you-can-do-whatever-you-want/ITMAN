@@ -47,6 +47,19 @@
         ORDER BY rowNum DESC;
     </select>
 
+    <select id="selectSupplyView" parameterType="supplierVO" resultType="supplierVO">
+        SELECT
+        SUP_IDX AS supIdx,
+        SUP_NAME AS supName,
+        SUP_BNUM AS supBnum,
+        SUP_MAIL AS supMail,
+        SUP_TEL AS supTel
+        FROM
+        ITM_SUPPLIER
+        WHERE   DEL_YN = 'N'
+          AND SUP_IDX = ${supIdx}
+    </select>
+
     <select id="selectSupplierListCnt" parameterType="pagination" resultType="int">
         SELECT
             COUNT(*)
@@ -95,5 +108,30 @@
             <if test="supMail != null and supMail.trim().length() > 0">#{supMail},</if>
         </trim>
     </insert>
+
+    <update id="updateSupply" parameterType="supplierVO">
+        UPDATE
+            ITM_SUPPLIER
+        SET
+            SUP_NAME = #{supName},
+            SUP_BNUM = #{supBnum},
+            SUP_MAIL = #{supMail},
+            SUP_TEL = #{supTel},
+            MOD_DATE = NOW(),
+            MOD_IDX = 77 <!--임시 IDX-->
+        WHERE
+            SUP_IDX = #{supIdx}
+    </update>
+
+    <update id="deleteSupply" parameterType="supplierVO">
+        UPDATE
+            ITM_SUPPLIER
+        SET
+            DEL_YN = 'Y',
+            DEL_DATE = NOW(),
+            DEL_IDX = 77 <!-- 임시IDX -->
+        WHERE
+            SUP_IDX = #{supIdx}
+    </update>
 
 </mapper>
