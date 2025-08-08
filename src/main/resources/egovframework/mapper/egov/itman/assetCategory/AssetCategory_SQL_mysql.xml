@@ -117,4 +117,16 @@
         WHERE
         ASS_CAT_IDX = #{assCatIdx}
     </update>
+
+    <select id="findAll" parameterType="string" resultType="assetCategoryVO">
+        SELECT
+            ASS_CAT_CODE AS assCatCode,
+            ASS_CAT_NAME AS assCatName,
+            SL_NOTE AS slNote
+        FROM
+            ITM_ASSET_CATEGORY
+        WHERE
+            DEL_YN = 'N'
+        AND GRO_IDX = #{groIdx}
+    </select>
 </mapper>

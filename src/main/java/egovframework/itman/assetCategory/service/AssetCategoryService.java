@@ -13,4 +13,6 @@ public interface AssetCategoryService {
     void deleteAssetCategory(AssetCategoryVO vo) throws Exception;
     int selectAssetCategoryListCnt(Pagination pagination) throws Exception;
 
+    List<AssetCategoryVO> findAll(String groIdx) throws Exception;
+
 }

@@ -39,4 +39,8 @@ public class AssetCategoryDAO {
     public void updateAssetCategory(AssetCategoryVO vo) throws Exception {
         sqlSession.update("assetCategoryDAO.updateAssetCategory", vo);
     }
+
+    public List<AssetCategoryVO> findAll(String groIdx) throws Exception{
+      return sqlSession.selectList("assetCategoryDAO.findAll", groIdx);
+    }
 }

@@ -74,7 +74,7 @@
 
 		<div class="num_list">
 			<p class="total">총 <span>${pagination.listCnt}</span>건의 결과가 있습니다.</p>
-			<a href="assetCategoryExcel.jsp?search=<?= $search ?>&like=<?= $_GET['like'] ?>"
+			<a href="/itman/downloadAssetCategoryData.do"
 			   style="float: right; background-color: #28a745; color: white; padding: 5px 10px; border-radius: 2px; text-decoration: none; font-weight: bold;">
 			   엑셀 다운로드
 			</a>

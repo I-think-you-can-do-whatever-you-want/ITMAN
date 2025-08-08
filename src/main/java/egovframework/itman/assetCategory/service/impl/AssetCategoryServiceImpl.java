@@ -47,4 +47,9 @@ public class AssetCategoryServiceImpl implements AssetCategoryService {
     public void updateAssetCategory(AssetCategoryVO vo) throws Exception {
         assetCategoryDAO.updateAssetCategory(vo);
     }
+
+    @Override
+    public List<AssetCategoryVO> findAll(String groIdx) throws Exception{
+        return assetCategoryDAO.findAll(groIdx);
+    }
 }
