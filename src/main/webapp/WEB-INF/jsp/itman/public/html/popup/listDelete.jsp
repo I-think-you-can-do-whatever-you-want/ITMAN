@@ -27,6 +27,9 @@
 <c:if test="${!empty location}">
 	<c:set var="actionUrl" value="${pageContext.request.contextPath}/itman/deleteLocation.do" />
 </c:if>
+<c:if test="${!empty assetCategory}">
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/itman/deleteAssetCategory.do" />
+</c:if>
 	<div id="popup">
 		<div class="pop_tit">
 			<p class="title">삭제하시겠습니까?</p>
@@ -35,6 +38,7 @@
 			<form method="POST" id="form" action="${actionUrl}">
 		<input name="supIdx" type="hidden" value="${supply.supIdx}"/>
 				<input name="locIdx" type="hidden" value="${location.locIdx}"/>
+				<input name="assCatIdx" type="hidden" value="${assetCategory.assCatIdx}" />
 			<ul class="contEdit">
 				<li>
 					<p class="tit">비고</p>
