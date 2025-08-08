@@ -43,4 +43,9 @@ public class LocationServiceImpl implements LocationService {
     public void updateAssetLocation(LocationVO vo) throws Exception{
         locationDAO.updateAssetLocation(vo);
     }
+
+    @Override
+    public void deleteAssetLocation(LocationVO vo) throws Exception{
+        locationDAO.deleteAssetLocation(vo);
+    }
 }
