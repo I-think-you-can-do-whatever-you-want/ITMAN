@@ -84,8 +84,8 @@ public class AssetController {
     //-------------------------------------조회-----------------------------------------
     @RequestMapping("/itman/assetsList.do")
     public String selectAssetsList(AssetVO vo, Pagination pagination , Model model
-    , @RequestParam(required = false, defaultValue = "1") int page
-    , @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+    , @RequestParam(defaultValue = "1") int page
+    , @RequestParam(defaultValue = "1") int range) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -97,7 +97,6 @@ public class AssetController {
 
         List<AssetVO> list = assetService.selectAssetList(pagination);
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt);
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/assetsList";
@@ -174,13 +173,13 @@ public class AssetController {
         return "itman/common/scriptResponse";
     }
 
-    @RequestMapping("/itman/asset/contWriteAssetSupplier.do")
+    @RequestMapping("/itman/asset/contWriteSupplier.do")
     public String writeAssetSupplier(SupplierVO vo, Model model) throws Exception {
         model.addAttribute("vo", vo);
         return "itman/public/html/popup/contWriteItmSupplier";
     }
 
-    @PostMapping("/itman/asset/insertAssetSupplier.do")
+    @PostMapping("/itman/asset/insertSupplier.do")
     public String insetAssetSupplier(SupplierVO  vo, Model model) throws Exception {
         supplierService.insertAssetSupplier(vo);
         model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
@@ -199,7 +198,6 @@ public class AssetController {
 
     @PostMapping("/itman/asset/updateAssetNameInfo.do")
     public String updateAssetNameInfo(@ModelAttribute AssLogVO assLogVO, AssetVO vo, Model model, RedirectAttributes redirectAttributes) throws Exception {
-        System.err.println(">>>> controller 진입 확인");
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldName = assetVO.getAssName();
         String newName = vo.getAssName();
@@ -299,8 +297,8 @@ public class AssetController {
 
     @RequestMapping("/itman/asset/assetEmployeeInfoEdit.do")
     public String assetEmployeeInfoEdit(EmployeeVO vo, AssetVO assetVO ,Model model, Pagination pagination
-            , @RequestParam(required = false, defaultValue = "1") int page
-            , @RequestParam(required = false, defaultValue = "1") int range ) throws Exception {
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range ) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -314,7 +312,6 @@ public class AssetController {
         List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
         //페이징 구현
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt); // 전체 건수 조회
         model.addAttribute("asset", targetVO);
         model.addAttribute("employeeList", list);
 
@@ -427,6 +424,26 @@ public class AssetController {
         assLogVO.setAlCont(oldPrice + "->" + newPrice);
         assLogService.insertAssLog(assLogVO);
         model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
+        return "itman/common/scriptResponse";
+    }
+
+    //-------------------------------삭제------------------------------------------
+    @RequestMapping("/itman/asset/confirmAssetDel.do")
+    public String confirmAssetDel(AssetVO vo, Model model) throws Exception {
+        model.addAttribute("asset", vo);
+        return "itman/public/html/popup/asset/contAssetDel";
+    }
+
+    @PostMapping("/itman/asset/deleteAsset.do")
+    public String deleteAsset(@ModelAttribute AssLogVO assLogVO ,AssetVO  vo, Model model) throws Exception {
+        AssetVO assetVO = assetService.selectAssetView(vo);
+        assetService.deleteAsset(vo);
+        assLogVO.setAssIdx(vo.getAssIdx());
+        assLogVO.setAssNameLog(assetVO.getAssName());
+        assLogVO.setAlType("삭제");
+        assLogVO.setAlCat("자산");
+        assLogService.insertAssLog(assLogVO);
+        model.addAttribute("script", "<script>window.opener.location.href=\"/itman/assetsList.do\"; window.close();</script>");
         return "itman/common/scriptResponse";
     }
 }
