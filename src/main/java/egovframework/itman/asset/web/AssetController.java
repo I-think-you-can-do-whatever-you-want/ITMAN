@@ -84,8 +84,8 @@ public class AssetController {
     //-------------------------------------조회-----------------------------------------
     @RequestMapping("/itman/assetsList.do")
     public String selectAssetsList(AssetVO vo, Pagination pagination , Model model
-    , @RequestParam(required = false, defaultValue = "1") int page
-    , @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+    , @RequestParam(defaultValue = "1") int page
+    , @RequestParam(defaultValue = "1") int range) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -97,14 +97,12 @@ public class AssetController {
 
         List<AssetVO> list = assetService.selectAssetList(pagination);
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt);
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/assetsList";
     }
     @RequestMapping("/itman/assetsView.do")
     public String selectAssetView(AssetVO vo, Model model) throws Exception {
-        String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
         AssetVO assetVO = assetService.selectAssetView(vo);
         model.addAttribute("asset", assetVO);
         selectByAssIdx(assetVO.getAssIdx(), model);
@@ -112,6 +110,16 @@ public class AssetController {
         model.addAttribute("assLogList", list);
 
         return "itman/public/html/ingroup/assetsView";
+    }
+
+    @RequestMapping("/itman/dashboard.do")
+    public String selectAssetDashboard(StateVO stateVO , Model model) throws Exception {
+    String groIdx = stateVO.getGroIdx() != null ? stateVO.getGroIdx() : "1";
+    List<AssLogVO> historyList = assLogService.selectDashBoardAssLogList(groIdx);
+    List<StateVO> stateList = stateService.selectDashBoardAssetStateList(groIdx);
+    model.addAttribute("historyList", historyList);
+    model.addAttribute("stateList", stateList);
+        return "itman/public/html/ingroup/dashboard";
     }
 
     //-------------------------------------생성-----------------------------------------
@@ -174,13 +182,13 @@ public class AssetController {
         return "itman/common/scriptResponse";
     }
 
-    @RequestMapping("/itman/asset/contWriteAssetSupplier.do")
+    @RequestMapping("/itman/asset/contWriteSupplier.do")
     public String writeAssetSupplier(SupplierVO vo, Model model) throws Exception {
         model.addAttribute("vo", vo);
         return "itman/public/html/popup/contWriteItmSupplier";
     }
 
-    @PostMapping("/itman/asset/insertAssetSupplier.do")
+    @PostMapping("/itman/asset/insertSupplier.do")
     public String insetAssetSupplier(SupplierVO  vo, Model model) throws Exception {
         supplierService.insertAssetSupplier(vo);
         model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
@@ -298,8 +306,8 @@ public class AssetController {
 
     @RequestMapping("/itman/asset/assetEmployeeInfoEdit.do")
     public String assetEmployeeInfoEdit(EmployeeVO vo, AssetVO assetVO ,Model model, Pagination pagination
-            , @RequestParam(required = false, defaultValue = "1") int page
-            , @RequestParam(required = false, defaultValue = "1") int range ) throws Exception {
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range ) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -313,7 +321,6 @@ public class AssetController {
         List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
         //페이징 구현
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt); // 전체 건수 조회
         model.addAttribute("asset", targetVO);
         model.addAttribute("employeeList", list);
 
