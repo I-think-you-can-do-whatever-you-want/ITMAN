@@ -3,6 +3,7 @@ package egovframework.itman.asset.service.impl;
 import egovframework.itman.asset.service.AssetService;
 import egovframework.itman.asset.service.AssetVO;
 import egovframework.itman.common.Pagination;
+import egovframework.itman.employee.service.EmployeeVO;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -16,6 +17,11 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public List<AssetVO> selectAssetList(Pagination pagination) throws Exception {
         return assetDAO.selectAssetList(pagination);
+    }
+
+    @Override
+    public List<AssetVO> selectEmpAssetList(EmployeeVO employeeVO) throws Exception{
+        return assetDAO.selectEmpAssetList(employeeVO);
     }
 
     @Override
@@ -66,16 +72,28 @@ public class AssetServiceImpl implements AssetService {
         assetDAO.updateAssetLocationInfo(vo);
     }
 
+    @Override
     public void updateAssetEmployeeInfo(AssetVO vo) throws Exception {
         assetDAO.updateAssetEmployeeInfo(vo);
     }
+
+    @Override
     public void updateAssetSupplyInfo(AssetVO vo) throws Exception {
         assetDAO.updateAssetSupplyInfo(vo);
     }
+
+    @Override
     public void updateAssetBuyDateInfo(AssetVO vo) throws Exception {
         assetDAO.updateAssetBuyDateInfo(vo);
     }
+
+    @Override
     public void updateAssetPriceInfo(AssetVO vo) throws Exception {
         assetDAO.updateAssetPriceInfo(vo);
+    }
+
+    @Override
+    public void updateAssetPictureInfo(AssetVO vo) throws Exception{
+        assetDAO.updateAssetPictureInfo(vo);
     }
 }
