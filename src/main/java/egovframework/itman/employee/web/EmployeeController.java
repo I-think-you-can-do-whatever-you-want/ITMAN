@@ -6,11 +6,14 @@ import egovframework.itman.asset.service.impl.AssetServiceImpl;
 import egovframework.itman.common.Pagination;
 import egovframework.itman.division.service.DivisionVO;
 import egovframework.itman.division.service.impl.DivisionServiceImpl;
+import egovframework.itman.empState.service.EmpStateVO;
 import egovframework.itman.employee.service.EmployeeVO;
 import egovframework.itman.employee.service.impl.EmployeeServiceImpl;
 import egovframework.itman.position.service.PositionVO;
 import egovframework.itman.position.service.impl.PositionServiceImpl;
 import egovframework.itman.empState.service.impl.EmpStateServiceImpl;
+import egovframework.itman.state.service.StateVO;
+import egovframework.itman.state.service.impl.StateServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -35,6 +38,7 @@ public class EmployeeController {
     @Resource(name = "assetService")
     private AssetServiceImpl assetService;
 
+
     private void addCommonLists(String groIdx, Model model) {
         model.addAttribute("divisionList", divisionService.selectDivisionsByGroup(groIdx));
         model.addAttribute("empStateList", empStateService.selectEmpStatesByGroup(groIdx));
@@ -44,8 +48,8 @@ public class EmployeeController {
 
     @RequestMapping("/itman/employeeList.do")
     public String selectEmployeeList(EmployeeVO vo, Pagination pagination, Model model
-            , @RequestParam(required = false, defaultValue = "1") int page
-            , @RequestParam(required = false, defaultValue = "1") int range
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range
     ) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -59,7 +63,6 @@ public class EmployeeController {
         List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
         //페이징 구현
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt); // 전체 건수 조회
         model.addAttribute("resultList", list);
         return "itman/public/html/ingroup/emploList";
     }
@@ -117,6 +120,19 @@ public class EmployeeController {
     @PostMapping("/itman/insertEmploPosition.do")
     public String insertEmployeePosition(PositionVO vo, Model model) {
         positionService.insertPosition(vo);
+        model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
+        return "itman/common/scriptResponse";
+    }
+
+    @RequestMapping("/itman/emploStateWrite.do")
+    public String writeEmployeeState(EmpStateVO vo, Model model) {
+        model.addAttribute("empState", vo);
+        return "itman/public/html/popup/employee/emploStateWrite";
+    }
+
+    @PostMapping("/itman/insertEmploState.do")
+    public String insertEmployeeState(EmpStateVO vo, Model model) {
+        empStateService.insertEmployeeState(vo);
         model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
         return "itman/common/scriptResponse";
     }
@@ -262,8 +278,8 @@ public class EmployeeController {
 
     @RequestMapping("/itman/popup/searchPop.do")
     public String searchPop(EmployeeVO vo, Pagination pagination, Model model
-            , @RequestParam(required = false, defaultValue = "1") int page
-            , @RequestParam(required = false, defaultValue = "1") int range) throws Exception {
+            , @RequestParam(defaultValue = "1") int page
+            , @RequestParam(defaultValue = "1") int range) throws Exception {
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
@@ -275,8 +291,6 @@ public class EmployeeController {
         List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
         //페이징 구현
         model.addAttribute("pagination", pagination);
-        model.addAttribute("listCnt", listCnt); // 전체 건수 조회
-
         model.addAttribute("employeeList", list);
         return "itman/public/html/popup/searchPop";
     }
