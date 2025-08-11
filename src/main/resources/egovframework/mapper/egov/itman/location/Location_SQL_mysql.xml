@@ -107,6 +107,7 @@
             LOC_IDX = #{locIdx}
     </update>
 
+
     <update id="deleteAssetLocation" parameterType="locationVO">
         UPDATE
         ITM_LOCATION
@@ -120,4 +121,5 @@
         WHERE
             LOC_IDX = #{locIdx}
     </update>
+
 </mapper>

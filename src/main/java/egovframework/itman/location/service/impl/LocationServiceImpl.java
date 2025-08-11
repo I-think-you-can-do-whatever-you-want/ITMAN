@@ -48,4 +48,5 @@ public class LocationServiceImpl implements LocationService {
     public void deleteAssetLocation(LocationVO vo) throws Exception{
         locationDAO.deleteAssetLocation(vo);
     }
+
 }

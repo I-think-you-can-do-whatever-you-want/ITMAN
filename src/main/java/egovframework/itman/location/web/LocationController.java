@@ -74,6 +74,7 @@ public class LocationController {
         return "itman/public/html/popup/listDelete";
     }
 
+
     @PostMapping("/itman/deleteLocation.do")
     public String deleteLocation(LocationVO vo, Model model) throws Exception {
         locationService.deleteAssetLocation(vo);

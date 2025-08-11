@@ -47,6 +47,7 @@
 			</ul>
 				<!--<p class="pop_btn"><a href="javascript:;window.close();" class="del">취소</a><a href="./pp_process/listDeleteProc.jsp?id=<?=$method?>&target=<?=$target?>" class="comp">삭제</a></p> -->
 				<p class="pop_btn"><a href="javascript:;window.close();" class="del">취소</a><a id="check" class="comp" href="#" onclick="formSubmit();">삭제</a></p>
+
 	</form>
 	</div>
 	</div>
