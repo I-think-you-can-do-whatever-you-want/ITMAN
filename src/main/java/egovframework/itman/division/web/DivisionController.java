@@ -25,6 +25,7 @@ public class DivisionController {
     public String selectDivisionList(DivisionVO vo, Pagination pagination, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range) throws Exception {
+
         String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
