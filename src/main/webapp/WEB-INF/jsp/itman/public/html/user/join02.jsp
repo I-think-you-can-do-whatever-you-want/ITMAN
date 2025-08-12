@@ -89,6 +89,7 @@
 			});
 			const text = await resp.text();
 			const code = parseInt(text.trim(), 10);
+			console.log(text);
 
 			const msg = document.createElement('span');
 			if (code === 0) {
