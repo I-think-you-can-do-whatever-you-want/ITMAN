@@ -10,47 +10,6 @@
   <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/title.jsp" />
 </head>
 
-<%--<script language="javascript">--%>
-<%--$(document).ready(function(e){--%>
-<%--$(".fadeInfirst").on("keyup",function(){--%>
-<%--var self =$(this);             --%>
-<%--var id;--%>
-<%--var zero = 0;--%>
-<%--var one = 1;--%>
-<%--var two = 2;--%>
-
-<%--let tagArea = document.getElementById('idcheck');--%>
-<%--let new_liTag = document.createElement('span');--%>
-
-<%--if(self.attr("id")==="id"){  --%>
-<%--    id=self.val();           --%>
-<%--}--%>
-<%--$.post(              --%>
-<%--      "idCheck.php",--%>
-<%--{id : id},             --%>
-<%--function(data){--%>
-<%--    if(data==zero){--%>
-<%--        $('#idcheck').text('');--%>
-<%--        new_liTag.setAttribute('class', 'true');--%>
-<%--        new_liTag.innerHTML="사용가능한 이메일입니다";--%>
-<%--        tagArea.appendChild(new_liTag);--%>
-<%--    }else if(data==one){--%>
-<%--        $('#idcheck').text('');--%>
-<%--        new_liTag.setAttribute('class', 'false');--%>
-<%--        new_liTag.innerHTML="이미 존재하는 이메일입니다.";--%>
-<%--        tagArea.appendChild(new_liTag);--%>
-<%--    }else if(data==two){--%>
-<%--    $('#idcheck').text('');--%>
-<%--        new_liTag.setAttribute('class', 'false');--%>
-<%--        new_liTag.innerHTML="이메일 형식에 맞게 입력해주세요.";--%>
-<%--        tagArea.appendChild(new_liTag);--%>
-<%--    }--%>
-<%-- }--%>
-<%-- );//post--%>
-<%--});//on--%>
-<%--}); //document--%>
-<%--</script>--%>
-
 <body>
 <c:url value="/itman/checkMail.do" var="checkEmailUrl" />
 	<div id="contents">
@@ -61,7 +20,7 @@
 				<li class="on"><span>2</span>가입 정보 입력 및 인증</li>
 				<li><span>3</span></li>
 			</ul>
-            <form action="/itman/sendEmail.do" name="frm" id="frm" method="post">
+            <form action="/itman/sendMailCode.do" name="frm" id="frm" method="post">
 			<ul class="mem">
 				<li>
 					<p>사용자 이름</p>
@@ -70,7 +29,7 @@
                 <li>
 					<p>이메일</p>
 					<div><!-- <div class="in_btn"> -->
-                    <input type="text"  class="fadeInfirst"  name="useremail" id="id" placeholder="exmple@exmple.com" required>
+                    <input type="text"  class="fadeInfirst"  name="email" id="id" placeholder="exmple@exmple.com" required>
                     <span id="idcheck"></span>
 					</div>
 				</li>

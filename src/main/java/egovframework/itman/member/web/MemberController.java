@@ -1,13 +1,15 @@
 package egovframework.itman.member.web;
 
 import egovframework.itman.member.service.impl.MemberServiceImpl;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class MemberController {
@@ -45,4 +47,27 @@ public class MemberController {
         return exist ? "1" : "0";
 
     }
+
+    @RequestMapping(value = "/itman/sendMailCode.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String sendMailCode(@RequestParam("email") String email, HttpSession session) throws Exception {
+        String code = String.valueOf((int)((Math.random() * 900000) + 100000)); //6자리 랜덤 숫자
+        memberService.sendAuthMail(email, code);
+        session.setAttribute("authCode", code);
+
+        return "success";
+    }
+
+    @RequestMapping(value = "/itman/checkMailCode.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String checkMailCode(@RequestParam("inputCode") String inputCode, HttpSession session) {
+        String savedCode = (String) session.getAttribute("authCode");
+        if(savedCode != null && savedCode.equals(inputCode)) {
+            return "ok";
+        } else {
+            return "fail";
+        }
+    }
+
+
 }
