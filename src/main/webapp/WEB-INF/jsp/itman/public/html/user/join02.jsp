@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" language="java" %>
 
 <!doctype html>
@@ -88,7 +89,6 @@
 			});
 			const text = await resp.text();
 			const code = parseInt(text.trim(), 10);
-			console.log(text);
 
 			const msg = document.createElement('span');
 			if (code === 0) {
