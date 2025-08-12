@@ -20,33 +20,34 @@
 				<li class="on"><span>2</span>가입 정보 입력 및 인증</li>
 				<li><span>3</span></li>
 			</ul>
-            <form action="/itman/sendMailCode.do" name="frm" id="frm" method="post">
+            <form action="/itman/sendMailCode.do" name="form" id="form" method="post">
 			<ul class="mem">
 				<li>
 					<p>사용자 이름</p>
-					<div><input type="text" id="username" name="username" placeholder="홍길동"></div>
+					<div><input type="text" id="username" name="memName" placeholder="홍길동"></div>
 				</li>
                 <li>
 					<p>이메일</p>
 					<div><!-- <div class="in_btn"> -->
-                    <input type="text"  class="fadeInfirst"  name="email" id="id" placeholder="exmple@exmple.com" required>
+                    <input type="text"  class="fadeInfirst"  name="memMail" id="id" placeholder="exmple@exmple.com" required>
                     <span id="idcheck"></span>
 					</div>
 				</li>
 				<li>
 					<p>비밀번호</p>
-					<div><input type="password" id="userpw" name="userpw"></div>
+					<div><input type="password" id="userpw" name="memPw"></div>
 				</li>
 				<li>
 					<p>비밀번호 확인</p>
 					<div>
-						<input type="password" id="userpw_ch" name="userpw_ch">
+						<input type="password" id="userpw_ch" name="memPw_ch">
 					</div>
 				</li>
 				<li>
 					<p>휴대폰</p>
 					<div class="tel">
 						<p class="full">
+							<input type="hidden" id="memTel" name="memTel">
 							<select id="userphone1" name="userphone1">
 								<option>010</option>
 								<option>011</option>
@@ -60,11 +61,7 @@
 			<p class="user_btn" style="background-color: #2e2fbf"><a href="#" onclick="fn_submit();" >다음</a></p>
 			</form>
 		</div>
-        
-        <?php
-        $sql = "SELECT MEM_NAME FROM ITM_MEMBER WHERE DEL_YN ='N'";
-        $result = mysqli_query($dbconn, $sql);
-        ?>
+
 	</div>
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />
 </body>
@@ -92,6 +89,7 @@
 			});
 			const text = await resp.text();
 			const code = parseInt(text.trim(), 10);
+			console.log(text);
 
 			const msg = document.createElement('span');
 			if (code === 0) {
@@ -196,7 +194,14 @@ function fn_submit(){
 		return false;
 	}
 
-    frm.submit();
+	const p1 = document.getElementById("userphone1").value.trim();
+	const p2 = document.getElementById("userphone2").value.trim();
+	const p3 = document.getElementById("userphone3").value.trim();
+
+	const fullNumber = p1 + "-" + p2 + "-" + p3;
+	document.getElementById("memTel").value = fullNumber;
+
+    form.submit();
 }
 </script>
 </html>

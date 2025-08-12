@@ -1,9 +1,12 @@
 package egovframework.itman.member.web;
 
+import egovframework.itman.member.service.MemberVO;
 import egovframework.itman.member.service.impl.MemberServiceImpl;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
@@ -15,22 +18,17 @@ import javax.servlet.http.HttpSession;
 public class MemberController {
     @Resource(name = "memberService")
     private MemberServiceImpl memberService;
+    @Resource(name = "passwordEncoder")
+    private BCryptPasswordEncoder passwordEncoder;
 
     @RequestMapping("/itman/user/join.do")
     public String join() {
-
         return "itman/public/html/user/join01";
     }
 
     @RequestMapping("/itman/user/writeUserInfo.do")
     public String writeUserInfo() {
-
         return "itman/public/html/user/join02";
-    }
-
-    @PostMapping("/itman/sendEmail.do")
-    public String sendEmail() {
-        return "";
     }
 
     @PostMapping(value = "/itman/checkMail.do", produces = "application/json;charset=UTF-8" )
@@ -49,25 +47,63 @@ public class MemberController {
     }
 
     @RequestMapping(value = "/itman/sendMailCode.do", method = RequestMethod.POST)
-    @ResponseBody
-    public String sendMailCode(@RequestParam("email") String email, HttpSession session) throws Exception {
+//    @ResponseBody
+    public String sendMailCode(@ModelAttribute MemberVO vo, @RequestParam("memMail") String email, HttpSession session) throws Exception {
+        session.setAttribute("member", vo);
         String code = String.valueOf((int)((Math.random() * 900000) + 100000)); //6자리 랜덤 숫자
         memberService.sendAuthMail(email, code);
         session.setAttribute("authCode", code);
 
-        return "success";
+        return "itman/public/html/user/certPass";
     }
 
     @RequestMapping(value = "/itman/checkMailCode.do", method = RequestMethod.POST)
-    @ResponseBody
-    public String checkMailCode(@RequestParam("inputCode") String inputCode, HttpSession session) {
+//    @ResponseBody
+    public String checkMailCode(@RequestParam("inputCode") String inputCode, HttpSession session, Model model) {
         String savedCode = (String) session.getAttribute("authCode");
+        model.addAttribute("authCode", savedCode);
         if(savedCode != null && savedCode.equals(inputCode)) {
-            return "ok";
+            MemberVO vo = (MemberVO) session.getAttribute("member");
+
+            String rawPassword = vo.getMemPw();
+            String encodedPassword = passwordEncoder.encode(rawPassword);
+            vo.setMemPw(encodedPassword);
+
+            memberService.insertMember(vo);
+            model.addAttribute("member", vo);
+
+            session.removeAttribute("authCode");
+            session.removeAttribute("member");
+            return "itman/public/html/user/join03";
         } else {
             return "fail";
         }
     }
+
+    @RequestMapping("/itman/user/login.do")
+    public String login() {
+        return "itman/public/html/user/login";
+    }
+
+    @PostMapping("/itman/user/authUser.do")
+    public String authUser(@ModelAttribute MemberVO vo, HttpSession session,
+    @RequestParam("inputMail") String inputMail,
+    @RequestParam("inputPw") String inputPw ,
+                           Model model) {
+        MemberVO member = memberService.selectMemberByEmail(inputMail);
+        if(member == null || !passwordEncoder.matches(inputPw, member.getMemPw())) {
+            model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지않습니다.");
+            return "itman/public/html/user/login";
+        }
+        session.setAttribute("loginUser", member);
+        return "redirect:/itman/index.do";
+    }
+
+
+    @GetMapping("/itman/logout.do")
+    public String logout(HttpSession session) {
+        session.invalidate(); // 세션 비우기
+        return "redirect:/itman/index.do";    }
 
 
 }

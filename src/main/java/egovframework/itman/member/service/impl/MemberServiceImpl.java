@@ -1,6 +1,7 @@
 package egovframework.itman.member.service.impl;
 
 import egovframework.itman.member.service.MemberService;
+import egovframework.itman.member.service.MemberVO;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
@@ -21,7 +22,14 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.countByEmail(email);
     }
 
-
+    @Override
+    public void insertMember(MemberVO vo){
+        memberDAO.insertMember(vo);
+    }
+    @Override
+    public MemberVO selectMemberByEmail(String inputMail){
+        return memberDAO.selectMemberByEmail(inputMail);
+    }
 
     public void sendAuthMail(String toEmail, String code) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
