@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.swing.text.Position;
@@ -64,6 +65,20 @@ public class PositionController {
         model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
         return "itman/common/scriptResponse";
 
+    }
+
+    @RequestMapping("/itman/confirmPositionDel.do")
+    public String confirmPositionDel(PositionVO vo, Model model){
+        PositionVO resultVO = positionService.selectPositionView(vo);
+        model.addAttribute("position",resultVO);
+        return "itman/public/html/popup/listDelete";
+    }
+
+    @PostMapping("/itman/deletePosition.do")
+    public String deletePosition(PositionVO vo, Model model) {
+        positionService.deletePosition(vo);
+        model.addAttribute("script","<script>window.opener.location.reload(); window.close();</script>");
+        return"itman/common/scriptResponse";
     }
 
 }

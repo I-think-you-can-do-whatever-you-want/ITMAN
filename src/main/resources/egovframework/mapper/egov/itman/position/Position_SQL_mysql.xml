@@ -100,5 +100,17 @@
             MOD_DATE = NOW()
         WHERE POS_IDX = #{posIdx}
     </update>
+
+    <update id="deletePosition" parameterType="positionVO">
+        UPDATE
+            ITM_POSITION
+        SET
+            SL_NOTE = #{slNote},
+            DEL_YN = 'Y',
+            DEL_DATE = NOW()
+        WHERE
+            POS_IDX = #{posIdx}
+
+    </update>
 </mapper>
 

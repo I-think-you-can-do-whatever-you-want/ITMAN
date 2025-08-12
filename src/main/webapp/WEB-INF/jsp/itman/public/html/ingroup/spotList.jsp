@@ -54,7 +54,7 @@
                         <p class="tit">${position.posName}</p>
                         <p class="editDel" style="padding:0;">
                             <a href="#" onclick="window.open('/itman/positionEdit.do?posIdx=${position.posIdx}', 'EditPopUp', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
-                            <a href="#" onclick="window.open('', 'EditPopUp', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
+                            <a href="#" onclick="window.open('/itman/confirmPositionDel.do?posIdx=${position.posIdx}', 'EditPopUp', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
                         </p>
                     </li>
 					</c:forEach>
