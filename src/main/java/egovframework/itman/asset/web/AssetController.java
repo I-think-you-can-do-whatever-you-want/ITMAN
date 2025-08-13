@@ -259,6 +259,7 @@ public class AssetController {
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assLogVO.setRegIdx(modIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldName = assetVO.getAssName();
         String newName = vo.getAssName();
@@ -325,6 +326,7 @@ public class AssetController {
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assLogVO.setRegIdx(modIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldStaName = assetVO.getAssStaName();
         assetService.updateAssetStateInfo(vo);
@@ -358,6 +360,7 @@ public class AssetController {
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assLogVO.setRegIdx(modIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldLocName = assetVO.getAssLocName();
         assetService.updateAssetLocationInfo(vo);
@@ -403,6 +406,7 @@ public class AssetController {
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assLogVO.setRegIdx(modIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldEmpName = assetVO.getAssEmpName();
         assetService.updateAssetEmployeeInfo(vo);
@@ -436,6 +440,7 @@ public class AssetController {
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assLogVO.setRegIdx(modIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldSupName = assetVO.getAssSupName();
         if(oldSupName == null || oldSupName.equals("")) {
@@ -472,6 +477,7 @@ public class AssetController {
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assLogVO.setRegIdx(modIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldBuyDate = assetVO.getBuyDate();
         if (oldBuyDate == null || oldBuyDate.equals("")) {
@@ -508,6 +514,7 @@ public class AssetController {
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assLogVO.setRegIdx(modIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldPrice = assetVO.getPrice();
         if (oldPrice == null || oldPrice.equals("")) {
@@ -570,6 +577,7 @@ public class AssetController {
         String delIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(delIdx);
         assLogVO.setRegIdx(delIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         assetService.deleteAsset(vo);
         assLogVO.setAssIdx(vo.getAssIdx());
