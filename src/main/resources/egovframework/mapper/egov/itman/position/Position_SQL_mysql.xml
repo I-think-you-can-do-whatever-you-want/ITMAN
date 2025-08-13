@@ -36,11 +36,13 @@
         FROM
             ITM_POSITION
         <include refid="positionCondition"/>
+        ORDER BY rowNum DESC
         LIMIT #{startList}, #{listSize}
     </select>
 
     <select id="selectPositionView" resultType="positionVO" parameterType="positionVO">
         SELECT
+        POS_CODE AS posCode,
         POS_IDX AS posIdx,
         POS_NAME AS posName,
         SL_NOTE AS slNote
@@ -74,7 +76,7 @@
             POS_CODE,
             POS_NAME,
             REG_DATE,
-            REG_IDX
+            REG_IDX,
             <if test="slNote != null and slNote.trim().length() > 0">SL_NOTE,</if>
         </trim>
             VALUES
@@ -87,5 +89,27 @@
         <if test="slNote != null and slNote.trim().length() > 0">#{slNote},</if>
         </trim>
     </insert>
+    <update id="updatePosition" parameterType="positionVO">
+        UPDATE
+            ITM_POSITION
+        SET
+            POS_IDX = #{posIdx},
+            POS_NAME = #{posName},
+            POS_CODE = #{posCode},
+            MOD_DATE = NOW()
+        WHERE POS_IDX = #{posIdx}
+    </update>
+
+    <update id="deletePosition" parameterType="positionVO">
+        UPDATE
+            ITM_POSITION
+        SET
+            SL_NOTE = #{slNote},
+            DEL_YN = 'Y',
+            DEL_DATE = NOW()
+        WHERE
+            POS_IDX = #{posIdx}
+
+    </update>
 </mapper>
 
