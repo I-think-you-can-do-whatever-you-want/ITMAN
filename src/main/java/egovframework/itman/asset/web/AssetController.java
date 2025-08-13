@@ -94,12 +94,6 @@ public class AssetController {
     , @RequestParam(defaultValue = "1") int range
     , HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
-//        if(session.getAttribute("groIdx") != null) {
-//            System.err.println("groidx is not null");
-//        } else {
-//            System.err.println("groidx is null");
-//        }
-
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
 
         int listCnt = assetService.selectAssetListCnt(pagination);
@@ -264,6 +258,7 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
+        assLogVO.setRegIdx(modIdx);
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldName = assetVO.getAssName();
         String newName = vo.getAssName();
@@ -295,6 +290,8 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
+        assLogVO.setRegIdx(modIdx);
+
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldCatName = assetVO.getAssCatName();
         assetService.updateAssetCategoryInfo(vo);
@@ -327,6 +324,7 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
+        assLogVO.setRegIdx(modIdx);
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldStaName = assetVO.getAssStaName();
         assetService.updateAssetStateInfo(vo);
@@ -359,6 +357,7 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
+        assLogVO.setRegIdx(modIdx);
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldLocName = assetVO.getAssLocName();
         assetService.updateAssetLocationInfo(vo);
@@ -403,6 +402,7 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
+        assLogVO.setRegIdx(modIdx);
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldEmpName = assetVO.getAssEmpName();
         assetService.updateAssetEmployeeInfo(vo);
@@ -435,7 +435,7 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
-
+        assLogVO.setRegIdx(modIdx);
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldSupName = assetVO.getAssSupName();
         if(oldSupName == null || oldSupName.equals("")) {
@@ -471,7 +471,7 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
-
+        assLogVO.setRegIdx(modIdx);
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldBuyDate = assetVO.getBuyDate();
         if (oldBuyDate == null || oldBuyDate.equals("")) {
@@ -507,7 +507,7 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
-
+        assLogVO.setRegIdx(modIdx);
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldPrice = assetVO.getPrice();
         if (oldPrice == null || oldPrice.equals("")) {
@@ -569,7 +569,7 @@ public class AssetController {
         vo.setGroIdx(groIdx);
         String delIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(delIdx);
-
+        assLogVO.setRegIdx(delIdx);
         AssetVO assetVO = assetService.selectAssetView(vo);
         assetService.deleteAsset(vo);
         assLogVO.setAssIdx(vo.getAssIdx());
