@@ -5,8 +5,4 @@ public interface MemberService {
     void insertMember(MemberVO vo);
     MemberVO selectMemberByEmail(String inputMail);
 
-
-
-
-
 }
