@@ -92,10 +92,13 @@ public class MemberController {
                            Model model) {
         MemberVO member = memberService.selectMemberByEmail(inputMail);
         if(member == null || !passwordEncoder.matches(inputPw, member.getMemPw())) {
-            model.addAttribute("msg", "아이디 또는 비밀번호가 일치하지않습니다.");
+            model.addAttribute("msg", "존재하지않는 회원이거나 아이디 또는 비밀번호가 일치하지않습니다.");
             return "itman/public/html/user/login";
         }
+        System.err.println("memberName: " + member.getMemName());
+        System.err.println("memberMail: " + member.getMemMail());
         session.setAttribute("loginUser", member);
+        session.setAttribute("userIdx", member.getMemIdx());
         return "redirect:/itman/index.do";
     }
 

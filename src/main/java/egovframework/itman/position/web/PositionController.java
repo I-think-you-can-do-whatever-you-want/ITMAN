@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import javax.swing.text.Position;
 import java.util.List;
 
@@ -20,8 +21,9 @@ public class PositionController {
     @RequestMapping("/itman/spotList.do")
     public String selectPositionList(PositionVO vo, Model model, Pagination pagination
     , @RequestParam(defaultValue = "1") int page
-    , @RequestParam(defaultValue = "1") int range) throws Exception {
-        String groIdx = vo.getGroIdx() != null ? vo.getGroIdx() : "1";
+    , @RequestParam(defaultValue = "1") int range
+    , HttpSession session) throws Exception {
+        String groIdx = (String) session.getAttribute("groIdx");
 
         pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
         int listCnt = positionService.selectPositionListCnt(pagination);

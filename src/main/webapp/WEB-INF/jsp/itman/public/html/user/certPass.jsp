@@ -65,7 +65,7 @@ function fn_submit(){
 
 
     if(elapsed > THREE_MINUTES){
-		alert("인증시간이 초과했습니다. 다시 입력해주세요");
+		alert("인증시간이 초과했습니다. 다시 인증을 시도해주세요");
 		history.back();
 		return false;
 	}
