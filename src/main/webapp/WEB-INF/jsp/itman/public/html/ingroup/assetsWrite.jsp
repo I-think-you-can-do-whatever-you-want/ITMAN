@@ -46,7 +46,7 @@
 						</c:forEach>
 					</select>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetCategory.do', '자산분류등록팝업', 'width=500, height=335')" href="#none">분류 추가</a></p>
+				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetCategory.do', '자산분류등록팝업', 'width=500, height=350')" href="#none">분류 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">상태 <span>*</span></p>
@@ -58,7 +58,7 @@
 						</c:forEach>
 					</select>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetState.do', '자산상태등록팝업', 'width=500, height=335')" href="#none">상태 추가</a></p>
+				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetState.do', '자산상태등록팝업', 'width=500, height=350')" href="#none">상태 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">위치 <span>*</span></p>
@@ -66,7 +66,7 @@
 					<input style="display:none" id = "loc_idx" name="locIdx" value="" />
 					<a onclick="window.open('/itman/popup/locationPop.do', '위치등록팝업', 'width=500, height=335')" href="#none" class="popbtn">위치 선택</a><span class="name" id="loc_name"></span></p>
 
-				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetLocation.do', '직원등록팝업', 'width=500, height=335')" href="#none">위치 추가</a></p>
+				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetLocation.do', '직원등록팝업', 'width=500, height=370')" href="#none">위치 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">사용직원 <span>*</span></p>
