@@ -28,5 +28,14 @@ public class MemberDAO {
     public void updateMemPw(MemberVO vo){
         sqlSession.update("memberDAO.updateMemPw", vo);
     }
+    public void deleteMember(MemberVO vo){
+        sqlSession.update("memberDAO.deleteMember", vo);
+    }
+    public MemberVO findMail(MemberVO vo){
+        return  sqlSession.selectOne("memberDAO.findMail", vo);
+    }
+    public MemberVO findPass(MemberVO vo){
+        return  sqlSession.selectOne("memberDAO.findPass", vo);
+    }
 
 }

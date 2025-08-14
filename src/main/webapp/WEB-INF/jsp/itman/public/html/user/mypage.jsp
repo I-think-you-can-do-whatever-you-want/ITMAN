@@ -31,9 +31,9 @@
 			
 			<h3>계정관리</h3>
 			<ul class="boxlist">
-				<li><a href="myGroup.php">그룹관리</a></li>
-				<li><a href="privacy.jsp">서비스 이용약관</a></li>
-				<li><a href="accDel.php">계정탈퇴</a></li>
+				<li><a href="/itman/myGroup.do">그룹관리</a></li>
+				<li><a href="/itman/privacy.do">서비스 이용약관</a></li>
+				<li><a href="/itman/accDel.do">계정탈퇴</a></li>
 			</ul>
 		</div>
 	</div>

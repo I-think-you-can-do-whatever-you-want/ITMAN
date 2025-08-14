@@ -58,7 +58,7 @@
 				</li>
 			</ul>
             <input type="hidden" name="mode" value="회원가입">
-			<p class="user_btn" style="background-color: #2e2fbf"><a href="#" onclick="fn_submit();" >다음</a></p>
+			<p class="user_btn" ><a href="#" onclick="fn_submit();" >다음</a></p>
 			</form>
 		</div>
 

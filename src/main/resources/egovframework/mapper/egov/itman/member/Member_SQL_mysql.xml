@@ -63,4 +63,35 @@
         WHERE
             MEM_IDX = #{memIdx}
     </update>
+    <update id="deleteMember" parameterType="memberVO">
+        UPDATE
+            ITM_MEMBER
+        SET
+            DEL_YN = 'Y',
+            DEL_DATE = NOW()
+        WHERE
+            MEM_IDX = #{memIdx}
+    </update>
+
+    <select id="findMail" parameterType="memberVO" resultType="memberVO">
+        SELECT
+            MEM_MAIL
+        FROM
+            ITM_MEMBER
+        WHERE
+            DEL_YN = 'N'
+        AND MEM_NAME = #{memName}
+        AND MEM_TEL = #{memTel}
+    </select>
+    <select id="findPass" parameterType="memberVO" resultType="memberVO">
+        SELECT
+            MEM_MAIL
+        FROM
+            ITM_MEMBER
+        WHERE
+            DEL_YN = 'N'
+          AND MEM_NAME = #{memName}
+          AND MEM_TEL = #{memTel}
+          AND MEM_MAIL = #{memMail}
+    </select>
 </mapper>

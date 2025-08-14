@@ -39,6 +39,18 @@ public class MemberServiceImpl implements MemberService {
     public void updateMemPw(MemberVO vo){
         memberDAO.updateMemPw(vo);
     }
+    @Override
+    public void deleteMember(MemberVO vo){
+        memberDAO.deleteMember(vo);
+    }
+    @Override
+    public MemberVO findMail(MemberVO vo){
+      return  memberDAO.findMail(vo);
+    }
+    @Override
+    public MemberVO findPass(MemberVO vo){
+        return memberDAO.findPass(vo);
+    }
 
     public void sendAuthMail(String toEmail, String code) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();

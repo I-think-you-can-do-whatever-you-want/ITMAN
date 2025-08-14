@@ -16,7 +16,7 @@
 			<form action="/itman/updatePass.do" name="form" id="form" method="post">
 				<li>
 					<p>현재 비밀번호</p>
-					<div><input id="oldPw" name="oldPw" type="password"/></div>
+					<div><input id="inputPw" name="inputPw" type="password"/></div>
 				</li>
 				<li>
 					<p>변경 비밀번호</p>
@@ -39,7 +39,7 @@
 	async function checkPw(){
 		const pw = document.getElementById("pw").value.trim();
 		const comparePw = document.getElementById("comparepw").value.trim();
-		const oldPw = document.getElementById("oldPw").value.trim();
+		const inputPw = document.getElementById("inputPw").value.trim();
 
 
 		if (!pw || !comparePw) {
@@ -52,7 +52,7 @@
 			document.getElementById("comparepw").value = "";
 			return;
 		}
-		if (oldPw === pw) {
+		if (inputPw === pw) {
 			alert("기존 비밀번호와 다른 비밀번호를 입력해주세요");
 			document.getElementById("pw").value = "";
 			document.getElementById("comparepw").value = "";
@@ -73,7 +73,7 @@
 					"Content-Type": "application/x-www-form-urlencoded"
 				},
 				body: new URLSearchParams({
-					oldPw: document.querySelector("input[name='oldPw']").value.trim()
+					inputPw: document.querySelector("input[name='inputPw']").value.trim()
 				}),
 			});
 
@@ -82,12 +82,12 @@
 
 			if (code === 0) {
 				alert("현재 비밀번호가 일치하지 않습니다.");
-				document.querySelector("input[name='oldPw']").value = "";
+				document.querySelector("input[name='inputPw']").value = "";
 				return;
 			}
 
 			if (code === 1) {
-				alert("비밀번호가 확인되었습니다. 변경을 완료합니다.");
+				alert("비밀번호가 변경되었습니다.");
 				document.forms['form'].submit();
 			}
 		} catch (e) {

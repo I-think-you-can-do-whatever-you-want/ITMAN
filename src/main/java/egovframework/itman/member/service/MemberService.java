@@ -6,4 +6,7 @@ public interface MemberService {
     MemberVO selectMemberByEmail(String inputMail);
     void updateMemTel(MemberVO vo);
     void updateMemPw(MemberVO vo);
+    void deleteMember(MemberVO vo);
+    MemberVO findMail(MemberVO vo);
+    MemberVO findPass(MemberVO vo);
 }
