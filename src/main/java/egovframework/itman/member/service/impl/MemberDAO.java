@@ -21,5 +21,12 @@ public class MemberDAO {
     public MemberVO selectMemberByEmail(String inputMail){
         return sqlSession.selectOne("memberDAO.selectMemberByEmail", inputMail);
     }
+    public void updateMemTel(MemberVO vo){
+        sqlSession.update("memberDAO.updateMemTel", vo);
+    }
+
+    public void updateMemPw(MemberVO vo){
+        sqlSession.update("memberDAO.updateMemPw", vo);
+    }
 
 }

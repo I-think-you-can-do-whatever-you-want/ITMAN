@@ -89,7 +89,6 @@
 			});
 			const text = await resp.text();
 			const code = parseInt(text.trim(), 10);
-			console.log(text);
 
 			const msg = document.createElement('span');
 			if (code === 0) {
@@ -198,7 +197,7 @@ function fn_submit(){
 	const p2 = document.getElementById("userphone2").value.trim();
 	const p3 = document.getElementById("userphone3").value.trim();
 
-	const fullNumber = p1 + "-" + p2 + "-" + p3;
+	const fullNumber = p1 + p2 + p3;
 	document.getElementById("memTel").value = fullNumber;
 
     form.submit();

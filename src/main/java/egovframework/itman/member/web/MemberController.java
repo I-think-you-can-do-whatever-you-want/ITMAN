@@ -95,18 +95,71 @@ public class MemberController {
             model.addAttribute("msg", "존재하지않는 회원이거나 아이디 또는 비밀번호가 일치하지않습니다.");
             return "itman/public/html/user/login";
         }
-        System.err.println("memberName: " + member.getMemName());
-        System.err.println("memberMail: " + member.getMemMail());
         session.setAttribute("loginUser", member);
         session.setAttribute("userIdx", member.getMemIdx());
         return "redirect:/itman/index.do";
+    }
+
+    @RequestMapping("/itman/myPage.do")
+    public String myPage(HttpSession session, Model model) {
+        String userMail = ((MemberVO) session.getAttribute("loginUser")).getMemMail();
+        MemberVO vo = memberService.selectMemberByEmail(userMail);
+        model.addAttribute("member", vo);
+        session.setAttribute("member", vo);
+        return "itman/public/html/user/mypage";
+    }
+    @RequestMapping("/itman/phoneEdit.do")
+    public String phoneEdit(HttpSession session, Model model) {
+        MemberVO vo = (MemberVO) session.getAttribute("member");
+        model.addAttribute("memTel", vo.getMemTel());
+        return "itman/public/html/popup/phoneEdit";
+    }
+    @PostMapping("/itman/updatePhone.do")
+    public String updatePhone(@RequestParam("memTel") String memTel,HttpSession session, Model model) {
+        MemberVO vo = (MemberVO) session.getAttribute("member");
+        session.removeAttribute("member");
+        vo.setMemTel(memTel);
+        memberService.updateMemTel(vo);
+        session.setAttribute("member", vo);
+        model.addAttribute("script", "<script>window.opener.location.reload(); window.close();</script>");
+        return "itman/common/scriptResponse";
+    }
+
+    @PostMapping(value = "/itman/authPassword.do", produces = "application/json;charset=UTF-8" )
+    @ResponseBody
+    public String updatePassword(@RequestParam("oldPw") String oldPw,
+                                  HttpSession session, Model model) {
+        MemberVO vo = (MemberVO) session.getAttribute("member");
+        if(oldPw != null && passwordEncoder.matches(oldPw, vo.getMemPw())) {
+            return "1";
+        }
+
+        return "0";
+    }
+
+
+    @RequestMapping("/itman/changePass.do")
+    public String changePass() {
+        return "itman/public/html/user/changePass";
+    }
+
+    @PostMapping("/itman/updatePass.do")
+    public String updatePass(@RequestParam("newPw") String newPw, HttpSession session) {
+        MemberVO vo = (MemberVO) session.getAttribute("member");
+        String encodedPassword = passwordEncoder.encode(newPw);
+        vo.setMemPw(encodedPassword);
+        session.removeAttribute("member");
+        memberService.updateMemPw(vo);
+        session.setAttribute("member", vo);
+        return "redirect:/itman/myPage.do";
     }
 
 
     @GetMapping("/itman/logout.do")
     public String logout(HttpSession session) {
         session.invalidate(); // 세션 비우기
-        return "redirect:/itman/index.do";    }
+        return "redirect:/itman/index.do";
+    }
 
 
 }

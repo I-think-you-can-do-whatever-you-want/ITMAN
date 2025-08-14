@@ -31,6 +31,15 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO.selectMemberByEmail(inputMail);
     }
 
+    @Override
+    public void updateMemTel(MemberVO vo){
+        memberDAO.updateMemTel(vo);
+    }
+    @Override
+    public void updateMemPw(MemberVO vo){
+        memberDAO.updateMemPw(vo);
+    }
+
     public void sendAuthMail(String toEmail, String code) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
