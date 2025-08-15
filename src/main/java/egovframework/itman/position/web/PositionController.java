@@ -28,6 +28,7 @@ public class PositionController {
     , @RequestParam(defaultValue = "1") int range
     ,@RequestParam(value = "id",defaultValue = "4")int id
     , HttpSession session) {
+
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
