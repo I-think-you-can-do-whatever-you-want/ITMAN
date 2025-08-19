@@ -4,47 +4,48 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="assetCategoryDAO">
+
     <sql id="assetCategoryCondition">
         <where>
             DEL_YN = 'N'
-            AND GRO_IDX = #{searching.groIdx}
-            <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
+            AND GRO_IDX = #{pagination.searching.groIdx}
+            <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
                 <choose>
-                    <when test="searching.searchCondition == 'assCatCode'">
-                        AND ASS_CAT_CODE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                    <when test="pagination.searching.searchCondition == 'assCatCode'">
+                        AND ASS_CAT_CODE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                     </when>
-                    <when test="searching.searchCondition == 'assCatName'">
-                        AND ASS_CAT_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                    <when test="pagination.searching.searchCondition == 'assCatName'">
+                        AND ASS_CAT_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                     </when>
                     <otherwise>
                         AND (
-                        ASS_CAT_CODE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                        OR ASS_CAT_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                        ASS_CAT_CODE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR ASS_CAT_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                         )
                     </otherwise>
                 </choose>
             </if>
         </where>
     </sql>
-    <select id="selectAssetCategoryList" parameterType="pagination" resultType="assetCategoryVO">
+
+    <select id="selectAssetCategoryList" parameterType="assetCategoryVO" resultType="assetCategoryVO">
         SELECT
-            ASS_CAT_IDX AS assCatIdx,
-            ASS_CAT_CODE AS assCatCode,
-            ASS_CAT_NAME AS assCatName,
-            SL_NOTE AS slNote
+        ASS_CAT_IDX AS assCatIdx,
+        ASS_CAT_CODE AS assCatCode,
+        ASS_CAT_NAME AS assCatName,
+        SL_NOTE AS slNote
         FROM ITM_ASSET_CATEGORY
         <include refid="assetCategoryCondition" />
-        LIMIT #{startList} , #{listSize}
+        LIMIT #{pagination.startList} , #{pagination.listSize}
     </select>
 
-    <select id="selectAssetCategoryListCnt" parameterType="pagination" resultType="int">
-    SELECT
+    <select id="selectAssetCategoryListCnt" parameterType="assetCategoryVO" resultType="int">
+        SELECT
         COUNT(*)
-    FROM
+        FROM
         ITM_ASSET_CATEGORY
-    <include refid="assetCategoryCondition" />
+        <include refid="assetCategoryCondition" />
     </select>
-
     <select id="selectAssetCategory" parameterType="assetCategoryVO" resultType="assetCategoryVO">
         SELECT
             ASS_CAT_IDX AS assCatIdx,

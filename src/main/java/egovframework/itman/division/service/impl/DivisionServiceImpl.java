@@ -19,18 +19,20 @@ public class DivisionServiceImpl implements DivisionService {
     }
 
     @Override
-    public List<DivisionVO> selectDivisionList(Pagination pagination) throws Exception {
-        return divisionDAO.selectDivisionList(pagination);
+    public List<DivisionVO> selectDivisionList(DivisionVO vo) throws Exception {
+        return divisionDAO.selectDivisionList(vo);
+    }
+
+    @Override
+    public int selectDivisionListCnt(DivisionVO vo) throws Exception {
+        return divisionDAO.selectDivisionListCnt(vo);
     }
 
     @Override
     public DivisionVO selectDivisionView(DivisionVO divisionVO) {
         return divisionDAO.selectDivisionView(divisionVO);
     }
-    @Override
-    public int selectDivisionListCnt(Pagination pagination) throws Exception {
-        return divisionDAO.selectDivisionListCnt(pagination);
-    }
+
     @Override
     public void insertDivision(DivisionVO vo) {
          divisionDAO.insertDivision(vo);

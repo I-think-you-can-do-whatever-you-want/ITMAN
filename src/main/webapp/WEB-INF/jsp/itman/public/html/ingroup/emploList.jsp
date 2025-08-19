@@ -18,39 +18,19 @@
     <div class="tit_search">
         <h2>직원 관리</h2>
         <form id="searchForm" name="searchForm" method="get" action="${pageContext.request.contextPath}/itman/employeeList.do" onsubmit="this.page.value=1; this.range.value=1;">
-            <input type="hidden" id="page"      name="page"      value="${pagination.page}" />
-            <input type="hidden" id="range"     name="range"     value="${pagination.range}" />
-            <input type="hidden" id="rangeSize" name="rangeSize" value="${pagination.rangeSize}" />
+            <input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
+            <input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
+            <input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
 
             <p class="list_search">
-<%--                <select id="DIV_IDX" name="searching.divIdx" onchange="document.getElementById('searchForm').submit()">--%>
-<%--                    <option value="" selected>부서 선택</option>--%>
-<%--                    <c:forEach var="d" items="${divisionList}">--%>
-<%--                                <option value="${d.divIdx}" ${d.divIdx == pagination.searching.divIdx ? "selected" : ""}>${d.divName}</option>--%>
-<%--                    </c:forEach>--%>
-<%--                </select>--%>
-<%--    <select id="POS_IDX" name="searching.posIdx" onchange="document.getElementById('searchForm').submit()">--%>
-<%--        <option value=""  selected>직위 선택</option>--%>
-<%--        <c:forEach var="p" items="${positionList}">--%>
-<%--                    <option value="${p.posIdx}" ${p.posIdx == pagination.searching.posIdx ? "selected" : ""}>${p.posName}</option>--%>
-
-<%--        </c:forEach>--%>
-<%--    </select>--%>
-
-<%--                <select id="EMP_ST_IDX" name="searching.stIdx" onchange="document.getElementById('searchForm').submit()">--%>
-<%--                    <option value="" selected>상태 선택</option>--%>
-<%--                    <c:forEach var="s" items="${empStateList}">--%>
-<%--                        <option value="${s.empStIdx}" ${s.empStIdx == pagination.searching.stIdx ? "selected" : ""}>${s.empStName}</option>--%>
-<%--                    </c:forEach>--%>
-<%--                </select>--%>
-                <select name="searching.searchCondition" >
+                <select name="pagination.searching.searchCondition" >
                     <option value="" >전체</option>
                     <option value="empNum" ${pagination.searching.searchCondition=='empNum' ? 'selected' : ''}>사번</option>
                     <option value="empName" ${pagination.searching.searchCondition=='empName' ? 'selected' : ''}>이름</option>
                     <option value="empDiv" ${pagination.searching.searchCondition=='empDiv' ? 'selected' : ''}>부서</option>
                 </select>
-                <input name="searching.searchKeyword" type="text" value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요."/>
-                <a href="#" onclick="const form = this.closest('form'); form.page.value=1; form.range.value=1; form.submit();">검색</a>
+                <input name="pagination.searching.searchKeyword" type="text" value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요."/>
+                <a href="#" onclick="formSubmit(); form.page.value=1; form.range.value=1; form.submit();">검색</a>
 
             </p>
         </form>
@@ -95,7 +75,7 @@
                   </li>
               </c:forEach>
             </c:if>
-            <c:if test="${listCnt == 0}">
+            <c:if test="${pagination.listCnt == 0}">
                 <div style="text-align:center; margin-top:20px;">
                     일치하는 자료가 없습니다.
                 </div>
@@ -129,7 +109,9 @@
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />
 <!-- 7. 페이지 이동 스크립트: form 사용 시 필요 -->
 <script>
-
+    function formSubmit(){
+        document.getElementById('searchForm').submit();
+    }
     function changePage(page, range, rangeSize) {
         const form = document.getElementById('searchForm');
         form.page.value = page;

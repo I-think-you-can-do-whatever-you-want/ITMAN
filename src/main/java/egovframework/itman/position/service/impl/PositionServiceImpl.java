@@ -1,6 +1,5 @@
 package egovframework.itman.position.service.impl;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.position.service.PositionService;
 import egovframework.itman.position.service.PositionVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +19,13 @@ public class PositionServiceImpl implements PositionService {
     }
 
     @Override
-    public List<PositionVO> selectPositionList(Pagination pagination) {
-        return positionDAO.selectPositionList(pagination);
+    public List<PositionVO> selectPositionList(PositionVO vo) {
+        return positionDAO.selectPositionList(vo);
+    }
+
+    @Override
+    public int selectPositionListCnt(PositionVO vo) {
+        return positionDAO.selectPositionListCnt(vo);
     }
 
     @Override
@@ -42,11 +46,6 @@ public class PositionServiceImpl implements PositionService {
     @Override
     public void deletePosition(PositionVO positionVO) {
         positionDAO.deletePosition(positionVO);
-    }
-
-    @Override
-    public int selectPositionListCnt(Pagination pagination) {
-        return positionDAO.selectPositionListCnt(pagination);
     }
 
     @Override

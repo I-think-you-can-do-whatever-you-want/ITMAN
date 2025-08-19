@@ -1,7 +1,5 @@
 package egovframework.itman.employee.service.impl;
 
-import egovframework.itman.common.Pagination;
-import egovframework.itman.common.Searching;
 import egovframework.itman.employee.service.EmployeeVO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,24 +17,6 @@ public class EmployeeDAO  {
     public List<EmployeeVO> selectEmployeeList(EmployeeVO vo) throws Exception {
 
         return sqlSession.selectList("employeeDAO.selectEmployeeList", vo);
-    }
-
-    public List<EmployeeVO> selectEmployeeList(Pagination pagination) throws Exception {
-
-        return sqlSession.selectList("employeeDAO.selectEmployeeList", pagination);
-    }
-
-    public List<EmployeeVO> selectEmployeeList(int listCnt) throws Exception {
-
-        return sqlSession.selectList("employeeDAO.selectEmployeeList", listCnt);
-    }
-
-    public int selectEmployeeListCnt() throws Exception{
-        return sqlSession.selectOne("employeeDAO.selectEmployeeListCnt");
-    }
-
-    public int selectEmployeeListCnt(Pagination pagination) throws Exception{
-        return sqlSession.selectOne("employeeDAO.selectEmployeeListCnt", pagination);
     }
 
     public int selectEmployeeListCnt(EmployeeVO employeeVO) throws Exception{
@@ -83,5 +63,4 @@ public class EmployeeDAO  {
     public void updateEmploStateInfo(EmployeeVO vo){
         sqlSession.update("employeeDAO.updateEmploStateInfo", vo);
     }
-
 }

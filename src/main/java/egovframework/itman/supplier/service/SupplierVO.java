@@ -1,5 +1,7 @@
 package egovframework.itman.supplier.service;
 
+import egovframework.itman.common.Pagination;
+
 public class SupplierVO {
     private String supIdx; //구매처IDX
     private String groIdx; //소속그룹IDX
@@ -17,6 +19,19 @@ public class SupplierVO {
     private String supBnum; //사업자번호
     private String supMail; //구매처 이메일
     private String rowNum;
+    private Pagination pagination;
+
+    public SupplierVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getRowNum() {
         return rowNum;

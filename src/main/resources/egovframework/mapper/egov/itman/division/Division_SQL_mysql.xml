@@ -7,44 +7,44 @@
     <sql id="divisionCondition">
         <where>
             DEL_YN = 'N'
-            AND GRO_IDX = #{searching.groIdx}
-            <if test="searching.divYn != null and searching.divYn !=''">
-                AND DIV_YN = #{searching.divYn}
+            AND GRO_IDX = #{pagination.searching.groIdx}
+            <if test="pagination.searching.divYn != null and pagination.searching.divYn !=''">
+                AND DIV_YN = #{pagination.searching.divYn}
             </if>
-            <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
-                AND (DIV_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                OR DIV_CODE LIKE CONCAT('%', #{searching.searchKeyword}, '%'))
+            <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
+                AND (DIV_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                OR DIV_CODE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%'))
             </if>
         </where>
     </sql>
-    <select id="selectDivisionList" parameterType="pagination" resultType="DivisionVO">
+    <select id="selectDivisionList" parameterType="divisionVO" resultType="divisionVO">
         SELECT DIV_IDX      AS divIdx,
-               DIV_NAME     AS divName,
-               DIV_CODE     AS divCode,
-               GRO_IDX      AS groIdx,
-               DIV_YN       AS divYn,
-               ROW_NUMBER() OVER(ORDER BY DIV_IDX ASC) AS rowNum
+        DIV_NAME     AS divName,
+        DIV_CODE     AS divCode,
+        GRO_IDX      AS groIdx,
+        DIV_YN       AS divYn,
+        ROW_NUMBER() OVER(ORDER BY DIV_IDX ASC) AS rowNum
         FROM ITM_DIVISION
         <include refid="divisionCondition"/>
         <choose>
-            <when test="searching.orderBy == 'divCode'">
+            <when test="pagination.searching.orderBy == 'divCode'">
                 ORDER BY DIV_CODE ASC
             </when>
-            <when test="searching.orderBy == 'divName'">
-            ORDER BY DIV_NAME ASC
+            <when test="pagination.searching.orderBy == 'divName'">
+                ORDER BY DIV_NAME ASC
             </when>
             <otherwise>
                 ORDER BY rowNum DESC
             </otherwise>
         </choose>
-        LIMIT #{startList}, #{listSize}
+        LIMIT #{pagination.startList}, #{pagination.listSize}
     </select>
 
-    <select id="selectDivisionListCnt" parameterType="pagination" resultType="int">
+    <select id="selectDivisionListCnt" parameterType="divisionVO" resultType="int">
         SELECT
-            count(*)
+        count(*)
         FROM
-            ITM_DIVISION
+        ITM_DIVISION
         <include refid="divisionCondition"/>
     </select>
 
@@ -61,7 +61,7 @@
         WHERE DIV_IDX = #{divIdx}
         AND DEL_YN = 'N'
     </select>
-    <select id="selectDivisionsByGroup" resultType="DivisionVO" parameterType="string">
+    <select id="selectDivisionsByGroup" resultType="divisionVO" parameterType="string">
         SELECT DIV_IDX AS divIdx,
         DIV_NAME  AS divName
         FROM ITM_DIVISION

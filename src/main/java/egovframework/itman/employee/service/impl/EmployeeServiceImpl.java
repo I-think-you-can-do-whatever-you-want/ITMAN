@@ -1,6 +1,5 @@
 package egovframework.itman.employee.service.impl;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.employee.service.EmployeeService;
 import egovframework.itman.employee.service.EmployeeVO;
 import org.springframework.stereotype.Service;
@@ -19,24 +18,10 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeDAO.selectEmployeeList(vo);
     }
 
-    public List<EmployeeVO> selectEmployeeList(Pagination pagination) throws Exception {
-
-        return employeeDAO.selectEmployeeList(pagination);
-    }
-
     @Override
-    public int selectEmployeeListCnt() throws Exception{
-        return employeeDAO.selectEmployeeListCnt();
-    }
-
-    public int selectEmployeeListCnt(Pagination pagination) throws Exception{
-        return employeeDAO.selectEmployeeListCnt(pagination);
-    }
-
     public int selectEmployeeListCnt(EmployeeVO employeeVO) throws Exception{
         return employeeDAO.selectEmployeeListCnt(employeeVO);
     }
-
 
     @Override
     public EmployeeVO selectEmployeeView(EmployeeVO vo) {
@@ -55,7 +40,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         employeeDAO.deleteEmployee(vo);
     }
-//update functions
+
     @Override
     public void updateEmployee(EmployeeVO vo) {
 
@@ -96,4 +81,5 @@ public class EmployeeServiceImpl implements EmployeeService {
     public void updateEmploStateInfo(EmployeeVO vo) {
         employeeDAO.updateEmploStateInfo(vo);
     }
+
 }

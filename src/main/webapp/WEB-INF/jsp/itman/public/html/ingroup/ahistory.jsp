@@ -10,37 +10,38 @@
  </head>
 <body>
 	<div id="contents">
+		<form id="searchForm" method="get" action="${pageContext.request.contextPath}/itman/assetHistory.do" onsubmit="this.page.value=1; this.range.value=1;">
+
 		<div class="tit_search">
 			<h2>자산 히스토리</h2>
-            <form id="searchForm" method="get" action="${pageContext.request.contextPath}/itman/assetHistory.do" onsubmit="this.page.value=1; this.range.value=1;">
-			<input type="hidden" name="page" value="${pagination.page}">
-				<input type="hidden" name="range" value="${pagination.range}">
-				<input type="hidden" name="rangeSize" value="${pagination.rangeSize}">
+			<input type="hidden" name="pagination.page" value="${pagination.page}">
+				<input type="hidden" name="pagination.range" value="${pagination.range}">
+				<input type="hidden" name="pagination.rangeSize" value="${pagination.rangeSize}">
 			<p class="list_search">
-				<select name="searching.searchCondition">
+				<select name="pagination.searching.searchCondition">
 					<option value="" >전체</option>
 					<option value="assUlid" ${pagination.searching.searchCondition == 'assUlid' ? 'selected' : ''}>일련번호</option>
 					<option value="assName" ${pagination.searching.searchCondition == 'assName' ? 'selected' : ''}>자산명</option>
 					<option value="alCont" ${pagination.searching.searchCondition == 'alCont' ? 'selected' : ''}>내용</option>
 					<option value="alNote" ${pagination.searching.searchCondition == 'alNote' ? 'selected' : ''}>비고</option>
 				</select>
-                <input type="text" name="searching.searchKeyword"  value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요.">
-				<a href="#" onclick="const form = this.closest('form'); form.page.value=1; form.range.value=1; form.submit();">검색</a>
+                <input type="text" name="pagination.searching.searchKeyword"  value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요.">
+				<a href="#" onclick="formSubmit(); form.page.value=1; form.range.value=1; form.submit();">검색</a>
 			</p>
-			</form>
 		</div>
 
 
 		<div class="num_list">
 			<p class="total">총 <span>${pagination.listCnt}</span> 건의 결과가 있습니다.</p>
 			<p class="view">
-				<select name ="searching.orderBy" onchange="this.form.submit()">
+				<select name ="pagination.searching.orderBy" onchange="this.form.submit()">
 					<option value="" >최신순</option>
 					<option value="asc" ${pagination.searching.orderBy == 'asc' ? 'selected' : ''}>오래된순</option>
 				</select>
 			</p>
-		</form>
 		</div>
+		</form>
+
 		<div class="Basic">
 			<ul class="adminList history">
 				<li class="tit">
@@ -98,7 +99,9 @@
     </div>
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />
 	<script>
-
+		function formSubmit(){
+			document.getElementById('searchForm').submit();
+		}
 		function changePage(page, range, rangeSize) {
 			const form = document.getElementById('searchForm');
 			form.page.value = page;
@@ -147,12 +150,3 @@
 </body>
 </html>
 
-<%--<?php--%>
-<%--	function queryCount($sql){--%>
-<%--		include "../_inc/dbconn.php";--%>
-<%--		$query_count = mysqli_query($dbconn, $sql);--%>
-<%--        $count =mysqli_num_rows($query_count); --%>
-<%--		return $count;--%>
-<%--	}--%>
-
-<%--?>--%>

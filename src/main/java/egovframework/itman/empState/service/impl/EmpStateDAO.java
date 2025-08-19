@@ -17,17 +17,16 @@ public class EmpStateDAO {
         return sqlSession.selectList(
                 "empStateDAO.selectEmpStatesByGroup", groIdx);
     }
-    public List<EmpStateVO> selectEmpStateList(Pagination pagination) throws Exception {
-        return sqlSession.selectList("empStateDAO.selectEmpStateList", pagination);
+    public List<EmpStateVO> selectEmpStateList(EmpStateVO vo) throws Exception {
+        return sqlSession.selectList("empStateDAO.selectEmpStateList", vo);
     }
+    public int selectEmpStateListCnt(EmpStateVO vo) throws Exception {
+        return sqlSession.selectOne("empStateDAO.selectEmpStateListCnt", vo);
+    }
+
     public EmpStateVO selectEmpStateView(EmpStateVO vo) throws Exception {
         return sqlSession.selectOne("empStateDAO.selectEmpStateView", vo);
     }
-
-    public int selectEmpStateListCnt(Pagination pagination) throws Exception {
-        return sqlSession.selectOne("empStateDAO.selectEmpStateListCnt", pagination);
-    }
-
 
     public void insertEmployeeState(EmpStateVO vo) {
         sqlSession.insert("empStateDAO.insertEmployeeState", vo);

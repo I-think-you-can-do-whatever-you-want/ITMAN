@@ -15,39 +15,26 @@
 		<div class="tit_search">
 			<h2>자산 관리</h2>
 			<form id="searchForm" method="get" action="${pageContext.request.contextPath}/itman/assetsList.do" onsubmit="this.page.value=1; this.range.value=1;" >
-				<input type="hidden" id="page"      name="page"      value="${pagination.page}" />
-				<input type="hidden" id="range"     name="range"     value="${pagination.range}" />
-				<input type="hidden" id="rangeSize" name="rangeSize" value="${pagination.rangeSize}" />
+				<input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
+				<input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
+				<input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
 
 				<p class="list_search" >
-<%--					<select name="searching.assCatIdx" onchange="document.getElementById('searchForm').submit()">--%>
-<%--						<option value="" >분류</option>--%>
-<%--						<c:forEach var="c" items="${categories}">--%>
-<%--							<option value="${c.assCatIdx}" ${c.assCatIdx == pagination.searching.assCatIdx ? 'selected' : ''}>${c.assCatName}</option>--%>
-<%--						</c:forEach>--%>
-<%--					</select>--%>
-<%--					<select name="searching.staIdx" onchange="document.getElementById('searchForm').submit()">--%>
-<%--						<option value="" >상태</option>--%>
-<%--						<c:forEach var="s" items="${states}">--%>
-<%--						<option value="${s.staIdx}" ${s.staIdx == pagination.searching.staIdx ? 'selected' : ''}>${s.staName}</option>--%>
-<%--						</c:forEach>--%>
-<%--					</select>--%>
-
-					<select name="searching.searchCondition" >
+					<select name="pagination.searching.searchCondition" >
 						<option value="">전체</option>
 						<option value="assUlid" ${pagination.searching.searchCondition == "assUlid" ? 'selected' : ''}>일련번호</option>
 						<option value="assName" ${pagination.searching.searchCondition == "assName" ? 'selected' : ''}>자산명</option>
 						<option value="assCatName" ${pagination.searching.searchCondition == "assCatName" ? 'selected' : ''}>분류</option>
 					</select>
 
-					<input name="searching.searchKeyword" type="text" value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요."/>
-					<a href="#" onclick="const form = this.closest('form'); form.page.value=1; form.range.value=1; form.submit();">검색</a>
+					<input name="pagination.searching.searchKeyword" type="text" value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요."/>
+					<a href="#" onclick="formSubmit(); form.page.value=1; form.range.value=1; form.submit();">검색</a>
 				</p>
 
 		<div class="num_list">
 			<p class="total">총 <span>${pagination.listCnt}</span>건의 결과가 있습니다.</p>
 		<p class="view">
-			<select id="pageCount" name="listSize" onchange="document.getElementById('searchForm').submit(); this.page.value=1; this.range.value=1;">
+			<select id="pageCount" name="pagination.listSize" onchange="document.getElementById('searchForm').submit(); this.page.value=1; this.range.value=1;">
 				<option value="10" ${pagination.listSize== 10 ? 'selected' : ''}>10개씩보기</option>
 				<option value="20" ${pagination.listSize== 20 ? 'selected' : ''}>20개씩보기</option>
 				<option value="40" ${pagination.listSize== 40 ? 'selected' : ''}>40개씩보기</option>
@@ -61,14 +48,6 @@
 		<p class="addContent"><a href="assetsWrite.do"><span></span><span></span><span></span></a></p>
 
 		<div class="Basic">
-			<!-- 검색결과가 없을때
-			<ul class="adminList">
-				<li class="nocont">
-				 검색 결과가 없습니다.
-				</li>
-			</ul>
-			-->
-
 			<ul class="adminList click img">
 				<li class="tit">
 					<p class="num">No</p>
@@ -106,7 +85,7 @@
 				</c:forEach>
 				</c:if>
 
-				<c:if test="${listCnt == 0}">
+				<c:if test="${pagination.listCnt == 0}">
 					<div style="text-align:center; margin-top:20px;">
 						일치하는 자료가 없습니다.
 					</div>
@@ -140,7 +119,9 @@
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />
 </body>
  <script>
-
+	 function formSubmit(){
+		 document.getElementById('searchForm').submit();
+	 }
 	 function changePage(page, range, rangeSize) {
 		 const form = document.getElementById('searchForm');
 		 form.page.value = page;
@@ -165,7 +146,6 @@
 	 //페이지 번호 클릭
 	 function fn_pagination(page, range, rangeSize, searchType, keyword) {
 		 var url = "${pageContext.request.contextPath}/itman/assetsList.do";
-		 //page=1&range=1&rangeSize=10&searching.divIdx=&searching.posIdx=1&searching.stIdx=&searching.orderBy=empName&searching.searchKeyword=#
 		 //페이지 , 레인지, 레인지 사이즈, 검색부서, 직위, 상태, 정렬, 검색어
 		 url = url + "?page=" + page;
 		 url = url + "&range=" + range;

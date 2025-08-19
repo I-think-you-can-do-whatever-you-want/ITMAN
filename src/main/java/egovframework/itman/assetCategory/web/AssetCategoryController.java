@@ -2,7 +2,6 @@ package egovframework.itman.assetCategory.web;
 
 import egovframework.itman.assetCategory.service.AssetCategoryVO;
 import egovframework.itman.assetCategory.service.impl.AssetCategoryServiceImpl;
-import egovframework.itman.common.Pagination;
 import egovframework.usr.com.EgovframeworkCommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +19,7 @@ public class AssetCategoryController {
     private AssetCategoryServiceImpl assetCategoryService;
 
     @RequestMapping("/itman/assetCategory.do")
-    public String selectAssetCategoryList(AssetCategoryVO vo, Pagination pagination, Model model,
+    public String selectAssetCategoryList(AssetCategoryVO assetCategoryVO, Model model,
                                           @RequestParam(defaultValue = "1") int page,
                                           @RequestParam(defaultValue = "1") int range,
                                           @RequestParam(value = "id", defaultValue = "11")int id
@@ -28,16 +27,16 @@ public class AssetCategoryController {
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
-       pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        assetCategoryVO.getPagination().setSearchingGroIdx(assetCategoryVO.getPagination().getSearching(), groIdx);
 
-       int listCnt = assetCategoryService.selectAssetCategoryListCnt(pagination);
+        int listCnt = assetCategoryService.selectAssetCategoryListCnt(assetCategoryVO);
 
-       pagination.pageInfo(page, range, listCnt);
-       pagination.setSearching(pagination.getSearching());
+        assetCategoryVO.getPagination().pageInfo(page, range, listCnt);
+        assetCategoryVO.getPagination().setSearching(assetCategoryVO.getPagination().getSearching());
 
-        List<AssetCategoryVO> resultList = assetCategoryService.selectAssetCategoryList(pagination);
+        List<AssetCategoryVO> resultList = assetCategoryService.selectAssetCategoryList(assetCategoryVO);
         model.addAttribute("resultList", resultList);
-        model.addAttribute("pagination", pagination);
+        model.addAttribute("pagination", assetCategoryVO.getPagination());
 
         return "itman/public/html/ingroup/assetCategory";
     }

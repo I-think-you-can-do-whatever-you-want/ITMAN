@@ -7,31 +7,31 @@
     <sql id="employeeCondition">
         <where>
             E.DEL_YN    = 'N'
-            AND E.GRO_IDX = #{searching.groIdx}
-        <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
-        <choose>
-                <when test="searching.searchCondition == 'empNum'">
-                    AND E.EMP_NUM  LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                </when>
-                <when test="searching.searchCondition == 'empName'">
-                    AND E.EMP_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                </when>
-                <when test="searching.searchCondition == 'empDiv'">
-                    AND D.DIV_NAME  LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                </when>
-                <otherwise>
-                    AND (
-                    E.EMP_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    OR E.EMP_NUM  LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    OR D.DIV_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    )
-                </otherwise>
-            </choose>
-        </if>
+            AND E.GRO_IDX = #{pagination.searching.groIdx}
+            <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
+                <choose>
+                    <when test="pagination.searching.searchCondition == 'empNum'">
+                        AND E.EMP_NUM  LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <when test="pagination.searching.searchCondition == 'empName'">
+                        AND E.EMP_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <when test="pagination.searching.searchCondition == 'empDiv'">
+                        AND D.DIV_NAME  LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND (
+                        E.EMP_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR E.EMP_NUM  LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR D.DIV_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
 
         </where>
     </sql>
-    <select id="selectEmployeeList" parameterType="pagination" resultType="employeeVO">
+    <select id="selectEmployeeList" parameterType="employeeVO" resultType="employeeVO">
         SELECT
         E.EMP_IDX      AS empIdx,
         E.EMP_NUM      AS empNum,
@@ -49,10 +49,9 @@
         LEFT JOIN ITM_EMP_STATE S ON S.EMP_ST_IDX   = E.EMP_ST_IDX
         <include refid="employeeCondition"/>
 
-        LIMIT #{startList}, #{listSize}
+        LIMIT #{pagination.startList}, #{pagination.listSize}
     </select>
-
-    <select id="selectEmployeeListCnt" parameterType="pagination" resultType="int">
+    <select id="selectEmployeeListCnt" parameterType="employeeVO" resultType="int">
         SELECT
         count(*)
         FROM

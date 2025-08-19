@@ -1,5 +1,7 @@
 package egovframework.itman.division.service;
 
+import egovframework.itman.common.Pagination;
+
 public class DivisionVO {
     private String divIdx;
     private String groIdx;
@@ -16,6 +18,19 @@ public class DivisionVO {
     private String delDate;
     private String divYn;
     private String rowNum;
+    private Pagination pagination;
+
+    public DivisionVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getRowNum() {
         return rowNum;

@@ -4,35 +4,6 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="assLogDAO">
-    <sql id="assLogCondition">
-        <where>
-            a.GRO_IDX = ${searching.groIdx}
-            <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
-                <choose>
-                    <when test="searching.searchCondition == 'assUlid'">
-                        AND a.ASS_ULID LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    </when>
-                    <when test="searching.searchCondition == 'assName'">
-                        AND a.ASS_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    </when>
-                    <when test="searching.searchCondition == 'alCont'">
-                        AND l.AL_CONT LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    </when>
-                    <when test="searching.searchCondition == 'alNote'">
-                        AND l.AL_NOTE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    </when>
-                    <otherwise>
-                        AND (
-                        a.ASS_ULID LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                        OR a.ASS_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                        OR l.AL_CONT LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                        OR l.AL_NOTE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                        )
-                    </otherwise>
-                </choose>
-            </if>
-        </where>
-    </sql>
     <insert id="insertAssLog" parameterType="assLogVO">
     INSERT INTO ITM_ASS_LOG
         <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -76,29 +47,6 @@
         ORDER BY L.AL_IDX DESC
     </select>
 
-    <select id="selectAllAssLogList" parameterType="pagination" resultType="assLogVO">
-        SELECT
-           (SELECT m.MEM_NAME
-            FROM ITM_MEMBER m
-            WHERE l.REG_IDX = m.MEM_IDX ) AS memName,
-           l.REG_DATE as regDate,
-           a.ASS_ULID AS assUlid,
-            a.ASS_NAME AS assName,
-            l.AL_TYPE AS alType,
-           l.AL_CAT AS alCat,
-           l.AL_CONT AS alCont,
-           l.AL_NOTE AS alNote
-        FROM
-            ITM_ASS_LOG l
-        LEFT JOIN ITM_ASSET a ON a.ASS_IDX = l.ASS_IDX
-        <include refid="assLogCondition" />
-        <choose>
-            <when test="searching.orderBy == 'asc'">ORDER BY AL_IDX ASC </when>
-            <otherwise>ORDER BY AL_IDX DESC</otherwise>
-        </choose>
-        LIMIT #{startList}, #{listSize}
-    </select>
-
     <select id="selectDashBoardAssLogList" parameterType="string" resultType="assLogVO">
         SELECT
         (SELECT m.MEM_NAME
@@ -120,12 +68,63 @@
         LIMIT 0, 10
     </select>
 
-    <select id="selectAssLogListCnt" parameterType="pagination" resultType="int">
+    <sql id="assLogCondition">
+        <where>
+            a.GRO_IDX = ${pagination.searching.groIdx}
+            <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
+                <choose>
+                    <when test="pagination.searching.searchCondition == 'assUlid'">
+                        AND a.ASS_ULID LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <when test="pagination.searching.searchCondition == 'assName'">
+                        AND a.ASS_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <when test="pagination.searching.searchCondition == 'alCont'">
+                        AND l.AL_CONT LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <when test="pagination.searching.searchCondition == 'alNote'">
+                        AND l.AL_NOTE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND (
+                        a.ASS_ULID LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR a.ASS_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR l.AL_CONT LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR l.AL_NOTE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
+        </where>
+    </sql>
+    <select id="selectAllAssLogList" parameterType="assLogVO" resultType="assLogVO">
         SELECT
-            COUNT(*)
+        (SELECT m.MEM_NAME
+        FROM ITM_MEMBER m
+        WHERE l.REG_IDX = m.MEM_IDX ) AS memName,
+        l.REG_DATE as regDate,
+        a.ASS_ULID AS assUlid,
+        a.ASS_NAME AS assName,
+        l.AL_TYPE AS alType,
+        l.AL_CAT AS alCat,
+        l.AL_CONT AS alCont,
+        l.AL_NOTE AS alNote
         FROM
-            ITM_ASS_LOG l
-                LEFT JOIN ITM_ASSET a ON a.ASS_IDX = l.ASS_IDX
+        ITM_ASS_LOG l
+        LEFT JOIN ITM_ASSET a ON a.ASS_IDX = l.ASS_IDX
+        <include refid="assLogCondition" />
+        <choose>
+            <when test="pagination.searching.orderBy != null and pagination.searching.orderBy == 'asc'">ORDER BY AL_IDX ASC </when>
+            <otherwise>ORDER BY AL_IDX DESC</otherwise>
+        </choose>
+        LIMIT #{pagination.startList}, #{pagination.listSize}
+    </select>
+    <select id="selectAssLogListCnt" parameterType="assLogVO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        ITM_ASS_LOG l
+        LEFT JOIN ITM_ASSET a ON a.ASS_IDX = l.ASS_IDX
         <include refid="assLogCondition" />
     </select>
 </mapper>

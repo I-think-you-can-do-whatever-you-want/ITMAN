@@ -13,11 +13,11 @@ public class StateDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    public List<StateVO> selectAssetStateList(Pagination pagination) throws Exception{
-        return sqlSession.selectList("stateDAO.selectAssetStateList", pagination);
+    public List<StateVO> selectAssetStateList(StateVO vo) throws Exception {
+        return sqlSession.selectList("stateDAO.selectAssetStateList", vo);
     }
-    public int selectAssetStateListCnt(Pagination pagination) throws Exception{
-        return sqlSession.selectOne("stateDAO.selectAssetStateListCnt", pagination);
+    public int selectAssetStateListCnt(StateVO vo) throws Exception {
+        return sqlSession.selectOne("stateDAO.selectAssetStateListCnt", vo);
     }
     public List<StateVO> selectDashBoardAssetStateList(String groIdx) throws Exception{
         return sqlSession.selectList("stateDAO.selectDashBoardAssetStateList", groIdx);

@@ -1,6 +1,5 @@
 package egovframework.itman.location.web;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.location.service.LocationVO;
 import egovframework.itman.location.service.impl.LocationServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -20,42 +19,41 @@ public class LocationController {
     LocationServiceImpl locationService;
 
     @RequestMapping("/itman/popup/locationPop.do")
-    public String locationPop(LocationVO vo, Pagination pagination, Model model
+    public String locationPop(LocationVO locationVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
             , HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        locationVO.getPagination().setSearchingGroIdx(locationVO.getPagination().getSearching(), groIdx);
 
-        int listCnt = locationService.selectLocationListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
-        pagination.setSearching(pagination.getSearching());
+        int listCnt = locationService.selectLocationListCnt(locationVO);
+        locationVO.getPagination().pageInfo(page, range, listCnt);
+        locationVO.getPagination().setSearching(locationVO.getPagination().getSearching());
 
-        List<LocationVO> resultList = locationService.selectLocationList(pagination);
-        model.addAttribute("pagination", pagination);
+        List<LocationVO> resultList = locationService.selectLocationList(locationVO);
+        model.addAttribute("pagination", locationVO.getPagination());
         model.addAttribute("locations", resultList);
         return "itman/public/html/popup/LocationPop";
     }
 
     @RequestMapping("/itman/assetLocationList.do")
-    public String locationList(LocationVO vo, Pagination pagination , Model model
+    public String locationList(LocationVO locationVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
     , @RequestParam(value = "id", defaultValue = "6")int id
     , HttpSession session) {
-
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
-    pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        locationVO.getPagination().setSearchingGroIdx(locationVO.getPagination().getSearching(), groIdx);
 
-    int listCnt = locationService.selectLocationListCnt(pagination);
-    pagination.pageInfo(page, range, listCnt);
-    pagination.setSearching(pagination.getSearching());
+    int listCnt = locationService.selectLocationListCnt(locationVO);
+        locationVO.getPagination().pageInfo(page, range, listCnt);
+        locationVO.getPagination().setSearching(locationVO.getPagination().getSearching());
 
-    List<LocationVO> list = locationService.selectLocationList(pagination);
-    model.addAttribute("pagination", pagination);
+    List<LocationVO> list = locationService.selectLocationList(locationVO);
+    model.addAttribute("pagination", locationVO.getPagination());
     model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/locList";

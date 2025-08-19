@@ -18,11 +18,11 @@
 			<ul class="contEdit">
 				<li>
 				<form action="${pageContext.request.contextPath}/popup/selectAssetSupplier.do" id="searchForm" method="post"onsubmit="this.page.value=1; this.range.value=1;" >
-					<input type="hidden" id="page"      name="page"      value="${pagination.page}" />
-					<input type="hidden" id="range"     name="range"     value="${pagination.range}" />
-					<input type="hidden" id="rangeSize" name="rangeSize" value="${pagination.rangeSize}" />
+					<input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
+					<input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
+					<input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
 					<p class="cont">
-						<input type="text" name="searching.searchKeyword"  placeholder="구매처 이름을 작성해주세요." class="search" value="${pagination.searching.searchKeyword}" onsubmit="this.page.value=1; this.range.value=1;"><a href="javascript:form_submit()">검색</a>
+						<input type="text" name="pagination.searching.searchKeyword"  placeholder="구매처 이름을 작성해주세요." class="search" value="${pagination.searching.searchKeyword}" onsubmit="this.page.value=1; this.range.value=1;"><a href="javascript:form_submit()">검색</a>
 					</p>
 					</form>
 				</li>

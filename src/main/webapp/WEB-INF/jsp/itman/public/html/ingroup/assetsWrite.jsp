@@ -240,21 +240,30 @@
 			const select = document.getElementById('ass_cat');
 			const ulidInput = document.getElementById('assUlid');
 
-			select.addEventListener('change', () => {
+			if(select){
+				select.addEventListener('change', () => {
 				const opt = select.options[select.selectedIndex];
 				const assCatCode = opt.getAttribute('data-code');
+				const selectedValue = opt.value;
 
-				// 현재 날짜·시간 YYYYMMDDhhmmss 로 포맷팅
-				const now = new Date();
-				const timestamp = now.getFullYear().toString()
-						+ String(now.getMonth()+1).padStart(2,'0')
-						+ String(now.getDate()).padStart(2,'0')
-				// 조합!
-				const serial = assCatCode + '-' + timestamp + '-' + inGroupCnt;
+				// value가 공백일 경우 (== '분류선택'), ULID 생성 X
+				if (!selectedValue || selectedValue.trim() === "") {
+					ulidInput.value = "";  // 혹시나 기존 값이 있으면 비워주기
+					return;
+				}
 
-				// input에 딱 박기
-				ulidInput.value = serial;
-			});
+					// 현재 날짜·시간 YYYYMMDDhhmmss 로 포맷팅
+					const now = new Date();
+					const timestamp = now.getFullYear().toString()
+							+ String(now.getMonth()+1).padStart(2,'0')
+							+ String(now.getDate()).padStart(2,'0')
+					// 조합!
+					const serial = assCatCode + '-' + timestamp + '-' + inGroupCnt;
+
+					// input에 딱 박기
+					ulidInput.value = serial;
+				});
+			}
 
 	})
 

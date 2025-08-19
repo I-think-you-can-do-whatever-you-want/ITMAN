@@ -1,16 +1,13 @@
 package egovframework.itman.position.web;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.position.service.PositionVO;
 import egovframework.itman.position.service.impl.PositionServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -23,7 +20,7 @@ public class PositionController {
     public PositionServiceImpl positionService;
 
     @RequestMapping("/itman/spotList.do")
-    public String selectPositionList(PositionVO vo, Model model, Pagination pagination
+    public String selectPositionList(PositionVO positionVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
     ,@RequestParam(value = "id",defaultValue = "4")int id
@@ -32,11 +29,11 @@ public class PositionController {
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
-        int listCnt = positionService.selectPositionListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
-        List<PositionVO> list = positionService.selectPositionList(pagination);
-        model.addAttribute("pagination", pagination);
+        positionVO.getPagination().setSearchingGroIdx(positionVO.getPagination().getSearching(), groIdx);
+        int listCnt = positionService.selectPositionListCnt(positionVO);
+        positionVO.getPagination().pageInfo(page, range, listCnt);
+        List<PositionVO> list = positionService.selectPositionList(positionVO);
+        model.addAttribute("pagination", positionVO.getPagination());
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/spotList";

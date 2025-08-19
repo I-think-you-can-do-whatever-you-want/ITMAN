@@ -1,6 +1,5 @@
 package egovframework.itman.supplier.web;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.supplier.service.SupplierVO;
 import egovframework.itman.supplier.service.impl.SupplierServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -20,7 +19,7 @@ public class SupplierController {
     SupplierServiceImpl supplierService;
 
     @RequestMapping("/itman/supplierList.do")
-    public String selectSupplierList(SupplierVO vo, Pagination pagination , Model model
+    public String selectSupplierList(SupplierVO supplierVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
             , @RequestParam(value = "id", defaultValue = "5")int id
@@ -28,31 +27,31 @@ public class SupplierController {
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
-        int listCnt = supplierService.selectSupplierListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
+        supplierVO.getPagination().setSearchingGroIdx(supplierVO.getPagination().getSearching(), groIdx);
+        int listCnt = supplierService.selectSupplierListCnt(supplierVO);
+        supplierVO.getPagination().pageInfo(page, range, listCnt);
 
-        List<SupplierVO> list = supplierService.selectSupplierList(pagination);
-        model.addAttribute("pagination", pagination);
+        List<SupplierVO> list = supplierService.selectSupplierList(supplierVO);
+        model.addAttribute("pagination", supplierVO.getPagination());
         model.addAttribute("resultList", list);
         return "itman/public/html/ingroup/buyList";
     }
 
     @RequestMapping("/popup/selectAssetSupplier.do")
-    public String supplierPop(SupplierVO vo, Pagination pagination, Model model
+    public String supplierPop(SupplierVO supplierVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
             , HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
-        int listCnt = supplierService.selectSupplierListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
-        pagination.setSearching(pagination.getSearching());
+        supplierVO.getPagination().setSearchingGroIdx(supplierVO.getPagination().getSearching(), groIdx);
+        int listCnt = supplierService.selectSupplierListCnt(supplierVO);
+        supplierVO.getPagination().pageInfo(page, range, listCnt);
+        supplierVO.getPagination().setSearching(supplierVO.getPagination().getSearching());
 
-        List<SupplierVO> list = supplierService.selectSupplierList(pagination);
+        List<SupplierVO> list = supplierService.selectSupplierList(supplierVO);
 
-        model.addAttribute("pagination", pagination);
+        model.addAttribute("pagination", supplierVO.getPagination());
         model.addAttribute("supplierList", list);
         return "itman/public/html/popup/supplierPop";
     }

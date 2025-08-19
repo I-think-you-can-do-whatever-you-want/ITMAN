@@ -13,17 +13,17 @@
 		<div class="tit_search">
 			<h2>자산 분류 관리</h2>
 			<form id="searchForm" action="${pageContext.request.contextPath}/itman/assetCategory.do" method="post" onsubmit="this.page.value=1; this.range.value=1;">
-                <input type="hidden" name="page" value="${pagination.page}" />
-				<input type="hidden" name="range" value="${pagination.range}" />
-				<input type="hidden" id="rangeSize" name="rangeSize" value="${pagination.rangeSize}" />
+                <input type="hidden" name="pagination.page" value="${pagination.page}" />
+				<input type="hidden" name="pagination.range" value="${pagination.range}" />
+				<input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
 				<p class="list_search">
-                    <select name="searching.searchCondition">
+                    <select name="pagination.searching.searchCondition">
 						<option value="" >전체</option>
 						<option value="assCatCode" ${pagination.searching.searchCondition == 'assCatCode' ? 'selected' : ''}>코드</option>
 						<option value="assCatName" ${pagination.searching.searchCondition == 'assCatName' ? 'selected' : ''}>자산 분류명</option>
                     </select>
-                    <input type="text" name="searching.searchKeyword"  value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요.">
-					<a href="#" onclick="const form = this.closest('form'); form.page.value=1; form.range.value=1; form.submit();">검색</a>
+                    <input type="text" name="pagination.searching.searchKeyword"  value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요.">
+					<a href="#" onclick="formSubmit(); form.page.value=1; form.range.value=1; form.submit();">검색</a>
 				</p>
             </form>
 		</div>
@@ -92,7 +92,9 @@
 	</div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />
 	<script>
-
+		function formSubmit(){
+			document.getElementById('searchForm').submit();
+		}
 		function changePage(page, range, rangeSize) {
 			const form = document.getElementById('searchForm');
 			form.page.value = page;

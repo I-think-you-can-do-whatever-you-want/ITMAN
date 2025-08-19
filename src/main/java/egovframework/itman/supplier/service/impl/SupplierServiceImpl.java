@@ -1,6 +1,5 @@
 package egovframework.itman.supplier.service.impl;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.supplier.service.SupplierService;
 import egovframework.itman.supplier.service.SupplierVO;
 import org.springframework.stereotype.Service;
@@ -14,8 +13,13 @@ public class SupplierServiceImpl implements SupplierService {
     private SupplierDAO supplierDAO;
 
     @Override
-    public List<SupplierVO> selectSupplierList(Pagination pagination) throws Exception {
-        return supplierDAO.selectSupplierList(pagination);
+    public List<SupplierVO> selectSupplierList(SupplierVO vo) throws Exception {
+        return supplierDAO.selectSupplierList(vo);
+    }
+
+    @Override
+    public int selectSupplierListCnt(SupplierVO vo) throws Exception {
+        return supplierDAO.selectSupplierListCnt(vo);
     }
 
     @Override
@@ -37,11 +41,6 @@ public class SupplierServiceImpl implements SupplierService {
     @Override
     public List<SupplierVO> selectSuppliersByGroup(String groIdx) throws Exception {
         return supplierDAO.selectSuppliersByGroup(groIdx);
-    }
-
-    @Override
-    public int selectSupplierListCnt(Pagination pagination) throws Exception {
-        return supplierDAO.selectSupplierListCnt(pagination);
     }
 
     @Override

@@ -1,6 +1,5 @@
 package egovframework.itman.division.web;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.division.service.DivisionService;
 import egovframework.itman.division.service.DivisionVO;
 import egovframework.itman.division.service.impl.DivisionServiceImpl;
@@ -22,7 +21,7 @@ public class DivisionController {
     private DivisionServiceImpl divisionService;
 
     @RequestMapping("/itman/departList.do")
-    public String selectDivisionList(DivisionVO vo, Pagination pagination, Model model
+    public String selectDivisionList(DivisionVO divisionVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
             , @RequestParam(value = "id",defaultValue = "3")int id
@@ -31,13 +30,13 @@ public class DivisionController {
         String groIdx = (String) session.getAttribute("groIdx");
 
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        divisionVO.getPagination().setSearchingGroIdx(divisionVO.getPagination().getSearching(), groIdx);
 
-        int listCnt = divisionService.selectDivisionListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
+        int listCnt = divisionService.selectDivisionListCnt(divisionVO);
+        divisionVO.getPagination().pageInfo(page, range, listCnt);
 
-        List<DivisionVO> list = divisionService.selectDivisionList(pagination);
-        model.addAttribute("pagination", pagination);
+        List<DivisionVO> list = divisionService.selectDivisionList(divisionVO);
+        model.addAttribute("pagination", divisionVO.getPagination());
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/departList";

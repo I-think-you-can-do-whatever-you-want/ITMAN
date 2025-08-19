@@ -2,7 +2,6 @@ package egovframework.itman.asset.service.impl;
 
 import egovframework.itman.asset.service.AssetService;
 import egovframework.itman.asset.service.AssetVO;
-import egovframework.itman.common.Pagination;
 import egovframework.itman.employee.service.EmployeeVO;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +14,18 @@ public class AssetServiceImpl implements AssetService {
     private AssetDAO assetDAO;
 
     @Override
-    public List<AssetVO> selectAssetList(Pagination pagination) throws Exception {
-        return assetDAO.selectAssetList(pagination);
+    public List<AssetVO> selectAssetList(AssetVO vo) throws Exception{
+        return assetDAO.selectAssetList(vo);
+    }
+
+    @Override
+    public int selectInGroupAssetListCnt(AssetVO vo) throws Exception{
+        return assetDAO.selectInGroupAssetListCnt(vo);
+    }
+
+    @Override
+    public int selectAssetListCnt(AssetVO vo) throws Exception{
+        return assetDAO.selectAssetListCnt(vo);
     }
 
     @Override
@@ -30,10 +39,6 @@ public class AssetServiceImpl implements AssetService {
     }
 
     @Override
-    public int selectAssetListCnt(Pagination pagination) throws Exception {
-        return assetDAO.selectAssetListCnt(pagination);
-    }
-    @Override
     public void insertAsset(AssetVO vo) throws Exception {
         assetDAO.insertAsset(vo);
     }
@@ -46,11 +51,6 @@ public class AssetServiceImpl implements AssetService {
     @Override
     public void deleteAsset(AssetVO vo) throws Exception {
         assetDAO.deleteAsset(vo);
-    }
-
-    @Override
-    public int selectInGroupAssetListCnt(Pagination pagination) throws Exception {
-        return assetDAO.selectInGroupAssetListCnt(pagination);
     }
 
     @Override

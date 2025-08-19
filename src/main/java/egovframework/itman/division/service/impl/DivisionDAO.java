@@ -18,18 +18,18 @@ public class DivisionDAO {
                 "divisionDAO.selectDivisionsByGroup", groIdx);
     }
 
-    public List<DivisionVO> selectDivisionList(Pagination pagination) throws Exception {
-        return sqlSession.selectList(
-                "divisionDAO.selectDivisionList", pagination);
+    public List<DivisionVO> selectDivisionList(DivisionVO vo) throws Exception {
+        return sqlSession.selectList("divisionDAO.selectDivisionList", vo);
     }
+    public int selectDivisionListCnt(DivisionVO vo) throws Exception {
+        return sqlSession.selectOne("divisionDAO.selectDivisionListCnt", vo);
+    }
+
 
     public DivisionVO selectDivisionView(DivisionVO divisionVO) {
         return sqlSession.selectOne("divisionDAO.selectDivisionView", divisionVO);
     }
-    public int selectDivisionListCnt(Pagination pagination) throws Exception {
-        return sqlSession.selectOne(
-                "divisionDAO.selectDivisionListCnt", pagination);
-    }
+
     public void insertDivision(DivisionVO divisionVO){
         sqlSession.insert("divisionDAO.insertDivision", divisionVO);
     }

@@ -6,45 +6,55 @@
 <mapper namespace="supplierDAO">
     <sql id="supplierCondition">
         WHERE   DEL_YN = 'N'
-        AND GRO_IDX = #{searching.groIdx}
-        <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
-        <choose>
-            <when test="searching.searchCondition == 'supName'">
-            AND SUP_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-            </when>
-            <when test="searching.searchCondition == 'supBnum'">
-            AND SUP_BNUM LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-            </when>
-            <when test="searching.searchCondition == 'supMail'">
-            AND SUP_MAIL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-            </when>
-            <when test="searching.searchCondition == 'supTel'">
-            AND SUP_TEL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-            </when>
-            <otherwise>
-                AND (
-                SUP_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                OR SUP_BNUM LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                OR SUP_MAIL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                OR SUP_TEL LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                )
-            </otherwise>
-        </choose>
+        AND GRO_IDX = #{pagination.searching.groIdx}
+        <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
+            <choose>
+                <when test="pagination.searching.searchCondition == 'supName'">
+                    AND SUP_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                </when>
+                <when test="pagination.searching.searchCondition == 'supBnum'">
+                    AND SUP_BNUM LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                </when>
+                <when test="pagination.searching.searchCondition == 'supMail'">
+                    AND SUP_MAIL LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                </when>
+                <when test="pagination.searching.searchCondition == 'supTel'">
+                    AND SUP_TEL LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                </when>
+                <otherwise>
+                    AND (
+                    SUP_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    OR SUP_BNUM LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    OR SUP_MAIL LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    OR SUP_TEL LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    )
+                </otherwise>
+            </choose>
         </if>
     </sql>
 
-    <select id="selectSupplierList" parameterType="pagination" resultType="supplierVO">
+    <select id="selectSupplierList" parameterType="supplierVO" resultType="supplierVO">
         SELECT
-            ROW_NUMBER() OVER(ORDER BY SUP_IDX) AS rowNum,
-            SUP_IDX AS supIdx,
-            SUP_NAME AS supName,
-            SUP_BNUM AS supBnum,
-            SUP_MAIL AS supMail,
-            SUP_TEL AS supTel
+        ROW_NUMBER() OVER(ORDER BY SUP_IDX) AS rowNum,
+        SUP_IDX AS supIdx,
+        SUP_NAME AS supName,
+        SUP_BNUM AS supBnum,
+        SUP_MAIL AS supMail,
+        SUP_TEL AS supTel
         FROM
-            ITM_SUPPLIER
+        ITM_SUPPLIER
         <include refid="supplierCondition"/>
-        ORDER BY rowNum DESC;
+        ORDER BY rowNum DESC
+        LIMIT #{pagination.startList}, #{pagination.listSize}
+
+    </select>
+
+    <select id="selectSupplierListCnt" parameterType="supplierVO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        ITM_SUPPLIER
+        <include refid="supplierCondition"/>
     </select>
 
     <select id="selectSupplyView" parameterType="supplierVO" resultType="supplierVO">
@@ -58,14 +68,6 @@
         ITM_SUPPLIER
         WHERE   DEL_YN = 'N'
           AND SUP_IDX = ${supIdx}
-    </select>
-
-    <select id="selectSupplierListCnt" parameterType="pagination" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM
-            ITM_SUPPLIER
-        <include refid="supplierCondition"/>
     </select>
 
     <select id="selectSuppliersByGroup" parameterType="string" resultType="supplierVO">
