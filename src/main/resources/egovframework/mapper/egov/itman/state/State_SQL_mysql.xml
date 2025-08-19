@@ -7,47 +7,47 @@
     <sql id="assetStateCondition">
         <where>
             s.DEL_YN = 'N'
-            AND s.GRO_IDX = #{searching.groIdx}
-            <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
+            AND s.GRO_IDX = #{pagination.searching.groIdx}
+            <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
                 <choose>
-                    <when test="searching.searchCondition == 'staCode'">
-                        AND s.STA_CODE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                    <when test="pagination.searching.searchCondition == 'staCode'">
+                        AND s.STA_CODE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                     </when>
-                    <when test="searching.searchCondition == 'staName'">
-                        AND s.STA_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                    <when test="pagination.searching.searchCondition == 'staName'">
+                        AND s.STA_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                     </when>
-                    <when test="searching.searchCondition == 'staNote'">
-                        AND s.STA_NOTE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                    <when test="pagination.searching.searchCondition == 'staNote'">
+                        AND s.STA_NOTE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                     </when>
                     <otherwise>
                         AND (
-                        s.STA_CODE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                        OR s.STA_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                        OR s.STA_NOTE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                        s.STA_CODE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR s.STA_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR s.STA_NOTE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                         )
                     </otherwise>
                 </choose>
             </if>
         </where>
     </sql>
-    <select id="selectAssetStateList" parameterType="pagination" resultType="stateVO">
+    <select id="selectAssetStateList" parameterType="stateVO" resultType="stateVO">
         SELECT
-            STA_IDX AS staIdx,
-            STA_CODE AS staCode,
-            STA_NAME AS staName,
-            (
-            SELECT COUNT(*)
-            FROM ITM_ASSET a
-            WHERE a.STA_IDX = s.STA_IDX
-            AND a.DEL_YN = 'N'
-            ) AS staCnt,
-            STA_NOTE AS staNote
+        STA_IDX AS staIdx,
+        STA_CODE AS staCode,
+        STA_NAME AS staName,
+        (
+        SELECT COUNT(*)
+        FROM ITM_ASSET a
+        WHERE a.STA_IDX = s.STA_IDX
+        AND a.DEL_YN = 'N'
+        ) AS staCnt,
+        STA_NOTE AS staNote
         FROM ITM_STATE s
         <include refid="assetStateCondition"/>
-        LIMIT #{startList} , #{listSize}
+        LIMIT #{pagination.startList} , #{pagination.listSize}
     </select>
 
-    <select id="selectAssetStateListCnt" parameterType="pagination" resultType="int">
+    <select id="selectAssetStateListCnt" parameterType="stateVO" resultType="int">
         SELECT
         COUNT(*)
         FROM ITM_STATE s

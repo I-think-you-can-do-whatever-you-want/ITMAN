@@ -5,9 +5,9 @@ import egovframework.itman.common.Pagination;
 import java.util.List;
 
 public interface StateService {
-    List<StateVO> selectAssetStateList(Pagination pagination) throws Exception;
     List<StateVO> selectDashBoardAssetStateList(String groIdx) throws Exception;
-    int selectAssetStateListCnt(Pagination pagination) throws Exception;
+    List<StateVO> selectAssetStateList(StateVO vo) throws Exception;
+    int selectAssetStateListCnt(StateVO vo) throws Exception;
     StateVO selectAssetStateView(StateVO vo) throws Exception;
     List<StateVO> selectStatesByGroup(String groIdx) throws Exception;
     void insertAssetState(StateVO vo) throws Exception;

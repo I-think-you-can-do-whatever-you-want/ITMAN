@@ -18,12 +18,13 @@
         <ul class="contEdit">
             <li>
                 <form action="${pageContext.request.contextPath}/itman/popup/searchPop.do" id="searchForm" method="post" onsubmit="this.page.value=1; this.range.value=1;">
-                    <input type="hidden" id="page"      name="page"      value="${pagination.page}" />
-                    <input type="hidden" id="range"     name="range"     value="${pagination.range}" />
-                    <input type="hidden" id="rangeSize" name="rangeSize" value="${pagination.rangeSize}" />
+                    <input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
+                    <input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
+                    <input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
 
                     <p class="cont">
-                        <input type="text" name="searching.searchKeyword"  placeholder="직원 이름을 작성해주세요." class="search" value="${pagination.searching.searchKeyword}" onsubmit="this.page.value=1; this.range.value=1;"><a href="javascript:form_submit()">직원 검색</a>
+                        <input type="text" name="pagination.searching.searchKeyword"  placeholder="직원 이름을 작성해주세요." class="search" value="${pagination.searching.searchKeyword}" onsubmit="this.page.value=1; this.range.value=1;">
+                        <a href="javascript:form_submit()">직원 검색</a>
                     </p>
                 </form>
             </li>
@@ -40,11 +41,6 @@
             <c:if test="${empty employeeList}">
                 <li class="nocont">검색결과가 없습니다.</li>
             </c:if>
-            <%--             <li><a href="javascript:onClick(<?=$row['EMP_IDX'];?>);"><span class="tit" id = <?="emp_name".$row['EMP_IDX']?>><?= $row['EMP_NAME']?></span>--%>
-            <%--            <span class="sub" id = "<?=$row['POS_IDX'];?>"><?=find_div_name($dbconn ,$row['DIV_IDX'])?> / <?=find_pos_name($dbconn, $row['POS_IDX']) ;?> / <?= $row['EMP_MAIL']?></spen></span>--%>
-            <%--            </a></li>--%>
-            <%--            <input type="hidden" id="<?=$row['EMP_IDX'];?>" value="<?=$row['EMP_IDX'];?>"/>--%>
-            <%--            <?php };?>--%>
         </ul>
 
         <p class="paging">
@@ -78,15 +74,6 @@
         document.getElementById("searchForm").submit();
     }
     function onClick(idx){
-        // result = [];
-        // str = document.getElementById(idx).innerHTML;
-        // split_str = str.split('/');
-
-        // for( const item of split_str){
-        //    result.push(item);
-        // }
-
-
         opener.$("#emp_idx").val(idx).trigger("change");
         opener.document.getElementById("emp_name").innerHTML = document.getElementById("emp_name"+idx).innerHTML;
         window.close();

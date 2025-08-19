@@ -13,8 +13,11 @@ public class SupplierDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    public List<SupplierVO> selectSupplierList(Pagination pagination) throws Exception {
-        return sqlSession.selectList("supplierDAO.selectSupplierList", pagination);
+    public List<SupplierVO> selectSupplierList(SupplierVO vo) throws Exception {
+        return sqlSession.selectList("supplierDAO.selectSupplierList", vo);
+    }
+    public int selectSupplierListCnt(SupplierVO vo) throws Exception {
+        return sqlSession.selectOne("supplierDAO.selectSupplierListCnt", vo);
     }
 
     public SupplierVO selectSupplyView(SupplierVO vo) throws Exception {
@@ -32,9 +35,7 @@ public class SupplierDAO {
     public List<SupplierVO> selectSuppliersByGroup(String groIdx) throws Exception {
         return sqlSession.selectList("supplierDAO.selectSuppliersByGroup", groIdx);
     }
-    public int selectSupplierListCnt(Pagination pagination) throws Exception {
-        return sqlSession.selectOne("supplierDAO.selectSupplierListCnt", pagination);
-    }
+
     public void insertAssetSupplier(SupplierVO vo) throws Exception {
         sqlSession.insert("supplierDAO.insertAssetSupplier", vo);
     }

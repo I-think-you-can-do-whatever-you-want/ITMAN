@@ -17,12 +17,12 @@ public class AssetCategoryDAO {
         return sqlSession.selectList("assetCategoryDAO.selectAssetCategoriesByGroup", groIdx);
     }
 
-    public List<AssetCategoryVO> selectAssetCategoryList(Pagination pagination) throws Exception{
-        return sqlSession.selectList("assetCategoryDAO.selectAssetCategoryList", pagination);
+    public List<AssetCategoryVO> selectAssetCategoryList(AssetCategoryVO vo) throws Exception{
+        return sqlSession.selectList("assetCategoryDAO.selectAssetCategoryList", vo);
     }
 
-    public int selectAssetCategoryListCnt(Pagination pagination) throws Exception{
-        return sqlSession.selectOne("assetCategoryDAO.selectAssetCategoryListCnt", pagination);
+    public int selectAssetCategoryListCnt(AssetCategoryVO vo) throws Exception{
+        return sqlSession.selectOne("assetCategoryDAO.selectAssetCategoryListCnt", vo);
     }
 
     public AssetCategoryVO selectAssetCategory(AssetCategoryVO vo) throws Exception{

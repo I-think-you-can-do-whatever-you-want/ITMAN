@@ -24,13 +24,12 @@ public class AssLogDAO {
     public List<AssLogVO> selectDashBoardAssLogList(String groIdx) {
         return sqlSession.selectList("assLogDAO.selectDashBoardAssLogList", groIdx);
     }
-
-    public List<AssLogVO> selectAllAssLogList(Pagination pagination){
-        return sqlSession.selectList("assLogDAO.selectAllAssLogList", pagination);
+    public List<AssLogVO> selectAllAssLogList(AssLogVO vo){
+        return sqlSession.selectList("assLogDAO.selectAllAssLogList", vo);
     }
 
-    public int selectAssLogListCnt(Pagination pagination){
-        return sqlSession.selectOne("assLogDAO.selectAssLogListCnt", pagination);
+    public int selectAssLogListCnt(AssLogVO vo){
+        return sqlSession.selectOne("assLogDAO.selectAssLogListCnt", vo);
     }
 
 }

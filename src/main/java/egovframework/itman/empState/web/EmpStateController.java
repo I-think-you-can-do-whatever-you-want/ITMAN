@@ -1,6 +1,5 @@
 package egovframework.itman.empState.web;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.empState.service.EmpStateVO;
 import egovframework.itman.empState.service.impl.EmpStateServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -20,7 +19,7 @@ public class EmpStateController {
     EmpStateServiceImpl empStateService;
 
     @RequestMapping("/itman/employeeStateList.do")
-    public String selectEmpStateList(EmpStateVO vo, Pagination pagination, Model model
+    public String selectEmpStateList(EmpStateVO empStateVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
     , @RequestParam(value = "id", defaultValue = "8")int id
@@ -28,13 +27,13 @@ public class EmpStateController {
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        empStateVO.getPagination().setSearchingGroIdx(empStateVO.getPagination().getSearching(), groIdx);
 
-        int listCnt = empStateService.selectEmpStateListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
-        pagination.setSearching(pagination.getSearching());
-        List<EmpStateVO> list = empStateService.selectEmpStateList(pagination);
-        model.addAttribute("pagination", pagination);
+        int listCnt = empStateService.selectEmpStateListCnt(empStateVO);
+        empStateVO.getPagination().pageInfo(page, range, listCnt);
+        empStateVO.getPagination().setSearching(empStateVO.getPagination().getSearching());
+        List<EmpStateVO> list = empStateService.selectEmpStateList(empStateVO);
+        model.addAttribute("pagination", empStateVO.getPagination());
         model.addAttribute("resultList", list);
 
 

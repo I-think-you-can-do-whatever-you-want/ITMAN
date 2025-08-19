@@ -70,11 +70,8 @@ public class AssetController {
     }
 
     private void selectByAssIdx(String assIdx, Model model) throws Exception {
-        System.err.println("assIdx = " + assIdx);
         model.addAttribute("hardware", hardwareService.selectHardwareView(assIdx));
-        model.addAttribute("software", softwareService.selectSoftwareList(assIdx));
-        System.err.println("software size = " + softwareService.selectSoftwareList(assIdx).size());
-    }
+        model.addAttribute("software", softwareService.selectSoftwareList(assIdx));}
 
     private void setInsertAssLog(AssLogVO assLogVO, AssetVO vo) {
         assLogVO.setAssIdx(vo.getAssIdx());
@@ -85,22 +82,22 @@ public class AssetController {
 
     //-------------------------------------조회-----------------------------------------
     @RequestMapping("/itman/assetsList.do")
-    public String selectAssetsList(AssetVO vo, Pagination pagination , Model model
+    public String selectAssetsList(AssetVO assetVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
     , HttpSession session
     , @RequestParam(value = "id", defaultValue = "1")int id) throws Exception {
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        assetVO.getPagination().setSearchingGroIdx(assetVO.getPagination().getSearching(), groIdx);
 
-        int listCnt = assetService.selectAssetListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
+        int listCnt = assetService.selectAssetListCnt(assetVO);
+        assetVO.getPagination().pageInfo(page, range, listCnt);
 
         selectByGroup(groIdx, model);
 
-        List<AssetVO> list = assetService.selectAssetList(pagination);
-        model.addAttribute("pagination", pagination);
+        List<AssetVO> list = assetService.selectAssetList(assetVO);
+        model.addAttribute("pagination", assetVO.getPagination());
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/assetsList";
@@ -112,7 +109,6 @@ public class AssetController {
         selectByAssIdx(assetVO.getAssIdx(), model);
         List<AssLogVO> list = assLogService.selectAssLogList(assetVO.getAssIdx());
         model.addAttribute("assLogList", list);
-
         return "itman/public/html/ingroup/assetsView";
     }
 
@@ -131,10 +127,10 @@ public class AssetController {
     //-------------------------------------생성-----------------------------------------
 
     @RequestMapping("/itman/assetsWrite.do")
-    public String assetForm(AssetVO vo, Pagination pagination ,Model model, HttpSession session) throws Exception {
+    public String assetForm(AssetVO assetVO, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
-        int inGroupCnt = assetService.selectInGroupAssetListCnt(pagination);
+        assetVO.getPagination().setSearchingGroIdx(assetVO.getPagination().getSearching(), groIdx);
+        int inGroupCnt = assetService.selectInGroupAssetListCnt(assetVO);
         selectByGroup(groIdx, model);
         model.addAttribute("inGroupCnt", inGroupCnt);
         return "itman/public/html/ingroup/assetsWrite";
@@ -414,23 +410,23 @@ public class AssetController {
     }
 
     @RequestMapping("/itman/asset/assetEmployeeInfoEdit.do")
-    public String assetEmployeeInfoEdit(EmployeeVO vo, AssetVO assetVO ,Model model, Pagination pagination
+    public String assetEmployeeInfoEdit(EmployeeVO employeeVO, AssetVO assetVO ,Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
     , HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        employeeVO.getPagination().setSearchingGroIdx(employeeVO.getPagination().getSearching(), groIdx);
         AssetVO targetVO = assetService.selectAssetView(assetVO);
         model.addAttribute("asset", assetVO);
 
-        int listCnt = employeeService.selectEmployeeListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
-        pagination.setSearching(pagination.getSearching());
+        int listCnt = employeeService.selectEmployeeListCnt(employeeVO);
+        employeeVO.getPagination().pageInfo(page, range, listCnt);
+        employeeVO.getPagination().setSearching(employeeVO.getPagination().getSearching());
         //검색 결과에 따른 총 목록의 길이를 반환
-        List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
+        List<EmployeeVO> list = employeeService.selectEmployeeList(employeeVO);
         //페이징 구현
-        model.addAttribute("pagination", pagination);
+        model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("asset", targetVO);
         model.addAttribute("employeeList", list);
 

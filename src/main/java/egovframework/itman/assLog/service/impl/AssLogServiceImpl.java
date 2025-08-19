@@ -23,18 +23,17 @@ public class AssLogServiceImpl implements AssLogService {
         return assLogDAO.selectAssLogList(assIdx);
     }
     @Override
+    public List<AssLogVO> selectAllAssLogList(AssLogVO vo){
+        return assLogDAO.selectAllAssLogList(vo);
+    }
+    @Override
+    public int selectAssLogListCnt(AssLogVO vo){
+        return assLogDAO.selectAssLogListCnt(vo);
+    }
+
+    @Override
     public List<AssLogVO> selectDashBoardAssLogList(String groIdx) {
         return assLogDAO.selectDashBoardAssLogList(groIdx);
-    }
-
-    @Override
-    public List<AssLogVO> selectAllAssLogList(Pagination pagination){
-        return assLogDAO.selectAllAssLogList(pagination);
-    }
-
-    @Override
-    public int selectAssLogListCnt(Pagination pagination){
-        return assLogDAO.selectAssLogListCnt(pagination);
     }
 
 

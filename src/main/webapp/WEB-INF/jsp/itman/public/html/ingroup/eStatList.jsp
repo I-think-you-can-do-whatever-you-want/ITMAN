@@ -14,13 +14,13 @@
 			<h2>직원 상태 관리</h2>
 			<form id="searchForm" method="get" action="${pageContext.request.contextPath}/itman/employeeStateList.do" onsubmit="this.page.value=1; this.range.value=1;">
 			<p class="list_search">
-				<select name="searching.searchCondition">
+				<select name="pagination.searching.searchCondition">
 					<option value="" >전체</option>
 					<option value="empStName" ${pagination.searching.searchCondition == 'empStName' ? 'selected' : ''}>상태이름</option>
 					<option value="slNote" ${pagination.searching.searchCondition == 'slNote' ? 'selected' : ''}>비고</option>
                 </select>
-                    <input type="text" name="searching.searchKeyword"  value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요.">
-				<a href="#" onclick="const form = this.closest('form'); form.page.value=1; form.range.value=1; form.submit();">검색</a>
+                    <input type="text" name="pagination.searching.searchKeyword"  value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요.">
+				<a href="#" onclick="form_submit(); form.page.value=1; form.range.value=1; form.submit();">검색</a>
 			</p>
 			</form>
 		</div>
@@ -87,7 +87,9 @@
 
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />
 <script>
-
+	function form_submit(){
+		document.getElementById("searchForm").submit();
+	}
 	function changePage(page, range, rangeSize) {
 		const form = document.getElementById('searchForm');
 		form.page.value = page;

@@ -1,5 +1,7 @@
 package egovframework.itman.state.service;
 
+import egovframework.itman.common.Pagination;
+
 public class StateVO {
     private String staIdx; //자산상태IDX
     private String groIdx; //소속그룹IDX
@@ -15,6 +17,19 @@ public class StateVO {
     private String delIdx; //삭제자IDX
     private String delDate; //삭제일시
     private String staCnt;
+    private Pagination pagination;
+
+    public StateVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getStaCnt() {
         return staCnt;

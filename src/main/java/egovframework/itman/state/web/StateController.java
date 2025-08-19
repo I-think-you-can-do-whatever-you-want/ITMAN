@@ -1,6 +1,5 @@
 package egovframework.itman.state.web;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.state.service.StateVO;
 import egovframework.itman.state.service.impl.StateServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -20,7 +19,7 @@ public class StateController {
     private StateServiceImpl stateService;
 
     @RequestMapping("/itman/assetStateList.do")
-    public String selectAssetStateList(StateVO vo, Pagination pagination, Model model
+    public String selectAssetStateList(StateVO stateVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
     , @RequestParam(value = "id", defaultValue = "7")int id
@@ -28,14 +27,14 @@ public class StateController {
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        stateVO.getPagination().setSearchingGroIdx(stateVO.getPagination().getSearching(), groIdx);
 
-        int listCnt = stateService.selectAssetStateListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
-        pagination.setSearching(pagination.getSearching());
+        int listCnt = stateService.selectAssetStateListCnt(stateVO);
+        stateVO.getPagination().pageInfo(page, range, listCnt);
+        stateVO.getPagination().setSearching(stateVO.getPagination().getSearching());
 
-        List<StateVO> list = stateService.selectAssetStateList(pagination);
-        model.addAttribute("pagination", pagination);
+        List<StateVO> list = stateService.selectAssetStateList(stateVO);
+        model.addAttribute("pagination", stateVO.getPagination());
         model.addAttribute("resultList", list);
 
         return "itman/public/html/ingroup/aStatList";

@@ -7,57 +7,56 @@
     <sql id="positionCondition">
         WHERE
         DEL_YN = 'N'
-        AND GRO_IDX = #{searching.groIdx}
-        <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
+        AND GRO_IDX = #{pagination.searching.groIdx}
+        <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
             <choose>
-                <when test="searching.searchCondition == 'posCode'">
-                    AND POS_CODE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                <when test="pagination.searching.searchCondition == 'posCode'">
+                    AND POS_CODE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                 </when>
-                <when test="searching.searchCondition == 'posName'">
-                    AND POS_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
+                <when test="pagination.searching.searchCondition == 'posName'">
+                    AND POS_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
                 </when>
                 <otherwise>
-                    AND (POS_CODE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    OR POS_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%'))
+                    AND (POS_CODE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    OR POS_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%'))
                 </otherwise>
             </choose>
 
         </if>
     </sql>
-    <select id="selectPositionList" parameterType="pagination" resultType="positionVO">
+    <select id="selectPositionList" parameterType="positionVO" resultType="positionVO">
         SELECT
-            ROW_NUMBER() OVER(ORDER BY POS_IDX ASC) AS rowNum,
-            POS_IDX AS posIdx,
-            GRO_IDX AS groIdx,
-            POS_CODE AS posCode,
-            POS_NAME AS posName,
-            DEL_YN AS delYn,
-            SL_NOTE AS slNote
+        ROW_NUMBER() OVER(ORDER BY POS_IDX ASC) AS rowNum,
+        POS_IDX AS posIdx,
+        GRO_IDX AS groIdx,
+        POS_CODE AS posCode,
+        POS_NAME AS posName,
+        DEL_YN AS delYn,
+        SL_NOTE AS slNote
         FROM
-            ITM_POSITION
+        ITM_POSITION
         <include refid="positionCondition"/>
         ORDER BY rowNum DESC
-        LIMIT #{startList}, #{listSize}
+        LIMIT #{pagination.startList}, #{pagination.listSize}
+    </select>
+    <select id="selectPositionListCnt" parameterType="positionVO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        ITM_POSITION
+        <include refid="positionCondition"/>
     </select>
 
     <select id="selectPositionView" resultType="positionVO" parameterType="positionVO">
         SELECT
-        POS_CODE AS posCode,
-        POS_IDX AS posIdx,
-        POS_NAME AS posName,
-        SL_NOTE AS slNote
+            POS_CODE AS posCode,
+            POS_IDX AS posIdx,
+            POS_NAME AS posName,
+            SL_NOTE AS slNote
         FROM
             ITM_POSITION
         WHERE POS_IDX = #{posIdx}
           AND DEL_YN = 'N'
-    </select>
-
-    <select id="selectPositionListCnt" parameterType="pagination" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM
-            ITM_POSITION
-        <include refid="positionCondition"/>
     </select>
 
     <select id="selectPositionsByGroup" resultType="positionVO" parameterType="string">

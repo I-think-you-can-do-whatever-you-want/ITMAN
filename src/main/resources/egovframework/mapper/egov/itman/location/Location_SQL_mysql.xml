@@ -7,25 +7,43 @@
     <sql id="locationCondition">
         <where>
             DEL_YN = 'N'
-        AND GRO_IDX = #{searching.groIdx}
-            <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
-            <choose>
-                <when test="searching.searchCondition == 'locCode'">
-                AND LOC_CODE LIKE CONCAT('%' , #{searching.searchKeyword} , '%')
-                </when>
-                <when test="searching.searchCondition == 'locName'">
-                    AND LOC_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                </when>
-                <otherwise>
-                    AND(
-                    LOC_CODE LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    OR LOC_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    )
-                </otherwise>
-            </choose>
-        </if>
+            AND GRO_IDX = #{pagination.searching.groIdx}
+            <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
+                <choose>
+                    <when test="pagination.searching.searchCondition == 'locCode'">
+                        AND LOC_CODE LIKE CONCAT('%' , #{pagination.searching.searchKeyword} , '%')
+                    </when>
+                    <when test="pagination.searching.searchCondition == 'locName'">
+                        AND LOC_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND(
+                        LOC_CODE LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR LOC_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        )
+                    </otherwise>
+                </choose>
+            </if>
         </where>
     </sql>
+
+    <select id="selectLocationList" parameterType="locationVO" resultType="locationVO">
+        SELECT
+        LOC_IDX AS locIdx,
+        LOC_NAME AS locName,
+        LOC_CODE AS locCode
+        FROM ITM_LOCATION
+        <include refid="locationCondition"/>
+        ORDER BY LOC_NAME
+        LIMIT #{pagination.startList} , #{pagination.listSize}
+    </select>
+
+    <select id="selectLocationListCnt" parameterType="locationVO" resultType="int">
+        SELECT
+        COUNT(*)
+        FROM ITM_LOCATION
+        <include refid="locationCondition"/>
+    </select>
     <select id="selectLocationsByGroup" parameterType="string" resultType="locationVO">
         SELECT
             LOC_IDX AS locIdx,
@@ -35,39 +53,20 @@
             ITM_LOCATION
         WHERE
             DEL_YN = 'N'
-        AND GRO_IDX = #{groIdx}
+          AND GRO_IDX = #{groIdx}
         ORDER BY LOC_NAME
     </select>
-
-    <select id="selectLocationList" parameterType="pagination" resultType="locationVO">
-    SELECT
-        LOC_IDX AS locIdx,
-        LOC_NAME AS locName,
-        LOC_CODE AS locCode
-    FROM ITM_LOCATION
-        <include refid="locationCondition"/>
-    ORDER BY LOC_NAME
-    LIMIT #{startList} , #{listSize}
-    </select>
-
     <select id="selectLocation" parameterType="locationVO" resultType="locationVO">
         SELECT
             LOC_IDX AS locIdx,
             LOC_NAME AS locName,
             LOC_CODE AS locCode,
             SL_NOTE AS slNote
-            FROM
-                ITM_LOCATION
+        FROM
+            ITM_LOCATION
         WHERE
             DEL_YN = 'N'
           AND LOC_IDX = #{locIdx}
-    </select>
-
-    <select id="selectLocationListCnt" parameterType="pagination" resultType="int">
-        SELECT
-            COUNT(*)
-        FROM ITM_LOCATION
-        <include refid="locationCondition"/>
     </select>
 
     <insert id="insertAssetLocation" parameterType="locationVO">

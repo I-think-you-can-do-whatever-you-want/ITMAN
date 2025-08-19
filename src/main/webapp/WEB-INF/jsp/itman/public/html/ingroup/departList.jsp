@@ -15,18 +15,18 @@
 		<div class="tit_search">
 			<h2>부서 관리</h2>
 			<form  id="searchForm" name="searchForm" method="get" action="${pageContext.request.contextPath}/itman/departList.do" onsubmit="this.page.value=1; this.range.value=1;">
-				<input type="hidden" id="page"      name="page"      value="${pagination.page}" />
-				<input type="hidden" id="range"     name="range"     value="${pagination.range}" />
-				<input type="hidden" id="rangeSize" name="rangeSize" value="${pagination.rangeSize}" />
+				<input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
+				<input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
+				<input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
 
 				<p class="list_search">
-					<select name="searching.searchCondition">
+					<select name="pagination.searching.searchCondition">
 						<option value="" >전체</option>
 						<option value="divCode" ${pagination.searching.searchCondition=='divCode' ? 'selected' : ''}>코드번호</option>
 						<option value="divName" ${pagination.searching.searchCondition=='divName' ? 'selected' : ''}>부서명</option>
 					</select>
-					<input name="searching.searchKeyword" type="text" value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요."/>
-					<a href="#" onclick="const form = this.closest('form'); form.page.value=1; form.range.value=1; form.submit();">검색</a>
+					<input name="pagination.searching.searchKeyword" type="text" value="${pagination.searching.searchKeyword}" placeholder="검색어를 입력해주세요."/>
+					<a href="#" onclick="formSubmit(); form.page.value=1; form.range.value=1; form.submit();">검색</a>
 
 				</p>
 			</form>
@@ -70,7 +70,7 @@
 				</c:forEach>
 				</c:if>
 
-                    <c:if test="${listCnt == 0}">
+                    <c:if test="${pagination.listCnt == 0}">
 						<div style="text-align:center; margin-top:20px;">
 							일치하는 자료가 없습니다.
 						</div>
@@ -103,7 +103,9 @@
 	</div>
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />
 <script>
-
+	function formSubmit(){
+		document.getElementById('searchForm').submit();
+	}
 	function changePage(page, range, rangeSize) {
 		const form = document.getElementById('searchForm');
 		form.page.value = page;

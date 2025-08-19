@@ -19,13 +19,13 @@
             <li>
                 <form action="${pageContext.request.contextPath}/itman/asset/assetEmployeeInfoEdit.do" id="searchForm" method="post" onsubmit="this.page.value=1; this.range.value=1;">
                     <input type="hidden" id="assIdx" name="assIdx" value="${asset.assIdx}" />
-                    <input type="hidden" id="page"      name="page"      value="${pagination.page}" />
-                    <input type="hidden" id="range"     name="range"     value="${pagination.range}" />
-                    <input type="hidden" id="rangeSize" name="rangeSize" value="${pagination.rangeSize}" />
+                    <input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
+                    <input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
+                    <input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
 
 
                     <p class="cont">
-                        <input type="text" name="searching.searchKeyword" value="${searching.searchKeyowrd}"  placeholder="직원 이름을 작성해주세요." class="search"><a href="javascript:form_submit();">직원 검색</a>
+                        <input type="text" name="pagination.searching.searchKeyword" value="${pagination.searching.searchKeyword}"  placeholder="직원 이름을 작성해주세요." class="search"><a href="javascript:form_submit();">직원 검색</a>
                     </p>
                 </form>
             </li>
@@ -84,10 +84,6 @@
             window.opener.location.reload(); // 부모창 새로고침
             window.close(); // 팝업 닫기
         }, 300);
-        // const url = "/itman/asset/updateAssetEmployeeInfo.do?assIdx=" + assIdx + "&empIdx=" + empIdx;
-        // window.opener.location.href = url;
-        // window.close();
-        // location.href = url;
     }
     function form_submit(){
         $("#searchForm").submit();

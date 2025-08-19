@@ -19,13 +19,13 @@ public class AssetCategoryServiceImpl implements AssetCategoryService {
     }
 
     @Override
-    public List<AssetCategoryVO> selectAssetCategoryList(Pagination pagination) throws Exception{
-        return assetCategoryDAO.selectAssetCategoryList(pagination);
+    public List<AssetCategoryVO> selectAssetCategoryList(AssetCategoryVO vo) throws Exception{
+        return assetCategoryDAO.selectAssetCategoryList(vo);
     }
 
     @Override
-    public int selectAssetCategoryListCnt(Pagination pagination) throws Exception{
-        return assetCategoryDAO.selectAssetCategoryListCnt(pagination);
+    public int selectAssetCategoryListCnt(AssetCategoryVO vo) throws Exception{
+        return assetCategoryDAO.selectAssetCategoryListCnt(vo);
     }
 
     @Override

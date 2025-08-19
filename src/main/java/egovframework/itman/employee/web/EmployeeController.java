@@ -3,7 +3,6 @@ package egovframework.itman.employee.web;
 
 import egovframework.itman.asset.service.AssetVO;
 import egovframework.itman.asset.service.impl.AssetServiceImpl;
-import egovframework.itman.common.Pagination;
 import egovframework.itman.division.service.DivisionVO;
 import egovframework.itman.division.service.impl.DivisionServiceImpl;
 import egovframework.itman.empState.service.EmpStateVO;
@@ -29,6 +28,7 @@ import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
+
 public class EmployeeController {
     @Resource(name = "employeeService")
     private EmployeeServiceImpl employeeService;
@@ -41,49 +41,50 @@ public class EmployeeController {
     @Resource(name = "assetService")
     private AssetServiceImpl assetService;
 
+    private static final String BASE_LOC = "itman/public/html/ingroup/";
+
     private void addCommonLists(String groIdx, Model model) {
         model.addAttribute("divisionList", divisionService.selectDivisionsByGroup(groIdx));
         model.addAttribute("empStateList", empStateService.selectEmpStatesByGroup(groIdx));
         model.addAttribute("positionList", positionService.selectPositionsByGroup(groIdx));
     }
     // --------------------조회--------------------
-
     @RequestMapping("/itman/employeeList.do")
-    public String selectEmployeeList(EmployeeVO vo, Pagination pagination, Model model
-            , @RequestParam(defaultValue = "1") int page
-            , @RequestParam(defaultValue = "1") int range
-                                     , HttpSession session
-                                     ,@RequestParam(value = "id", defaultValue = "2")int id
-    ) throws Exception {
+    public String selectEmployeeList(EmployeeVO employeeVO, Model model,
+                                     @RequestParam(defaultValue = "1") int page,
+                                     @RequestParam(defaultValue = "1") int range,
+                                     HttpSession session,
+                                     @RequestParam(value = "id", defaultValue = "2") int id) throws Exception {
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        employeeVO.getPagination().setSearchingGroIdx(employeeVO.getPagination().getSearching(), groIdx);
 
-        int listCnt = employeeService.selectEmployeeListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
-        //그룹별 부서, 상태, 직위 조회
+
+        int listCnt = employeeService.selectEmployeeListCnt(employeeVO);
+        employeeVO.getPagination().pageInfo(page, range, listCnt);
+        employeeVO.getPagination().setSearching(employeeVO.getPagination().getSearching());
+
+        employeeVO.setPagination(employeeVO.getPagination());
+
+        // 공통 데이터
         addCommonLists(groIdx, model);
-        pagination.setSearching(pagination.getSearching());
-        //검색 결과에 따른 총 목록의 길이를 반환
-        List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
-        //페이징 구현
-        model.addAttribute("pagination", pagination);
+
+        List<EmployeeVO> list = employeeService.selectEmployeeList(employeeVO);
+
+        model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("resultList", list);
-        return "itman/public/html/ingroup/emploList";
+        return BASE_LOC + "emploList";
     }
 
 
     @RequestMapping("/itman/employeeView.do")
-    public String selectEmployeeView(EmployeeVO vo, Model model, Pagination pagination, HttpSession session) throws Exception {
-        String groIdx = (String) session.getAttribute("groIdx");
-
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+    public String selectEmployeeView(EmployeeVO vo, Model model) throws Exception {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         List<AssetVO> assetList = assetService.selectEmpAssetList(resultVO);
         model.addAttribute("employee", resultVO);
         model.addAttribute("assetList", assetList);
-        return "itman/public/html/ingroup/emploView";
+        return BASE_LOC + "emploView";
     }
 
     // ---------------------생성--------------------------
@@ -91,9 +92,8 @@ public class EmployeeController {
     @RequestMapping("/itman/employeeWrite.do")
     public String employeeForm(EmployeeVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
-
         addCommonLists(groIdx, model);
-        return "itman/public/html/ingroup/emploWrite";
+        return BASE_LOC + "emploWrite";
     }
 
     @RequestMapping("/itman/emploDivisionWrite.do")
@@ -330,21 +330,21 @@ public class EmployeeController {
     }
 
     @RequestMapping("/itman/popup/searchPop.do")
-    public String searchPop(EmployeeVO vo, Pagination pagination, Model model
+    public String searchPop(EmployeeVO employeeVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
             , HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(), groIdx);
+        employeeVO.getPagination().setSearchingGroIdx(employeeVO.getPagination().getSearching(), groIdx);
 
-        int listCnt = employeeService.selectEmployeeListCnt(pagination);
-        pagination.pageInfo(page, range, listCnt);
-        pagination.setSearching(pagination.getSearching());
+        int listCnt = employeeService.selectEmployeeListCnt(employeeVO);
+        employeeVO.getPagination().pageInfo(page, range, listCnt);
+        employeeVO.getPagination().setSearching(employeeVO.getPagination().getSearching());
         //검색 결과에 따른 총 목록의 길이를 반환
-        List<EmployeeVO> list = employeeService.selectEmployeeList(pagination);
+        List<EmployeeVO> list = employeeService.selectEmployeeList(employeeVO);
         //페이징 구현
-        model.addAttribute("pagination", pagination);
+        model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("employeeList", list);
         return "itman/public/html/popup/searchPop";
     }

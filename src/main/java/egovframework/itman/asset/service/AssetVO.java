@@ -1,5 +1,7 @@
 package egovframework.itman.asset.service;
 
+import egovframework.itman.common.Pagination;
+
 public class AssetVO {
     private String assIdx; //자산IDX
     private String groIdx; //소속 그룹 IDX
@@ -24,6 +26,19 @@ public class AssetVO {
     private String assEmpName;
     private String assSupName;
     private String rowNum;
+    private Pagination pagination;
+
+    public AssetVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getRowNum() {
         return rowNum;

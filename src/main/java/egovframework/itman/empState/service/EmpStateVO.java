@@ -1,5 +1,7 @@
 package egovframework.itman.empState.service;
 
+import egovframework.itman.common.Pagination;
+
 public class EmpStateVO {
 
     private String empStIdx;
@@ -17,6 +19,19 @@ public class EmpStateVO {
     private String delDate;
     private String slNote;
     private String empStCnt;
+    private Pagination pagination;
+
+    public EmpStateVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getEmpStCnt() {
         return empStCnt;

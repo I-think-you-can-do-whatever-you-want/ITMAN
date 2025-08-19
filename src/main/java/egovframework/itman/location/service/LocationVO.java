@@ -1,5 +1,7 @@
 package egovframework.itman.location.service;
 
+import egovframework.itman.common.Pagination;
+
 public class LocationVO {
     private String locIdx; //위치IDX
     private String groIdx; //소속그룹IDX
@@ -13,6 +15,19 @@ public class LocationVO {
     private String delIdx; //삭제자IDX
     private String delDate; //삭제일시
     private String slNote; //비고
+    private Pagination pagination;
+
+    public LocationVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getLocIdx() {
         return locIdx;

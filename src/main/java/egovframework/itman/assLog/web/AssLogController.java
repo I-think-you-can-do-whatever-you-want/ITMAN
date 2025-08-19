@@ -18,7 +18,7 @@ public class AssLogController {
     private AssLogServiceImpl assLogService;
 
     @RequestMapping("/itman/assetHistory.do")
-    public String selectAssetHistoryList(AssLogVO vo, Pagination pagination, Model model
+    public String selectAssetHistoryList(AssLogVO assLogVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
     , @RequestParam(value = "id", defaultValue = "9")int id ,
@@ -26,12 +26,14 @@ public class AssLogController {
         model.addAttribute("pageNumDepth01", id);
         String groIdx = (String) session.getAttribute("groIdx");
 
-        pagination.setSearchingGroIdx(pagination.getSearching(),groIdx);
-        pagination.setListCnt(assLogService.selectAssLogListCnt(pagination));
+        assLogVO.getPagination().setSearchingGroIdx(assLogVO.getPagination().getSearching(),groIdx);
+        assLogVO.getPagination().setListCnt(assLogService.selectAssLogListCnt(assLogVO));
 
-        pagination.pageInfo(page,range,pagination.getListCnt());
-        List<AssLogVO> list = assLogService.selectAllAssLogList(pagination);
-        model.addAttribute("pagination", pagination);
+        assLogVO.getPagination().pageInfo(page,range,assLogVO.getPagination().getListCnt());
+        List<AssLogVO> list = assLogService.selectAllAssLogList(assLogVO);
+        System.out.println("ORDER BY = " + assLogVO.getPagination().getSearching().getOrderBy());
+
+        model.addAttribute("pagination", assLogVO.getPagination());
         model.addAttribute("resultList", list);
         return "itman/public/html/ingroup/ahistory";
     }

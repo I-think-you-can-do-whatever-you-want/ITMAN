@@ -1,5 +1,7 @@
 package egovframework.itman.assetCategory.service;
 
+import egovframework.itman.common.Pagination;
+
 public class AssetCategoryVO {
     private String assCatIdx; //자산분류IDX
     private String groIdx; //소속그룹IDX
@@ -13,6 +15,19 @@ public class AssetCategoryVO {
     private String delIdx; //삭제자IDX
     private String delDate; //삭제일시
     private String slNote; //비고
+    private Pagination pagination;
+
+    public AssetCategoryVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getAssCatIdx() {
         return assCatIdx;

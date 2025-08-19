@@ -14,9 +14,18 @@ public class AssetDAO {
     @Autowired
     private SqlSession sqlSession;
 
-    public List<AssetVO> selectAssetList(Pagination pagination) throws Exception{
-        return sqlSession.selectList("assetDAO.selectAssetList", pagination);
+    public List<AssetVO> selectAssetList(AssetVO vo) throws Exception{
+        return sqlSession.selectList("assetDAO.selectAssetList", vo);
     }
+
+    public int selectAssetListCnt(AssetVO vo) throws Exception{
+        return sqlSession.selectOne("assetDAO.selectAssetListCnt", vo);
+    }
+
+    public int selectInGroupAssetListCnt(AssetVO vo) throws Exception{
+        return sqlSession.selectOne("assetDAO.selectInGroupAssetListCnt", vo);
+    }
+
     public List<AssetVO> selectEmpAssetList(EmployeeVO employeeVO) throws Exception{
         return sqlSession.selectList("assetDAO.selectEmpAssetList", employeeVO);
     }
@@ -24,9 +33,6 @@ public class AssetDAO {
         return sqlSession.selectOne("assetDAO.selectAssetView", vo);
     }
 
-    public int selectAssetListCnt(Pagination pagination) throws Exception{
-        return sqlSession.selectOne("assetDAO.selectAssetListCnt", pagination);
-    }
     public void insertAsset(AssetVO vo) throws Exception{
         sqlSession.insert("assetDAO.insertAsset", vo);
     }
@@ -35,9 +41,6 @@ public class AssetDAO {
     }
     public void deleteAsset(AssetVO vo) throws Exception{
         sqlSession.update("assetDAO.deleteAsset", vo);
-    }
-    public int selectInGroupAssetListCnt(Pagination pagination) throws Exception {
-        return sqlSession.selectOne("assetDAO.selectInGroupAssetListCnt", pagination);
     }
 
     public void updateAssetNameInfo(AssetVO vo) throws Exception{

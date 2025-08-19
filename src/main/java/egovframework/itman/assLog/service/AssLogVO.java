@@ -1,5 +1,7 @@
 package egovframework.itman.assLog.service;
 
+import egovframework.itman.common.Pagination;
+
 public class AssLogVO {
     private String alIdx; //로그 IDX
     private String assNameLog;
@@ -14,6 +16,19 @@ public class AssLogVO {
     private String regIp; //생성자IP
     private String assUlid;
     private String assName;
+    private Pagination pagination;
+
+    public AssLogVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getAssUlid() {
         return assUlid;

@@ -22,14 +22,17 @@ public class EmpStateServiceImpl implements EmpStateService {
     public EmpStateVO selectEmpStateView(EmpStateVO vo) throws Exception {
         return empStateDAO.selectEmpStateView(vo);
     }
+
     @Override
-    public List<EmpStateVO> selectEmpStateList(Pagination pagination) throws Exception {
-        return empStateDAO.selectEmpStateList(pagination);
+    public List<EmpStateVO> selectEmpStateList(EmpStateVO vo) throws Exception {
+        return empStateDAO.selectEmpStateList(vo);
     }
+
     @Override
-    public int selectEmpStateListCnt(Pagination pagination) throws Exception {
-        return empStateDAO.selectEmpStateListCnt(pagination);
+    public int selectEmpStateListCnt(EmpStateVO vo) throws Exception {
+        return empStateDAO.selectEmpStateListCnt(vo);
     }
+
     @Override
     public void insertEmployeeState(EmpStateVO vo) {
         empStateDAO.insertEmployeeState(vo);

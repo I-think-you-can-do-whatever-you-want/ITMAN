@@ -1,5 +1,7 @@
 package egovframework.itman.position.service;
 
+import egovframework.itman.common.Pagination;
+
 public class PositionVO {
     private String posIdx; // 직위IDX
     private String groIdx; // 소속그룹IDX
@@ -14,6 +16,19 @@ public class PositionVO {
     private String delDate; // 삭제일시
     private String slNote; // 비고
     private String rowNum;
+    private Pagination pagination;
+
+    public PositionVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getRowNum() {
         return rowNum;

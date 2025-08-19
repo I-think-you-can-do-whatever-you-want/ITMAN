@@ -7,31 +7,32 @@
     <sql id="assetCondition">
         <where>
             A.DEL_YN = 'N'
-            AND A.GRO_IDX = #{searching.groIdx}
-            <if test="searching.searchKeyword != null and searching.searchKeyword != ''">
-            <choose>
-                <when test="searching.searchCondition == 'assUlid'">
-                    AND A.ASS_ULID LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                </when>
-                <when test="searching.searchCondition == 'assName'">
-                    AND A.ASS_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                </when>
-                <when test="searching.searchCondition == 'assCatName'">
-                    AND C.ASS_CAT_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                </when>
-                <otherwise>
-                    AND (
-                    A.ASS_ULID LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    OR A.ASS_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    OR C.ASS_CAT_NAME LIKE CONCAT('%', #{searching.searchKeyword}, '%')
-                    )
-                </otherwise>
-            </choose>
+            AND A.GRO_IDX = #{pagination.searching.groIdx}
+            <if test="pagination.searching.searchKeyword != null and pagination.searching.searchKeyword != ''">
+                <choose>
+                    <when test="pagination.searching.searchCondition == 'assUlid'">
+                        AND A.ASS_ULID LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <when test="pagination.searching.searchCondition == 'assName'">
+                        AND A.ASS_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <when test="pagination.searching.searchCondition == 'assCatName'">
+                        AND C.ASS_CAT_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                    </when>
+                    <otherwise>
+                        AND (
+                        A.ASS_ULID LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR A.ASS_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        OR C.ASS_CAT_NAME LIKE CONCAT('%', #{pagination.searching.searchKeyword}, '%')
+                        )
+                    </otherwise>
+                </choose>
             </if>
         </where>
     </sql>
-    <select id="selectAssetList" parameterType="pagination" resultType="assetVO">
-    SELECT
+
+    <select id="selectAssetList" parameterType="assetVO" resultType="assetVO">
+        SELECT
         ROW_NUMBER() OVER(ORDER BY A.ASS_IDX ) AS rowNum,
         A.ASS_IDX AS assIdx,
         A.GRO_IDX AS groIdx,
@@ -53,7 +54,7 @@
         LEFT JOIN ITM_SUPPLIER SP ON SP.SUP_IDX = A.SUP_IDX
         <include refid="assetCondition"/>
         ORDER BY rowNum DESC
-            LIMIT #{startList} , #{listSize}
+        LIMIT #{pagination.startList} , #{pagination.listSize}
     </select>
 
     <select id="selectEmpAssetList" parameterType="employeeVO" resultType="assetVO">
@@ -78,22 +79,22 @@
             AND A.EMP_IDX = #{empIdx}
     </select>
 
-<select id="selectAssetListCnt" parameterType="pagination" resultType="int">
-    SELECT
-        COUNT(*)
-    FROM
-        ITM_ASSET A
-    LEFT JOIN ITM_ASSET_CATEGORY C ON C.ASS_CAT_IDX = A.ASS_CAT_IDX
-    <include refid="assetCondition"/>
-</select>
-
-    <select id="selectInGroupAssetListCnt" parameterType="pagination" resultType="int">
+    <select id="selectAssetListCnt" parameterType="assetVO" resultType="int">
         SELECT
-        COUNT(*) AS listCnt
+        COUNT(*)
         FROM
         ITM_ASSET A
         LEFT JOIN ITM_ASSET_CATEGORY C ON C.ASS_CAT_IDX = A.ASS_CAT_IDX
-        WHERE A.GRO_IDX = #{searching.groIdx}
+        <include refid="assetCondition"/>
+    </select>
+
+    <select id="selectInGroupAssetListCnt" parameterType="assetVO" resultType="int">
+        SELECT
+            COUNT(*) AS listCnt
+        FROM
+            ITM_ASSET A
+                LEFT JOIN ITM_ASSET_CATEGORY C ON C.ASS_CAT_IDX = A.ASS_CAT_IDX
+        WHERE A.GRO_IDX = #{pagination.searching.groIdx}
     </select>
 
     <select id="selectAssetView" parameterType="assetVO" resultType="assetVO">

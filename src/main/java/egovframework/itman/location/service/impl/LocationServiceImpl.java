@@ -20,18 +20,18 @@ public class LocationServiceImpl implements LocationService {
     }
 
     @Override
-    public List<LocationVO> selectLocationList(Pagination pagination){
-        return locationDAO.selectLocationList(pagination);
+    public List<LocationVO> selectLocationList(LocationVO vo) {
+        return locationDAO.selectLocationList(vo);
+    }
+
+    @Override
+    public int selectLocationListCnt(LocationVO vo) {
+        return locationDAO.selectLocationListCnt(vo);
     }
 
     @Override
     public LocationVO selectLocation(LocationVO vo) throws Exception{
         return locationDAO.selectLocation(vo);
-    }
-
-    @Override
-    public int selectLocationListCnt(Pagination pagination){
-        return locationDAO.selectLocationListCnt(pagination);
     }
 
     @Override

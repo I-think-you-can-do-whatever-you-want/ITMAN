@@ -22,12 +22,6 @@
 		<p class="delContent">
 			<a href="#" onclick="window.open('/itman/emploDelConfirm.do?empIdx='+ ${employee.empIdx},  '삭제팝업', 'width=500, height=335')"><img alt="삭제버튼" src="../../../../../../images/_img/del_view.png"/></a>
 		</p>
-<%--		<p class="editContent">--%>
-<%--			<a href="#" onclick="location.href='/itman/employeeEdit.do?empIdx=${employee.empIdx}'"><img alt="수정버튼" src="../../../../../../images/_img/edit_view.png"/></a>--%>
-<%--		</p>--%>
-
-
-
 
 		<ul class="adminView">
 

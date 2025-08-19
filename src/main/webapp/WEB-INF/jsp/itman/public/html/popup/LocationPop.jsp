@@ -18,12 +18,12 @@
 			<ul class="contEdit">
 				<li>
 				<form action="${pageContext.request.contextPath}/itman/popup/locationPop.do" id="searchForm" method="post" >
-					<input type="hidden" id="page"      name="page"      value="${pagination.page}" />
-					<input type="hidden" id="range"     name="range"     value="${pagination.range}" />
-					<input type="hidden" id="rangeSize" name="rangeSize" value="${pagination.rangeSize}" />
+					<input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
+					<input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
+					<input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
 
 					<p class="cont">
-							<input type="text" name="searching.searchKeyword"  placeholder="위치를 작성해주세요." class="search" value="${pagination.searching.searchKeyword}" onsubmit="this.page.value=1; this.range.value=1;"><a href="javascript:form_submit()">위치 검색</a>
+							<input type="text" name="pagination.searching.searchKeyword"  placeholder="위치를 작성해주세요." class="search" value="${pagination.searching.searchKeyword}" onsubmit="this.page.value=1; this.range.value=1;"><a href="#" onclick="form_submit();">위치 검색</a>
 					</p>
 					</form>
 				</li>
@@ -39,12 +39,6 @@
 						<input type="hidden" id="${l.locIdx}" value="${l.locIdx}" />
 					</c:forEach>
 				</c:if>
-<%--				<?php--%>
-<%--					while($row = (mysqli_fetch_array($result))) {--%>
-<%--				?>--%>
-<%--				<li><a href="javascript:onClick(<?=$row['LOC_IDX'];?>);"><span class="tit" id = <?="loc_name".$row['LOC_IDX']?>><?= $row['LOC_NAME']?> / <?= $row['LOC_CODE']?></a></li>--%>
-<%--				<input type="hidden" id="<?=$row['LOC_IDX'];?>" value="<?=$row['LOC_IDX'];?>"/>--%>
-<%--				<?php };?>--%>
 			</ul>
 			<p class="paging">
 				<c:url var="selfUrl" value="${pageContext.request.requestURI}" />

@@ -1,8 +1,8 @@
 package egovframework.itman.employee.service;
 
-import egovframework.itman.common.Searching;
+import egovframework.itman.common.Pagination;
 
-public class EmployeeVO extends Searching {
+public class EmployeeVO{
 
     private String empIdx; // 직원IDX
     private String groIdx; // 소속그룹IDX
@@ -23,6 +23,19 @@ public class EmployeeVO extends Searching {
     private String empDiv;
     private String posName;
     public String empState;
+    private Pagination pagination;
+
+    public EmployeeVO() {
+        this.pagination = new Pagination();
+    }
+
+    public Pagination getPagination() {
+        return pagination;
+    }
+
+    public void setPagination(Pagination pagination) {
+        this.pagination = pagination;
+    }
 
     public String getDelYn() {
         return delYn;
