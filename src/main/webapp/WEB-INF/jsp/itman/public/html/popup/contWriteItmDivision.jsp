@@ -14,6 +14,7 @@
 </c:if>
 <c:if test="${!empty division.divIdx}">
 	<c:set var="actionUrl" value="/updateDepart.do" />
+
 </c:if>
 <c:url value="/checkDuplicateEmpDiv.do" var="checkDuplicateUrl"/>
 
