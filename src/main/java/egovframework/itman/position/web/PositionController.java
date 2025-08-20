@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.Position;
 import java.util.List;
 
 @Controller
@@ -36,7 +35,7 @@ public class PositionController {
         model.addAttribute("pagination", positionVO.getPagination());
         model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/spotList";
+        return "inGroup/spotList";
 
     }
     @RequestMapping("/positionWrite.do")
@@ -45,14 +44,14 @@ public class PositionController {
             PositionVO resultVO = positionService.selectPositionView(vo);
             model.addAttribute("position",resultVO);
         }
-        return "itman/public/html/popup/contWriteItmPosition";
+        return "popup/contWriteItmPosition";
     }
 
     @RequestMapping("/positionEdit.do")
     public String editPosition(PositionVO vo, Model model){
             PositionVO resultVO = positionService.selectPositionView(vo);
             model.addAttribute("position",resultVO);
-        return "itman/public/html/popup/contEditItmPosition";
+        return "popup/contEditItmPosition";
     }
 
     @PostMapping("/insertPosition.do")
@@ -76,7 +75,7 @@ public class PositionController {
     public String confirmPositionDel(PositionVO vo, Model model){
         PositionVO resultVO = positionService.selectPositionView(vo);
         model.addAttribute("position",resultVO);
-        return "itman/public/html/popup/listDelete";
+        return "popup/listDelete";
     }
 
     @PostMapping("/deletePosition.do")

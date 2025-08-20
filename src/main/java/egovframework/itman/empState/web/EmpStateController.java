@@ -37,14 +37,14 @@ public class EmpStateController {
         model.addAttribute("resultList", list);
 
 
-        return "itman/public/html/ingroup/eStatList";
+        return "inGroup/eStatList";
     }
 
     @RequestMapping("/editEmploState.do")
     public String editEmployeeState(EmpStateVO vo, Model model) throws Exception {
         EmpStateVO resultVO = empStateService.selectEmpStateView(vo);
         model.addAttribute("empState", resultVO);
-        return "itman/public/html/popup/employee/emploStateWrite";
+        return "popup/employee/emploStateWrite";
     }
     @PostMapping("/updateEmploState.do")
     public String updateEmployeeState(EmpStateVO vo, Model model, HttpSession session) {
@@ -59,7 +59,7 @@ public class EmpStateController {
     @RequestMapping("/confirmEmploStateDel.do")
     public String confirmEmployeeStateDel(EmpStateVO vo, Model model) {
         model.addAttribute("empState", vo);
-        return "itman/public/html/popup/contEmpDel";
+        return "popup/contEmpDel";
     }
     @PostMapping("/deleteEmploState.do")
     public String deleteEmployeeState(EmpStateVO vo, Model model, HttpSession session) {

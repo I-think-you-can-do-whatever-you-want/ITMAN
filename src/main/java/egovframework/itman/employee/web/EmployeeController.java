@@ -37,8 +37,6 @@ public class EmployeeController {
     @Resource(name = "assetService")
     private AssetServiceImpl assetService;
 
-    private static final String BASE_LOC = "itman/public/html/ingroup/";
-
     private void addCommonLists(String groIdx, Model model) {
         model.addAttribute("divisionList", divisionService.selectDivisionsByGroup(groIdx));
         model.addAttribute("empStateList", empStateService.selectEmpStatesByGroup(groIdx));
@@ -70,7 +68,7 @@ public class EmployeeController {
 
         model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("resultList", list);
-        return BASE_LOC + "emploList";
+        return "inGroup/emploList";
     }
 
 
@@ -80,7 +78,7 @@ public class EmployeeController {
         List<AssetVO> assetList = assetService.selectEmpAssetList(resultVO);
         model.addAttribute("employee", resultVO);
         model.addAttribute("assetList", assetList);
-        return BASE_LOC + "emploView";
+        return "inGroup/emploView";
     }
 
     // ---------------------생성--------------------------
@@ -89,13 +87,13 @@ public class EmployeeController {
     public String employeeForm(EmployeeVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         addCommonLists(groIdx, model);
-        return BASE_LOC + "emploWrite";
+        return "inGroup/emploWrite";
     }
 
     @RequestMapping("/emploDivisionWrite.do")
     public String writeEmployeeDivision(DivisionVO vo, Model model) {
         model.addAttribute("division", vo);
-        return "itman/public/html/popup/employee/emploDivisionWrite";
+        return "popup/employee/emploDivisionWrite";
     }
 
     @PostMapping("/insertEmploDivision.do")
@@ -111,7 +109,7 @@ public class EmployeeController {
     @RequestMapping("/emploPositionWrite.do")
     public String writeEmployeePosition(PositionVO vo, Model model) {
         model.addAttribute("position", vo);
-        return "itman/public/html/popup/employee/emploPositionWrite";
+        return "popup/employee/emploPositionWrite";
     }
 
     @PostMapping(value = "/checkDuplicateEmpPos.do" ,produces = "application/json;charset=UTF-8")
@@ -138,7 +136,7 @@ public class EmployeeController {
     @RequestMapping("/emploStateWrite.do")
     public String writeEmployeeState(EmpStateVO vo, Model model) {
         model.addAttribute("empState", vo);
-        return "itman/public/html/popup/employee/emploStateWrite";
+        return "popup/employee/emploStateWrite";
     }
 
     @PostMapping(value = "/checkDuplicateEmpSta.do" ,produces = "application/json;charset=UTF-8")
@@ -169,7 +167,7 @@ public class EmployeeController {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
 
-        return "itman/public/html/popup/employee/emploTelInfoEdit";
+        return "popup/employee/emploTelInfoEdit";
     }
 
     @RequestMapping("/updateEmploTelInfo.do")
@@ -189,7 +187,7 @@ public class EmployeeController {
             String groIdx = resultVO.getGroIdx();
         model.addAttribute("divisionList", divisionService.selectDivisionsByGroup(groIdx));
 
-        return "itman/public/html/popup/employee/emploDivisionInfoEdit";
+        return "popup/employee/emploDivisionInfoEdit";
     }
     @RequestMapping("/updateEmploDivisionInfo.do")
     public String updateEmploDivisionInfo(EmployeeVO vo, Model model, HttpSession session) {
@@ -210,7 +208,7 @@ public class EmployeeController {
         model.addAttribute("positionList", positionService.selectPositionsByGroup(groIdx));
 
 
-        return "itman/public/html/popup/employee/emploPosInfoEdit";
+        return "popup/employee/emploPosInfoEdit";
     }
     @RequestMapping("/updateEmploPosInfo.do")
     public String updateEmploPosInfo(EmployeeVO vo, Model model, HttpSession session) {
@@ -227,7 +225,7 @@ public class EmployeeController {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
 
-        return "itman/public/html/popup/employee/emploMailInfoEdit";
+        return "popup/employee/emploMailInfoEdit";
     }
 
     @RequestMapping("/updateEmploMailInfo.do")
@@ -246,7 +244,7 @@ public class EmployeeController {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
 
-        return "itman/public/html/popup/employee/emploNameInfoEdit";
+        return "popup/employee/emploNameInfoEdit";
     }
 
     @RequestMapping("/updateEmploNameInfo.do")
@@ -263,7 +261,7 @@ public class EmployeeController {
 
         model.addAttribute("empStateList", empStateService.selectEmpStatesByGroup(groIdx));
 
-        return "itman/public/html/popup/employee/emploStateInfoEdit";
+        return "popup/employee/emploStateInfoEdit";
     }
 
     @RequestMapping("/updateEmploStateInfo.do")
@@ -281,7 +279,7 @@ public class EmployeeController {
             EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
             model.addAttribute("employee", resultVO);
 
-        return "itman/public/html/popup/employee/emploNumInfoEdit";
+        return "popup/employee/emploNumInfoEdit";
     }
 
     @RequestMapping("/updateEmploNumInfo.do")
@@ -308,7 +306,7 @@ public class EmployeeController {
     public String deleteEmploConfirm(EmployeeVO vo, Model model) {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
-        return "itman/public/html/popup/employee/emploDel";
+        return "popup/employee/emploDel";
     }
 
     @RequestMapping("/emploDel.do")
@@ -338,7 +336,7 @@ public class EmployeeController {
         //페이징 구현
         model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("employeeList", list);
-        return "itman/public/html/popup/searchPop";
+        return "popup/searchPop";
     }
 
 

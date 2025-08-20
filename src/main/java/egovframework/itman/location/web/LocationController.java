@@ -34,7 +34,7 @@ public class LocationController {
         List<LocationVO> resultList = locationService.selectLocationList(locationVO);
         model.addAttribute("pagination", locationVO.getPagination());
         model.addAttribute("locations", resultList);
-        return "itman/public/html/popup/LocationPop";
+        return "popup/LocationPop";
     }
 
     @RequestMapping("/assetLocationList.do")
@@ -56,14 +56,14 @@ public class LocationController {
     model.addAttribute("pagination", locationVO.getPagination());
     model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/locList";
+        return "inGroup/locList";
     }
 
     @RequestMapping("/editLocation.do")
     public String editLocation(LocationVO vo, Model model) throws Exception {
         LocationVO resultVO = locationService.selectLocation(vo);
         model.addAttribute("location", resultVO);
-        return "itman/public/html/popup/contEditItmLocation";
+        return "popup/contEditItmLocation";
     }
 
     @PostMapping("/updateLocation.do")
@@ -79,7 +79,7 @@ public class LocationController {
     @RequestMapping("/confirmLocationDel.do")
     public String confirmLocationDel(LocationVO vo, Model model) {
         model.addAttribute("location", vo);
-        return "itman/public/html/popup/listDelete";
+        return "popup/listDelete";
     }
 
 

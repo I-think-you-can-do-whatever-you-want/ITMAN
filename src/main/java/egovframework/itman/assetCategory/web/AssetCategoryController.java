@@ -38,14 +38,14 @@ public class AssetCategoryController {
         model.addAttribute("resultList", resultList);
         model.addAttribute("pagination", assetCategoryVO.getPagination());
 
-        return "itman/public/html/ingroup/assetCategory";
+        return "inGroup/assetCategory";
     }
 
     @RequestMapping("/editAssetCategory.do")
     public String editAssetCategory(AssetCategoryVO vo, Model model) throws Exception {
         AssetCategoryVO resultVO = assetCategoryService.selectAssetCategory(vo);
         model.addAttribute("assetCategory", resultVO);
-        return "itman/public/html/popup/contEditAssetCategory";
+        return "popup/contEditAssetCategory";
 
     }
 
@@ -62,7 +62,7 @@ public class AssetCategoryController {
     @RequestMapping("/confirmAssetCategoryDel.do")
     public String confirmAssetCategoryDel(AssetCategoryVO vo, Model model) {
         model.addAttribute("assetCategory", vo);
-        return "itman/public/html/popup/listDelete";
+        return "popup/listDelete";
     }
 
     @PostMapping("/deleteAssetCategory.do")

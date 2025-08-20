@@ -34,7 +34,7 @@ public class SupplierController {
         List<SupplierVO> list = supplierService.selectSupplierList(supplierVO);
         model.addAttribute("pagination", supplierVO.getPagination());
         model.addAttribute("resultList", list);
-        return "itman/public/html/ingroup/buyList";
+        return "inGroup/buyList";
     }
 
     @RequestMapping("/popup/selectAssetSupplier.do")
@@ -53,14 +53,14 @@ public class SupplierController {
 
         model.addAttribute("pagination", supplierVO.getPagination());
         model.addAttribute("supplierList", list);
-        return "itman/public/html/popup/supplierPop";
+        return "popup/supplierPop";
     }
 
     @RequestMapping("/supplierEdit.do")
     public String supplierEdit(SupplierVO vo, Model model) throws Exception {
         SupplierVO supply = supplierService.selectSupplyView(vo);
         model.addAttribute("supply", supply);
-        return "itman/public/html/popup/contEditItmSupplier";
+        return "popup/contEditItmSupplier";
     }
 
     @PostMapping("/updateSupplier.do")
@@ -76,7 +76,7 @@ public class SupplierController {
     @RequestMapping("/confirmSupplierDel.do")
     public String confirmSupplierDel(SupplierVO vo, Model model) {
         model.addAttribute("supply", vo);
-        return "itman/public/html/popup/listDelete";
+        return "popup/listDelete";
     }
 
     @PostMapping("/deleteSupplier.do")

@@ -23,12 +23,12 @@ public class MemberController {
 
     @RequestMapping("/user/join.do")
     public String join() {
-        return "itman/public/html/user/join01";
+        return "user/join01";
     }
 
     @RequestMapping("/user/writeUserInfo.do")
     public String writeUserInfo() {
-        return "itman/public/html/user/join02";
+        return "user/join02";
     }
 
     @PostMapping(value = "/checkMail.do", produces = "application/json;charset=UTF-8" )
@@ -53,7 +53,7 @@ public class MemberController {
         memberService.sendAuthMail(email, code);
         session.setAttribute("authCode", code);
 
-        return "itman/public/html/user/certPass";
+        return "user/certPass";
     }
 
     @RequestMapping(value = "/checkMailCode.do", method = RequestMethod.POST)
@@ -65,7 +65,7 @@ public class MemberController {
 
                 session.removeAttribute("authCode");
                 session.removeAttribute("state");
-                return "itman/public/html/user/compPass";
+                return "user/compPass";
             } else {
                 MemberVO vo = (MemberVO) session.getAttribute("member");
 
@@ -78,7 +78,7 @@ public class MemberController {
 
                 session.removeAttribute("authCode");
                 session.removeAttribute("member");
-                return "itman/public/html/user/join03";
+                return "user/join03";
             }
         } else {
             return "fail";
@@ -87,7 +87,7 @@ public class MemberController {
 
     @RequestMapping("/user/login.do")
     public String login() {
-        return "itman/public/html/user/login";
+        return "user/login";
     }
 
     @PostMapping("/user/authUser.do")
@@ -99,7 +99,7 @@ public class MemberController {
         MemberVO member = memberService.selectMemberByEmail(inputMail);
         if(member == null || !passwordEncoder.matches(inputPw, member.getMemPw())) {
             model.addAttribute("msg", "존재하지않는 회원이거나 아이디 또는 비밀번호가 일치하지않습니다.");
-            return "itman/public/html/user/login";
+            return "user/login";
         }
         String ip = getClientIPv4(request);
         session.setAttribute("userIp", ip);
@@ -114,14 +114,14 @@ public class MemberController {
         MemberVO vo = memberService.selectMemberByEmail(userMail);
         model.addAttribute("member", vo);
         session.setAttribute("member", vo);
-        return "itman/public/html/user/mypage";
+        return "user/mypage";
     }
 
     @RequestMapping("/phoneEdit.do")
     public String phoneEdit(HttpSession session, Model model) {
         MemberVO vo = (MemberVO) session.getAttribute("member");
         model.addAttribute("memTel", vo.getMemTel());
-        return "itman/public/html/popup/phoneEdit";
+        return "popup/phoneEdit";
     }
 
     @PostMapping("/updatePhone.do")
@@ -148,7 +148,7 @@ public class MemberController {
 
     @RequestMapping("/changePass.do")
     public String changePass() {
-        return "itman/public/html/user/changePass";
+        return "user/changePass";
     }
 
     @PostMapping("/updatePass.do")
@@ -163,13 +163,13 @@ public class MemberController {
 
     @RequestMapping("/privacy.do")
     public String privacy() {
-        return "itman/public/html/user/privacy";
+        return "user/privacy";
     }
 
     @RequestMapping("/accDel.do")
     public String accDel(HttpSession session, Model model) {
 
-        return "itman/public/html/user/accDel";
+        return "user/accDel";
     }
 
     @PostMapping("/accDel_proc.do")
@@ -189,7 +189,7 @@ public class MemberController {
 
     @RequestMapping("/user/findEmail.do")
     public String findEmail() {
-        return "itman/public/html/user/findEmail";
+        return "user/findEmail";
     }
 
     @PostMapping(value = "/findEmail_proc.do",  produces = "application/json;charset=UTF-8")
@@ -212,12 +212,12 @@ public class MemberController {
     public String compEmail(HttpSession session,Model model) {
         MemberVO vo = (MemberVO) session.getAttribute("foundedUser");
         model.addAttribute("memMail", vo.getMemMail());
-        return "itman/public/html/user/compEmail";
+        return "user/compEmail";
     }
 
     @RequestMapping("/user/findPass.do")
     public String findPass() {
-        return "itman/public/html/user/findPass";
+        return "user/findPass";
     }
 
     @PostMapping(value = "/findPass_proc.do",  produces = "application/json;charset=UTF-8")

@@ -1,12 +1,8 @@
 package egovframework.itman.division.web;
 
-import egovframework.itman.division.service.DivisionService;
 import egovframework.itman.division.service.DivisionVO;
 import egovframework.itman.division.service.impl.DivisionServiceImpl;
-import egovframework.itman.employee.service.EmployeeVO;
-import egovframework.itman.location.service.LocationVO;
 import egovframework.usr.com.EgovframeworkCommonUtil;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -39,7 +35,7 @@ public class DivisionController {
         model.addAttribute("pagination", divisionVO.getPagination());
         model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/departList";
+        return "inGroup/departList";
     }
 
     @RequestMapping("/divisionWrite.do")
@@ -48,7 +44,7 @@ public class DivisionController {
             DivisionVO resultVO = divisionService.selectDivisionView(vo);
             model.addAttribute("division", resultVO);
         }
-        return "itman/public/html/popup/contWriteItmDivision";
+        return "popup/contWriteItmDivision";
     }
     @PostMapping(value = "/checkDuplicateEmpDiv.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -84,7 +80,7 @@ public class DivisionController {
     @RequestMapping("/confirmDivisionDel.do")
     public String confirmDivisionDel(DivisionVO vo, Model model) {
         model.addAttribute("division", vo);
-        return "itman/public/html/popup/contDivisionDel";
+        return "popup/contDivisionDel";
     }
 
     @PostMapping("/deleteDepart.do")

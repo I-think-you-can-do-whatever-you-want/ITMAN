@@ -37,14 +37,14 @@ public class StateController {
         model.addAttribute("pagination", stateVO.getPagination());
         model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/aStatList";
+        return "inGroup/aStatList";
     }
 
     @RequestMapping("/editAssetState.do")
     public String editAssetState(StateVO vo, Model model) throws Exception {
         StateVO resultVO = stateService.selectAssetStateView(vo);
         model.addAttribute("state", resultVO);
-        return "itman/public/html/popup/contWrite";
+        return "popup/contWrite";
     }
 
     @PostMapping("/updateState.do")
@@ -60,7 +60,7 @@ public class StateController {
     @RequestMapping("/confirmAssetStateDel.do")
     public String confirmAssetStateDel(StateVO vo, Model model) {
         model.addAttribute("state", vo);
-        return "itman/public/html/popup/contDel";
+        return "popup/contDel";
     }
 
     @RequestMapping("/deleteAssetState.do")

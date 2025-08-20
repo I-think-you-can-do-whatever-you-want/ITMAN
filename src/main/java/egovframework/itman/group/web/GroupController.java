@@ -28,7 +28,7 @@ public class GroupController {
 
     @RequestMapping("/index.do")
     public String index(Model model) {
-        return "itman/public/html/index";
+        return "index";
     }
 
     @RequestMapping("/group.do")
@@ -39,12 +39,12 @@ public class GroupController {
        List<GroupVO> list = groupService.selectGroupList(memIdx);
 
        model.addAttribute("groupList", list);
-        return "itman/public/html/group";
+        return "group";
     }
     @RequestMapping("/addGroup.do")
     public String addGroup(GroupVO vo, Model model) {
         model.addAttribute("group", vo);
-        return "itman/public/html/popup/addGroup";
+        return "popup/addGroup";
     }
 
     @PostMapping("/insertGroup.do")
@@ -90,14 +90,14 @@ public class GroupController {
         MemberVO member = (MemberVO) session.getAttribute("member");
         List<GroupVO> list = groupService.getAllGroupData(member.getMemIdx());
         model.addAttribute("resultList", list);
-        return "itman/public/html/user/myGroup";
+        return "user/myGroup";
     }
 
     @RequestMapping("/editGroup.do")
     public String editGroup(GroupVO vo, Model model) {
         GroupVO group = groupService.selectGroup(vo.getGroIdx());
         model.addAttribute("group", group);
-        return "itman/public/html/user/groupWrite";
+        return "user/groupWrite";
     }
     @PostMapping("/updateGroup.do")
     public String updateGroup(GroupVO vo, HttpSession session, Model model,
@@ -134,7 +134,7 @@ public class GroupController {
     public String confirmGroupDel(GroupVO vo, Model model) {
         GroupVO selectedVO = groupService.selectGroup(vo.getGroIdx());
         model.addAttribute("group", selectedVO);
-        return "itman/public/html/user/groupDel";
+        return "user/groupDel";
     }
 
     @PostMapping("/deleteGroup.do")

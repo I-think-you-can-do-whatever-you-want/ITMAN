@@ -1,0 +1,60 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" language="java" %>
+
+<!doctype html>
+<html lang="ko" style="background-color: #f0f5f5">
+ <head>
+	 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/_inc/checkSession.jsp"/>
+<jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/_inc/title.jsp" />
+ </head>
+<body>
+<c:if test="${!empty supply}">
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/deleteSupplier.do" />
+</c:if>
+<c:if test="${!empty location}">
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/deleteLocation.do" />
+</c:if>
+<c:if test="${!empty assetCategory}">
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/deleteAssetCategory.do" />
+</c:if>
+<c:if test="${!empty position}">
+    <c:set var="actionUrl" value="${pageContext.request.contextPath}/deletePosition.do"/>
+</c:if>
+
+	<div id="popup">
+		<div class="pop_tit">
+			<p class="title">삭제하시겠습니까?</p>
+		</div>
+		<div class="pop_cont">
+			<form method="POST" id="form" action="${actionUrl}">
+				<input name="locIdx" type="hidden" value="${location.locIdx}"/>
+				<input name="assCatIdx" type="hidden" value="${assetCategory.assCatIdx}" />
+				<input name="posIdx" type="hidden" value="${position.posIdx}" />
+				<input name="supIdx" type="hidden" value="${supply.supIdx}" />
+			<ul class="contEdit">
+				<li>
+					<p class="tit">비고</p>
+					<p class="cont"><input type="text" id="SL_NOTE" name="slNote"/></p>
+				</li>
+			</ul>
+				<p class="pop_btn">
+				<a href="javascript:;window.close();" class="del">취소</a>
+				<a id="check" class="comp" href="#" onclick="formSubmit();">삭제</a></p>
+
+	</form>
+	</div>
+	</div>
+<script>
+	function formSubmit() {
+		document.forms['form'].submit();
+
+		setTimeout(() => {
+			window.opener.location.reload();
+			window.close();
+	}, 300);
+	}
+
+</script>
+</body>
+</html>
+

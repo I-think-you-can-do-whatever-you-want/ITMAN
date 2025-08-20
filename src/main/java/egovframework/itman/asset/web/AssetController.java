@@ -97,7 +97,7 @@ public class AssetController {
         model.addAttribute("pagination", assetVO.getPagination());
         model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/assetsList";
+        return "inGroup/assetsList";
     }
     @RequestMapping("/assetsView.do")
     public String selectAssetView(AssetVO vo, Model model) throws Exception {
@@ -106,7 +106,7 @@ public class AssetController {
         selectByAssIdx(assetVO.getAssIdx(), model);
         List<AssLogVO> list = assLogService.selectAssLogList(assetVO.getAssIdx());
         model.addAttribute("assLogList", list);
-        return "itman/public/html/ingroup/assetsView";
+        return "inGroup/assetsView";
     }
 
     @RequestMapping("/dashboard.do")
@@ -118,7 +118,7 @@ public class AssetController {
     List<StateVO> stateList = stateService.selectDashBoardAssetStateList(groIdx);
     model.addAttribute("historyList", historyList);
     model.addAttribute("stateList", stateList);
-        return "itman/public/html/ingroup/dashboard";
+        return "inGroup/dashboard";
     }
 
     //-------------------------------------생성-----------------------------------------
@@ -130,7 +130,7 @@ public class AssetController {
         int inGroupCnt = assetService.selectInGroupAssetListCnt(assetVO);
         selectByGroup(groIdx, model);
         model.addAttribute("inGroupCnt", inGroupCnt);
-        return "itman/public/html/ingroup/assetsWrite";
+        return "inGroup/assetsWrite";
     }
 
     @RequestMapping("/assetInsert.do")
@@ -174,7 +174,7 @@ public class AssetController {
 
     @RequestMapping("/asset/contWriteAssetCategory.do")
     public String writeAssetCategory() throws Exception {
-        return "itman/public/html/popup/contWriteAssetCategory";
+        return "popup/contWriteAssetCategory";
     }
 
     @PostMapping(value = "/checkDuplicateAssCat.do" ,produces = "application/json;charset=UTF-8")
@@ -201,7 +201,7 @@ public class AssetController {
 
     @RequestMapping("/asset/contWriteAssetState.do")
     public String writeAssetState() throws Exception {
-        return "itman/public/html/popup/contWriteItmState";
+        return "popup/contWriteItmState";
     }
 
     @PostMapping(value = "/checkDuplicateAssSta.do" ,produces = "application/json;charset=UTF-8")
@@ -228,7 +228,7 @@ public class AssetController {
 
     @RequestMapping("/asset/contWriteAssetLocation.do")
     public String writeAssetLocation() throws Exception {
-        return "itman/public/html/popup/contWriteItmLocation";
+        return "popup/contWriteItmLocation";
     }
     @PostMapping(value = "/checkDuplicateAssLoc.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
@@ -254,7 +254,7 @@ public class AssetController {
 
     @RequestMapping("/asset/contWriteSupplier.do")
     public String writeAssetSupplier() throws Exception {
-        return "itman/public/html/popup/contWriteItmSupplier";
+        return "popup/contWriteItmSupplier";
     }
 
     @PostMapping("/asset/insertSupplier.do")
@@ -274,7 +274,7 @@ public class AssetController {
         AssetVO assetVO = assetService.selectAssetView(vo);
         model.addAttribute("asset", assetVO);
 
-        return "itman/public/html/popup/asset/assetNameInfoEdit";
+        return "popup/asset/assetNameInfoEdit";
     }
 
     @PostMapping("/asset/updateAssetNameInfo.do")
@@ -308,7 +308,7 @@ public class AssetController {
         AssetVO assetVO = assetService.selectAssetView(vo);
         model.addAttribute("asset", assetVO);
         selectByGroup(groIdx, model);
-        return "itman/public/html/popup/asset/assetCategoryInfoEdit";
+        return "popup/asset/assetCategoryInfoEdit";
     }
 
     @PostMapping("/asset/updateAssetCategoryInfo.do")
@@ -342,7 +342,7 @@ public class AssetController {
         selectByGroup(groIdx, model);
 
 
-        return "itman/public/html/popup/asset/assetStateInfoEdit";
+        return "popup/asset/assetStateInfoEdit";
     }
 
     @PostMapping("/asset/updateAssetStateInfo.do")
@@ -375,7 +375,7 @@ public class AssetController {
         model.addAttribute("asset", assetVO);
         selectByGroup(groIdx, model);
 
-        return "itman/public/html/popup/asset/assetLocationInfoEdit";
+        return "popup/asset/assetLocationInfoEdit";
     }
 
     @PostMapping("/asset/updateAssetLocationInfo.do")
@@ -415,14 +415,14 @@ public class AssetController {
         int listCnt = employeeService.selectEmployeeListCnt(employeeVO);
         employeeVO.getPagination().pageInfo(page, range, listCnt);
         employeeVO.getPagination().setSearching(employeeVO.getPagination().getSearching());
-        //검색 결과에 따른 총 목록의 길이를 반환
+
         List<EmployeeVO> list = employeeService.selectEmployeeList(employeeVO);
-        //페이징 구현
+
         model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("asset", targetVO);
         model.addAttribute("employeeList", list);
 
-        return "itman/public/html/popup/asset/assetEmployeeInfoEdit";
+        return "popup/asset/assetEmployeeInfoEdit";
     }
 
     @PostMapping("/asset/updateAssetEmployeeInfo.do")
@@ -457,7 +457,7 @@ public class AssetController {
         selectByGroup(groIdx, model);
 
 
-        return "itman/public/html/popup/asset/assetSupplyInfoEdit";
+        return "popup/asset/assetSupplyInfoEdit";
     }
 
     @PostMapping("/asset/updateAssetSupplyInfo.do")
@@ -494,7 +494,7 @@ public class AssetController {
         model.addAttribute("asset", assetVO);
         selectByGroup(groIdx, model);
 
-        return "itman/public/html/popup/asset/assetBuyDateInfoEdit";
+        return "popup/asset/assetBuyDateInfoEdit";
     }
 
     @PostMapping("/asset/updateAssetBuyDateInfo.do")
@@ -532,7 +532,7 @@ public class AssetController {
         selectByGroup(groIdx, model);
 
 
-        return "itman/public/html/popup/asset/assetPriceInfoEdit";
+        return "popup/asset/assetPriceInfoEdit";
     }
 
     @PostMapping("/asset/updateAssetPriceInfo.do")
@@ -595,7 +595,7 @@ public class AssetController {
     @RequestMapping("/asset/confirmAssetDel.do")
     public String confirmAssetDel(AssetVO vo, Model model) throws Exception {
         model.addAttribute("asset", vo);
-        return "itman/public/html/popup/asset/contAssetDel";
+        return "popup/asset/contAssetDel";
     }
 
     @PostMapping("/asset/deleteAsset.do")

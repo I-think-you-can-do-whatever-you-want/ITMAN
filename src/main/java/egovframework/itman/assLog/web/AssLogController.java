@@ -31,10 +31,9 @@ public class AssLogController {
 
         assLogVO.getPagination().pageInfo(page,range,assLogVO.getPagination().getListCnt());
         List<AssLogVO> list = assLogService.selectAllAssLogList(assLogVO);
-        System.out.println("ORDER BY = " + assLogVO.getPagination().getSearching().getOrderBy());
 
         model.addAttribute("pagination", assLogVO.getPagination());
         model.addAttribute("resultList", list);
-        return "itman/public/html/ingroup/ahistory";
+        return "inGroup/ahistory";
     }
 }
