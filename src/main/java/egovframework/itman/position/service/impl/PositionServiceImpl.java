@@ -47,7 +47,6 @@ public class PositionServiceImpl implements PositionService {
     public void deletePosition(PositionVO positionVO) {
         positionDAO.deletePosition(positionVO);
     }
-
     public boolean isDuplicatePosition(PositionVO vo) {
         int count = positionDAO.checkDuplicate(vo);
         return count > 0;

@@ -35,7 +35,6 @@ public class PositionDAO {
     public void deletePosition(PositionVO positionVO) {
         sqlSession.delete("positionDAO.deletePosition", positionVO);
     }
-
     public int checkDuplicate(PositionVO vo){
         return sqlSession.selectOne("positionDAO.checkDuplicate", vo);
     }
