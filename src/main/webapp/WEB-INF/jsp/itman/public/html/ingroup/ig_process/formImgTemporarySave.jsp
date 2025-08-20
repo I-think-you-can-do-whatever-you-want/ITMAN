@@ -1,6 +1,6 @@
 <%@ page contentType="text/html; charset=utf-8" pageEncoding="utf-8" language="java" %>
-<?php
 
+<?php
  if($_FILES['file']['name']){
         $imageFullName = strtolower($_FILES['file']['name']);
         $imageNameSlice = explode(".", $imageFullName);

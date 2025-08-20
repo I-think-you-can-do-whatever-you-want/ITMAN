@@ -18,7 +18,7 @@ public class AssetCategoryController {
     @Resource(name = "assetCategoryService")
     private AssetCategoryServiceImpl assetCategoryService;
 
-    @RequestMapping("/itman/assetCategory.do")
+    @RequestMapping("/assetCategory.do")
     public String selectAssetCategoryList(AssetCategoryVO assetCategoryVO, Model model,
                                           @RequestParam(defaultValue = "1") int page,
                                           @RequestParam(defaultValue = "1") int range,
@@ -38,18 +38,18 @@ public class AssetCategoryController {
         model.addAttribute("resultList", resultList);
         model.addAttribute("pagination", assetCategoryVO.getPagination());
 
-        return "itman/public/html/ingroup/assetCategory";
+        return "inGroup/assetCategory";
     }
 
-    @RequestMapping("/itman/editAssetCategory.do")
+    @RequestMapping("/editAssetCategory.do")
     public String editAssetCategory(AssetCategoryVO vo, Model model) throws Exception {
         AssetCategoryVO resultVO = assetCategoryService.selectAssetCategory(vo);
         model.addAttribute("assetCategory", resultVO);
-        return "itman/public/html/popup/contEditAssetCategory";
+        return "popup/contEditAssetCategory";
 
     }
 
-    @PostMapping("/itman/updateAssetCategory.do")
+    @PostMapping("/updateAssetCategory.do")
     public String updateAssetCategory(AssetCategoryVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -59,13 +59,13 @@ public class AssetCategoryController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 분류가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/confirmAssetCategoryDel.do")
+    @RequestMapping("/confirmAssetCategoryDel.do")
     public String confirmAssetCategoryDel(AssetCategoryVO vo, Model model) {
         model.addAttribute("assetCategory", vo);
-        return "itman/public/html/popup/listDelete";
+        return "popup/listDelete";
     }
 
-    @PostMapping("/itman/deleteAssetCategory.do")
+    @PostMapping("/deleteAssetCategory.do")
     public String deleteAssetCategory(AssetCategoryVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);

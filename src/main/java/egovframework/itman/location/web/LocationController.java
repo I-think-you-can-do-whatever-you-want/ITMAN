@@ -18,7 +18,7 @@ public class LocationController {
     @Resource(name = "locationService")
     LocationServiceImpl locationService;
 
-    @RequestMapping("/itman/popup/locationPop.do")
+    @RequestMapping("/popup/locationPop.do")
     public String locationPop(LocationVO locationVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
@@ -34,10 +34,10 @@ public class LocationController {
         List<LocationVO> resultList = locationService.selectLocationList(locationVO);
         model.addAttribute("pagination", locationVO.getPagination());
         model.addAttribute("locations", resultList);
-        return "itman/public/html/popup/LocationPop";
+        return "popup/LocationPop";
     }
 
-    @RequestMapping("/itman/assetLocationList.do")
+    @RequestMapping("/assetLocationList.do")
     public String locationList(LocationVO locationVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
@@ -56,17 +56,17 @@ public class LocationController {
     model.addAttribute("pagination", locationVO.getPagination());
     model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/locList";
+        return "inGroup/locList";
     }
 
-    @RequestMapping("/itman/editLocation.do")
+    @RequestMapping("/editLocation.do")
     public String editLocation(LocationVO vo, Model model) throws Exception {
         LocationVO resultVO = locationService.selectLocation(vo);
         model.addAttribute("location", resultVO);
-        return "itman/public/html/popup/contEditItmLocation";
+        return "popup/contEditItmLocation";
     }
 
-    @PostMapping("/itman/updateLocation.do")
+    @PostMapping("/updateLocation.do")
     public String updateLocation(LocationVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -76,14 +76,14 @@ public class LocationController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 위치가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/confirmLocationDel.do")
+    @RequestMapping("/confirmLocationDel.do")
     public String confirmLocationDel(LocationVO vo, Model model) {
         model.addAttribute("location", vo);
-        return "itman/public/html/popup/listDelete";
+        return "popup/listDelete";
     }
 
 
-    @PostMapping("/itman/deleteLocation.do")
+    @PostMapping("/deleteLocation.do")
     public String deleteLocation(LocationVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);

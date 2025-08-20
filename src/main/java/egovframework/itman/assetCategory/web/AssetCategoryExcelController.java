@@ -18,7 +18,7 @@ public class AssetCategoryExcelController {
     @Resource(name = "assetCategoryService")
     private AssetCategoryServiceImpl assetCategoryService;
 
-    @GetMapping("/itman/downloadAssetCategoryData.do")
+    @GetMapping("/downloadAssetCategoryData.do")
     public void downloadAssetCategoryData(HttpServletResponse response, String groIdx, HttpSession session) throws Exception {
         //xls 버전
         groIdx = (String) session.getAttribute("groIdx");

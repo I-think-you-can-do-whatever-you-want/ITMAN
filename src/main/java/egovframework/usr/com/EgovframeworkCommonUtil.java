@@ -523,13 +523,13 @@ public class EgovframeworkCommonUtil {
 	public static String alertMove(final Model model, String msg, String moveUrl) {
 		model.addAttribute("message", msg);
 		model.addAttribute("returnUrl", moveUrl);
-		return "itman/common/scriptResponse";
+		return "../common/scriptResponse";
 	}
 
 	public static String alertMoveWithScript(final Model model, String msg,String script) {
 		model.addAttribute("message", msg);
 		model.addAttribute("script", script);
-		return "itman/common/scriptResponse";
+		return "../common/scriptResponse";
 	}
 
 	public static String alertMoveRedirect(final ModelMap model, String msg, String moveUrl) {

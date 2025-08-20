@@ -78,7 +78,7 @@ public class AssetController {
     }
 
     //-------------------------------------조회-----------------------------------------
-    @RequestMapping("/itman/assetsList.do")
+    @RequestMapping("/assetsList.do")
     public String selectAssetsList(AssetVO assetVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
@@ -97,19 +97,19 @@ public class AssetController {
         model.addAttribute("pagination", assetVO.getPagination());
         model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/assetsList";
+        return "inGroup/assetsList";
     }
-    @RequestMapping("/itman/assetsView.do")
+    @RequestMapping("/assetsView.do")
     public String selectAssetView(AssetVO vo, Model model) throws Exception {
         AssetVO assetVO = assetService.selectAssetView(vo);
         model.addAttribute("asset", assetVO);
         selectByAssIdx(assetVO.getAssIdx(), model);
         List<AssLogVO> list = assLogService.selectAssLogList(assetVO.getAssIdx());
         model.addAttribute("assLogList", list);
-        return "itman/public/html/ingroup/assetsView";
+        return "inGroup/assetsView";
     }
 
-    @RequestMapping("/itman/dashboard.do")
+    @RequestMapping("/dashboard.do")
     public String selectAssetDashboard(StateVO stateVO , Model model, HttpSession session,
                                        @RequestParam(value = "id", defaultValue = "0") int id) throws Exception {
         model.addAttribute("pageNumDepth01", id);
@@ -118,22 +118,22 @@ public class AssetController {
     List<StateVO> stateList = stateService.selectDashBoardAssetStateList(groIdx);
     model.addAttribute("historyList", historyList);
     model.addAttribute("stateList", stateList);
-        return "itman/public/html/ingroup/dashboard";
+        return "inGroup/dashboard";
     }
 
     //-------------------------------------생성-----------------------------------------
 
-    @RequestMapping("/itman/assetsWrite.do")
+    @RequestMapping("/assetsWrite.do")
     public String assetForm(AssetVO assetVO, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         assetVO.getPagination().setSearchingGroIdx(assetVO.getPagination().getSearching(), groIdx);
         int inGroupCnt = assetService.selectInGroupAssetListCnt(assetVO);
         selectByGroup(groIdx, model);
         model.addAttribute("inGroupCnt", inGroupCnt);
-        return "itman/public/html/ingroup/assetsWrite";
+        return "inGroup/assetsWrite";
     }
 
-    @RequestMapping("/itman/assetInsert.do")
+    @RequestMapping("/assetInsert.do")
     public String insertAsset(@ModelAttribute AssLogVO assLogVO, AssetVO vo,
                               @RequestParam(value = "assImgFile", required = false) MultipartFile file,
                               HttpServletRequest request,
@@ -168,16 +168,16 @@ public class AssetController {
         assetService.insertAsset(vo);
         setInsertAssLog(assLogVO, vo);
         assLogService.insertAssLog(assLogVO);
-        return EgovframeworkCommonUtil.alertMove(model, "자산이 추가되었습니다", "/itman/assetsList.do");
+        return EgovframeworkCommonUtil.alertMove(model, "자산이 추가되었습니다", "/assetsList.do");
     }
 
 
-    @RequestMapping("/itman/asset/contWriteAssetCategory.do")
+    @RequestMapping("/asset/contWriteAssetCategory.do")
     public String writeAssetCategory() throws Exception {
-        return "itman/public/html/popup/contWriteAssetCategory";
+        return "popup/contWriteAssetCategory";
     }
 
-    @PostMapping(value = "/itman/checkDuplicateAssCat.do" ,produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/checkDuplicateAssCat.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String checkDuplicatedAssCat(@RequestParam("assCatCode") String assCatCode, @RequestParam(name = "assCatIdx", required = false) String assCatIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
@@ -189,7 +189,7 @@ public class AssetController {
         return assetCategoryService.isDuplicateCategory(vo) ? "0" : "1";
     }
 
-    @PostMapping("/itman/asset/insertAssetCategory.do")
+    @PostMapping("/asset/insertAssetCategory.do")
     public String insetAssetCategory(AssetCategoryVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -199,12 +199,12 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 분류가 추가되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/contWriteAssetState.do")
+    @RequestMapping("/asset/contWriteAssetState.do")
     public String writeAssetState() throws Exception {
-        return "itman/public/html/popup/contWriteItmState";
+        return "popup/contWriteItmState";
     }
 
-    @PostMapping(value = "/itman/checkDuplicateAssSta.do" ,produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/checkDuplicateAssSta.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String checkDuplicatedAssSta(@RequestParam("staCode") String staCode, @RequestParam(name = "staIdx", required = false) String staIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
@@ -216,7 +216,7 @@ public class AssetController {
         return stateService.isDuplicateState(vo) ? "0" : "1";
     }
 
-    @PostMapping("/itman/asset/insertAssetState.do")
+    @PostMapping("/asset/insertAssetState.do")
     public String insetAssetState(StateVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -226,11 +226,11 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 상태가 추가되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/contWriteAssetLocation.do")
+    @RequestMapping("/asset/contWriteAssetLocation.do")
     public String writeAssetLocation() throws Exception {
-        return "itman/public/html/popup/contWriteItmLocation";
+        return "popup/contWriteItmLocation";
     }
-    @PostMapping(value = "/itman/checkDuplicateAssLoc.do" ,produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/checkDuplicateAssLoc.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String checkDuplicateAssLoc(@RequestParam("locCode") String locCode, @RequestParam(name = "locIdx", required = false) String locIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
@@ -242,7 +242,7 @@ public class AssetController {
         return locationService.isDuplicateLocation(vo) ? "0" : "1";
     }
 
-    @PostMapping("/itman/asset/insertAssetLocation.do")
+    @PostMapping("/asset/insertAssetLocation.do")
     public String insetAssetLocation(LocationVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -252,12 +252,12 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 위치가 추가되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/contWriteSupplier.do")
+    @RequestMapping("/asset/contWriteSupplier.do")
     public String writeAssetSupplier() throws Exception {
-        return "itman/public/html/popup/contWriteItmSupplier";
+        return "popup/contWriteItmSupplier";
     }
 
-    @PostMapping("/itman/asset/insertSupplier.do")
+    @PostMapping("/asset/insertSupplier.do")
     public String insetAssetSupplier(SupplierVO  vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -269,15 +269,15 @@ public class AssetController {
 
     //-------------------------------------수정-----------------------------------------
 
-    @RequestMapping("/itman/asset/assetNameInfoEdit.do")
+    @RequestMapping("/asset/assetNameInfoEdit.do")
     public String assetNameInfoEdit(AssetVO vo, Model model) throws Exception {
         AssetVO assetVO = assetService.selectAssetView(vo);
         model.addAttribute("asset", assetVO);
 
-        return "itman/public/html/popup/asset/assetNameInfoEdit";
+        return "popup/asset/assetNameInfoEdit";
     }
 
-    @PostMapping("/itman/asset/updateAssetNameInfo.do")
+    @PostMapping("/asset/updateAssetNameInfo.do")
     public String updateAssetNameInfo(@ModelAttribute AssLogVO assLogVO, AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -301,17 +301,17 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산명이 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/assetCategoryInfoEdit.do")
+    @RequestMapping("/asset/assetCategoryInfoEdit.do")
     public String assetCategoryInfoEdit(AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
         AssetVO assetVO = assetService.selectAssetView(vo);
         model.addAttribute("asset", assetVO);
         selectByGroup(groIdx, model);
-        return "itman/public/html/popup/asset/assetCategoryInfoEdit";
+        return "popup/asset/assetCategoryInfoEdit";
     }
 
-    @PostMapping("/itman/asset/updateAssetCategoryInfo.do")
+    @PostMapping("/asset/updateAssetCategoryInfo.do")
     public String updateAssetCategoryInfo(@ModelAttribute AssLogVO assLogVO, AssetVO vo, Model model,HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -333,7 +333,7 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 분류가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/assetStateInfoEdit.do")
+    @RequestMapping("/asset/assetStateInfoEdit.do")
     public String assetStateInfoEdit(AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
@@ -342,17 +342,18 @@ public class AssetController {
         selectByGroup(groIdx, model);
 
 
-        return "itman/public/html/popup/asset/assetStateInfoEdit";
+        return "popup/asset/assetStateInfoEdit";
     }
 
-    @PostMapping("/itman/asset/updateAssetStateInfo.do")
+    @PostMapping("/asset/updateAssetStateInfo.do")
     public String updateAssetStateInfo(@ModelAttribute AssLogVO assLogVO  ,AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assLogVO.setRegIdx(modIdx);
-
+        String ip = session.getAttribute("userIp").toString();
+        assLogVO.setRegIp(ip);
         AssetVO assetVO = assetService.selectAssetView(vo);
         String oldStaName = assetVO.getAssStaName();
         assetService.updateAssetStateInfo(vo);
@@ -366,7 +367,7 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 상태가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/assetLocationInfoEdit.do")
+    @RequestMapping("/asset/assetLocationInfoEdit.do")
     public String assetLocationInfoEdit(AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
@@ -374,10 +375,10 @@ public class AssetController {
         model.addAttribute("asset", assetVO);
         selectByGroup(groIdx, model);
 
-        return "itman/public/html/popup/asset/assetLocationInfoEdit";
+        return "popup/asset/assetLocationInfoEdit";
     }
 
-    @PostMapping("/itman/asset/updateAssetLocationInfo.do")
+    @PostMapping("/asset/updateAssetLocationInfo.do")
     public String updateAssetLocationInfo(@ModelAttribute AssLogVO assLogVO ,AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -400,7 +401,7 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 위치가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/assetEmployeeInfoEdit.do")
+    @RequestMapping("/asset/assetEmployeeInfoEdit.do")
     public String assetEmployeeInfoEdit(EmployeeVO employeeVO, AssetVO assetVO ,Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
@@ -414,17 +415,17 @@ public class AssetController {
         int listCnt = employeeService.selectEmployeeListCnt(employeeVO);
         employeeVO.getPagination().pageInfo(page, range, listCnt);
         employeeVO.getPagination().setSearching(employeeVO.getPagination().getSearching());
-        //검색 결과에 따른 총 목록의 길이를 반환
+
         List<EmployeeVO> list = employeeService.selectEmployeeList(employeeVO);
-        //페이징 구현
+
         model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("asset", targetVO);
         model.addAttribute("employeeList", list);
 
-        return "itman/public/html/popup/asset/assetEmployeeInfoEdit";
+        return "popup/asset/assetEmployeeInfoEdit";
     }
 
-    @PostMapping("/itman/asset/updateAssetEmployeeInfo.do")
+    @PostMapping("/asset/updateAssetEmployeeInfo.do")
     public String updateAssetEmployeeInfo(@ModelAttribute AssLogVO assLogVO , AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -447,7 +448,7 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "사용 직원이 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/assetSupplyInfoEdit.do")
+    @RequestMapping("/asset/assetSupplyInfoEdit.do")
     public String assetSupplyInfoEdit(AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
@@ -456,10 +457,10 @@ public class AssetController {
         selectByGroup(groIdx, model);
 
 
-        return "itman/public/html/popup/asset/assetSupplyInfoEdit";
+        return "popup/asset/assetSupplyInfoEdit";
     }
 
-    @PostMapping("/itman/asset/updateAssetSupplyInfo.do")
+    @PostMapping("/asset/updateAssetSupplyInfo.do")
     public String updateAssetSupplyInfo(@ModelAttribute AssLogVO assLogVO ,AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -485,7 +486,7 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "구매처가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/assetBuyDateInfoEdit.do")
+    @RequestMapping("/asset/assetBuyDateInfoEdit.do")
     public String assetBuyDateInfoEdit(AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
@@ -493,10 +494,10 @@ public class AssetController {
         model.addAttribute("asset", assetVO);
         selectByGroup(groIdx, model);
 
-        return "itman/public/html/popup/asset/assetBuyDateInfoEdit";
+        return "popup/asset/assetBuyDateInfoEdit";
     }
 
-    @PostMapping("/itman/asset/updateAssetBuyDateInfo.do")
+    @PostMapping("/asset/updateAssetBuyDateInfo.do")
     public String updateAssetBuyDateInfo(@ModelAttribute AssLogVO assLogVO ,AssetVO vo, Model model, RedirectAttributes redirectAttributes, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -522,7 +523,7 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "최초 구매일이 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/asset/assetPriceInfoEdit.do")
+    @RequestMapping("/asset/assetPriceInfoEdit.do")
     public String assetPriceInfoEdit(AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
 
@@ -531,10 +532,10 @@ public class AssetController {
         selectByGroup(groIdx, model);
 
 
-        return "itman/public/html/popup/asset/assetPriceInfoEdit";
+        return "popup/asset/assetPriceInfoEdit";
     }
 
-    @PostMapping("/itman/asset/updateAssetPriceInfo.do")
+    @PostMapping("/asset/updateAssetPriceInfo.do")
     public String updateAssetPriceInfo(@ModelAttribute AssLogVO assLogVO, AssetVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -560,7 +561,7 @@ public class AssetController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "구매가격이 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @PostMapping("/itman/asset/updateAssetPictureInfo.do")
+    @PostMapping("/asset/updateAssetPictureInfo.do")
     public String updateAssetPictureInfo(@ModelAttribute AssLogVO assLogVO, AssetVO vo,
                                          @RequestParam(value = "assImgFile", required = false) MultipartFile file,
                                          HttpServletRequest request,
@@ -587,17 +588,17 @@ public class AssetController {
         String modIdx = (String) session.getAttribute("userIdx");
         vo.setModIdx(modIdx);
         assetService.updateAssetPictureInfo(vo);
-        return EgovframeworkCommonUtil.alertMove(model, "자산 사진이 변경되었습니다", "/itman/assetsView.do?assIdx=" + vo.getAssIdx());
+        return EgovframeworkCommonUtil.alertMove(model, "자산 사진이 변경되었습니다", "/assetsView.do?assIdx=" + vo.getAssIdx());
     }
 
     //-------------------------------삭제------------------------------------------
-    @RequestMapping("/itman/asset/confirmAssetDel.do")
+    @RequestMapping("/asset/confirmAssetDel.do")
     public String confirmAssetDel(AssetVO vo, Model model) throws Exception {
         model.addAttribute("asset", vo);
-        return "itman/public/html/popup/asset/contAssetDel";
+        return "popup/asset/contAssetDel";
     }
 
-    @PostMapping("/itman/asset/deleteAsset.do")
+    @PostMapping("/asset/deleteAsset.do")
     public String deleteAsset(@ModelAttribute AssLogVO assLogVO ,AssetVO  vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -614,6 +615,6 @@ public class AssetController {
         assLogVO.setAlType("삭제");
         assLogVO.setAlCat("자산");
         assLogService.insertAssLog(assLogVO);
-        return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산이 삭제되었습니다","<script>window.opener.location='/itman/assetsList.do'; window.close();</script>");
+        return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산이 삭제되었습니다","<script>window.opener.location='/assetsList.do'; window.close();</script>");
     }
 }

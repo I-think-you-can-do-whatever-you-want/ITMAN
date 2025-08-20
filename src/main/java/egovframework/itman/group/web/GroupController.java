@@ -26,12 +26,12 @@ public class GroupController {
         this.groupService = groupService;
     }
 
-    @RequestMapping("/itman/index.do")
+    @RequestMapping("/index.do")
     public String index(Model model) {
-        return "itman/public/html/index";
+        return "index";
     }
 
-    @RequestMapping("/itman/group.do")
+    @RequestMapping("/group.do")
     public String selectGroupList(HttpSession session, Model model) throws Exception {
         session.removeAttribute("groIdx");
         session.removeAttribute("group");
@@ -39,15 +39,15 @@ public class GroupController {
        List<GroupVO> list = groupService.selectGroupList(memIdx);
 
        model.addAttribute("groupList", list);
-        return "itman/public/html/group";
+        return "group";
     }
-    @RequestMapping("/itman/addGroup.do")
+    @RequestMapping("/addGroup.do")
     public String addGroup(GroupVO vo, Model model) {
         model.addAttribute("group", vo);
-        return "itman/public/html/popup/addGroup";
+        return "popup/addGroup";
     }
 
-    @PostMapping("/itman/insertGroup.do")
+    @PostMapping("/insertGroup.do")
     public String insertGroup(GroupVO vo,
                               @RequestParam(value = "groImgFile" , required = false) MultipartFile file,
                               HttpServletRequest request,
@@ -77,7 +77,7 @@ public class GroupController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "그룹이 추가되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @PostMapping("/itman/setGroIdx.do")
+    @PostMapping("/setGroIdx.do")
     @ResponseBody
     public ResponseEntity<String> setSessionValue(@RequestParam("groIdx") String groIdx, HttpSession session) {
         session.setAttribute("groIdx", groIdx);
@@ -85,21 +85,21 @@ public class GroupController {
         session.setAttribute("group", vo);
         return ResponseEntity.ok("success");
     }
-    @RequestMapping("/itman/myGroup.do")
+    @RequestMapping("/myGroup.do")
     public String myGroup(HttpSession session, Model model) throws Exception {
         MemberVO member = (MemberVO) session.getAttribute("member");
         List<GroupVO> list = groupService.getAllGroupData(member.getMemIdx());
         model.addAttribute("resultList", list);
-        return "itman/public/html/user/myGroup";
+        return "user/myGroup";
     }
 
-    @RequestMapping("/itman/editGroup.do")
+    @RequestMapping("/editGroup.do")
     public String editGroup(GroupVO vo, Model model) {
         GroupVO group = groupService.selectGroup(vo.getGroIdx());
         model.addAttribute("group", group);
-        return "itman/public/html/user/groupWrite";
+        return "user/groupWrite";
     }
-    @PostMapping("/itman/updateGroup.do")
+    @PostMapping("/updateGroup.do")
     public String updateGroup(GroupVO vo, HttpSession session, Model model,
                               @RequestParam(value = "groImgFile" , required = false) MultipartFile file,
                               HttpServletRequest request) throws Exception {
@@ -130,14 +130,14 @@ public class GroupController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "그룹이 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/confirmGroupDel.do")
+    @RequestMapping("/confirmGroupDel.do")
     public String confirmGroupDel(GroupVO vo, Model model) {
         GroupVO selectedVO = groupService.selectGroup(vo.getGroIdx());
         model.addAttribute("group", selectedVO);
-        return "itman/public/html/user/groupDel";
+        return "user/groupDel";
     }
 
-    @PostMapping("/itman/deleteGroup.do")
+    @PostMapping("/deleteGroup.do")
     public String deleteGroup(GroupVO vo, Model model, HttpSession session) throws Exception {
         String ip = session.getAttribute("userIp").toString();
         vo.setDelIp(ip);

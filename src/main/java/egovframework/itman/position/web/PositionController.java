@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
-import javax.swing.text.Position;
 import java.util.List;
 
 @Controller
@@ -19,7 +18,7 @@ public class PositionController {
     @Resource(name = "positionService")
     public PositionServiceImpl positionService;
 
-    @RequestMapping("/itman/spotList.do")
+    @RequestMapping("/spotList.do")
     public String selectPositionList(PositionVO positionVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
@@ -36,26 +35,26 @@ public class PositionController {
         model.addAttribute("pagination", positionVO.getPagination());
         model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/spotList";
+        return "inGroup/spotList";
 
     }
-    @RequestMapping("/itman/positionWrite.do")
+    @RequestMapping("/positionWrite.do")
     public String writePosition(PositionVO vo, Model model) {
         if(vo.getPosIdx() !=null){
             PositionVO resultVO = positionService.selectPositionView(vo);
             model.addAttribute("position",resultVO);
         }
-        return "itman/public/html/popup/contWriteItmPosition";
+        return "popup/contWriteItmPosition";
     }
 
-    @RequestMapping("/itman/positionEdit.do")
+    @RequestMapping("/positionEdit.do")
     public String editPosition(PositionVO vo, Model model){
             PositionVO resultVO = positionService.selectPositionView(vo);
             model.addAttribute("position",resultVO);
-        return "itman/public/html/popup/contEditItmPosition";
+        return "popup/contEditItmPosition";
     }
 
-    @PostMapping("/itman/insertPosition.do")
+    @PostMapping("/insertPosition.do")
     public String insertPosition(PositionVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -65,21 +64,21 @@ public class PositionController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직위가 추가되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @PostMapping("/itman/updatePosition.do")
+    @PostMapping("/updatePosition.do")
     public String updatePosition(PositionVO vo, Model model){
         positionService.updatePosition(vo);
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직위가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
 
     }
 
-    @RequestMapping("/itman/confirmPositionDel.do")
+    @RequestMapping("/confirmPositionDel.do")
     public String confirmPositionDel(PositionVO vo, Model model){
         PositionVO resultVO = positionService.selectPositionView(vo);
         model.addAttribute("position",resultVO);
-        return "itman/public/html/popup/listDelete";
+        return "popup/listDelete";
     }
 
-    @PostMapping("/itman/deletePosition.do")
+    @PostMapping("/deletePosition.do")
     public String deletePosition(PositionVO vo, Model model) {
         positionService.deletePosition(vo);
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직위가 삭제되었습니다","<script>window.opener.location.reload(); window.close();</script>");

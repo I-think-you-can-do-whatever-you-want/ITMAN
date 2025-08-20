@@ -18,7 +18,7 @@ public class EmpStateController {
     @Resource(name = "empStateService")
     EmpStateServiceImpl empStateService;
 
-    @RequestMapping("/itman/employeeStateList.do")
+    @RequestMapping("/employeeStateList.do")
     public String selectEmpStateList(EmpStateVO empStateVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
@@ -37,16 +37,16 @@ public class EmpStateController {
         model.addAttribute("resultList", list);
 
 
-        return "itman/public/html/ingroup/eStatList";
+        return "inGroup/eStatList";
     }
 
-    @RequestMapping("/itman/editEmploState.do")
+    @RequestMapping("/editEmploState.do")
     public String editEmployeeState(EmpStateVO vo, Model model) throws Exception {
         EmpStateVO resultVO = empStateService.selectEmpStateView(vo);
         model.addAttribute("empState", resultVO);
-        return "itman/public/html/popup/employee/emploStateWrite";
+        return "popup/employee/emploStateWrite";
     }
-    @PostMapping("/itman/updateEmploState.do")
+    @PostMapping("/updateEmploState.do")
     public String updateEmployeeState(EmpStateVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -56,12 +56,12 @@ public class EmpStateController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원 상태가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/confirmEmploStateDel.do")
+    @RequestMapping("/confirmEmploStateDel.do")
     public String confirmEmployeeStateDel(EmpStateVO vo, Model model) {
         model.addAttribute("empState", vo);
-        return "itman/public/html/popup/contEmpDel";
+        return "popup/contEmpDel";
     }
-    @PostMapping("/itman/deleteEmploState.do")
+    @PostMapping("/deleteEmploState.do")
     public String deleteEmployeeState(EmpStateVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);

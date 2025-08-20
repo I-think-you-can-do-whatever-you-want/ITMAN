@@ -11,17 +11,13 @@ import egovframework.itman.employee.service.impl.EmployeeServiceImpl;
 import egovframework.itman.position.service.PositionVO;
 import egovframework.itman.position.service.impl.PositionServiceImpl;
 import egovframework.itman.empState.service.impl.EmpStateServiceImpl;
-import egovframework.itman.state.service.StateVO;
-import egovframework.itman.state.service.impl.StateServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -41,15 +37,13 @@ public class EmployeeController {
     @Resource(name = "assetService")
     private AssetServiceImpl assetService;
 
-    private static final String BASE_LOC = "itman/public/html/ingroup/";
-
     private void addCommonLists(String groIdx, Model model) {
         model.addAttribute("divisionList", divisionService.selectDivisionsByGroup(groIdx));
         model.addAttribute("empStateList", empStateService.selectEmpStatesByGroup(groIdx));
         model.addAttribute("positionList", positionService.selectPositionsByGroup(groIdx));
     }
     // --------------------조회--------------------
-    @RequestMapping("/itman/employeeList.do")
+    @RequestMapping("/employeeList.do")
     public String selectEmployeeList(EmployeeVO employeeVO, Model model,
                                      @RequestParam(defaultValue = "1") int page,
                                      @RequestParam(defaultValue = "1") int range,
@@ -74,35 +68,35 @@ public class EmployeeController {
 
         model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("resultList", list);
-        return BASE_LOC + "emploList";
+        return "inGroup/emploList";
     }
 
 
-    @RequestMapping("/itman/employeeView.do")
+    @RequestMapping("/employeeView.do")
     public String selectEmployeeView(EmployeeVO vo, Model model) throws Exception {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         List<AssetVO> assetList = assetService.selectEmpAssetList(resultVO);
         model.addAttribute("employee", resultVO);
         model.addAttribute("assetList", assetList);
-        return BASE_LOC + "emploView";
+        return "inGroup/emploView";
     }
 
     // ---------------------생성--------------------------
 
-    @RequestMapping("/itman/employeeWrite.do")
+    @RequestMapping("/employeeWrite.do")
     public String employeeForm(EmployeeVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         addCommonLists(groIdx, model);
-        return BASE_LOC + "emploWrite";
+        return "inGroup/emploWrite";
     }
 
-    @RequestMapping("/itman/emploDivisionWrite.do")
+    @RequestMapping("/emploDivisionWrite.do")
     public String writeEmployeeDivision(DivisionVO vo, Model model) {
         model.addAttribute("division", vo);
-        return "itman/public/html/popup/employee/emploDivisionWrite";
+        return "popup/employee/emploDivisionWrite";
     }
 
-    @PostMapping("/itman/insertEmploDivision.do")
+    @PostMapping("/insertEmploDivision.do")
     public String insertEmployeeDivision(DivisionVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -112,13 +106,13 @@ public class EmployeeController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "부서가 추가되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/emploPositionWrite.do")
+    @RequestMapping("/emploPositionWrite.do")
     public String writeEmployeePosition(PositionVO vo, Model model) {
         model.addAttribute("position", vo);
-        return "itman/public/html/popup/employee/emploPositionWrite";
+        return "popup/employee/emploPositionWrite";
     }
 
-    @PostMapping(value = "/itman/checkDuplicateEmpPos.do" ,produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/checkDuplicateEmpPos.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String checkDuplicateEmpPos(@RequestParam("posCode") String posCode,@RequestParam(name = "posIdx", required = false) String posIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
@@ -129,7 +123,7 @@ public class EmployeeController {
 
         return positionService.isDuplicatePosition(vo) ? "0" : "1";
     }
-    @PostMapping("/itman/insertEmploPosition.do")
+    @PostMapping("/insertEmploPosition.do")
     public String insertEmployeePosition(PositionVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -139,13 +133,13 @@ public class EmployeeController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직위가 추가되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/emploStateWrite.do")
+    @RequestMapping("/emploStateWrite.do")
     public String writeEmployeeState(EmpStateVO vo, Model model) {
         model.addAttribute("empState", vo);
-        return "itman/public/html/popup/employee/emploStateWrite";
+        return "popup/employee/emploStateWrite";
     }
 
-    @PostMapping(value = "/itman/checkDuplicateEmpSta.do" ,produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/checkDuplicateEmpSta.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String checkDuplicateEmpSta(@RequestParam("empStCode") String empStCode, @RequestParam(name = "empStIdx", required = false) String empStIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
@@ -156,7 +150,7 @@ public class EmployeeController {
 
         return empStateService.isDuplicateEmpState(vo) ? "0" : "1";
     }
-    @PostMapping("/itman/insertEmploState.do")
+    @PostMapping("/insertEmploState.do")
     public String insertEmployeeState(EmpStateVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -168,15 +162,15 @@ public class EmployeeController {
 
     // --------------------수정----------------------------
 
-    @RequestMapping("/itman/emploTellInfoEdit.do")
+    @RequestMapping("/emploTellInfoEdit.do")
     public String employeeTelEdit(EmployeeVO vo, Model model) {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
 
-        return "itman/public/html/popup/employee/emploTelInfoEdit";
+        return "popup/employee/emploTelInfoEdit";
     }
 
-    @RequestMapping("/itman/updateEmploTelInfo.do")
+    @RequestMapping("/updateEmploTelInfo.do")
     public String updateEmploTelInfo(EmployeeVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -186,16 +180,16 @@ public class EmployeeController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원 연락처가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/emploDivisionInfoEdit.do")
+    @RequestMapping("/emploDivisionInfoEdit.do")
     public String employeeDivisionEdit(EmployeeVO vo, Model model) {
             EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
             model.addAttribute("employee", resultVO);
             String groIdx = resultVO.getGroIdx();
         model.addAttribute("divisionList", divisionService.selectDivisionsByGroup(groIdx));
 
-        return "itman/public/html/popup/employee/emploDivisionInfoEdit";
+        return "popup/employee/emploDivisionInfoEdit";
     }
-    @RequestMapping("/itman/updateEmploDivisionInfo.do")
+    @RequestMapping("/updateEmploDivisionInfo.do")
     public String updateEmploDivisionInfo(EmployeeVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -205,7 +199,7 @@ public class EmployeeController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원 부서가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/emploPosInfoEdit.do")
+    @RequestMapping("/emploPosInfoEdit.do")
     public String employeePosEdit(EmployeeVO vo, Model model) {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
@@ -214,9 +208,9 @@ public class EmployeeController {
         model.addAttribute("positionList", positionService.selectPositionsByGroup(groIdx));
 
 
-        return "itman/public/html/popup/employee/emploPosInfoEdit";
+        return "popup/employee/emploPosInfoEdit";
     }
-    @RequestMapping("/itman/updateEmploPosInfo.do")
+    @RequestMapping("/updateEmploPosInfo.do")
     public String updateEmploPosInfo(EmployeeVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -226,15 +220,15 @@ public class EmployeeController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원 직위가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/emploMailInfoEdit.do")
+    @RequestMapping("/emploMailInfoEdit.do")
     public String employeeMailEdit(EmployeeVO vo, Model model) {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
 
-        return "itman/public/html/popup/employee/emploMailInfoEdit";
+        return "popup/employee/emploMailInfoEdit";
     }
 
-    @RequestMapping("/itman/updateEmploMailInfo.do")
+    @RequestMapping("/updateEmploMailInfo.do")
     public String updateEmploMailInfo(EmployeeVO vo, Model model , HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -245,21 +239,21 @@ public class EmployeeController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원 메일이 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/emploNameInfoEdit.do")
+    @RequestMapping("/emploNameInfoEdit.do")
     public String employeeNameEdit(EmployeeVO vo, Model model) {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
 
-        return "itman/public/html/popup/employee/emploNameInfoEdit";
+        return "popup/employee/emploNameInfoEdit";
     }
 
-    @RequestMapping("/itman/updateEmploNameInfo.do")
+    @RequestMapping("/updateEmploNameInfo.do")
     public String updateEmploNameInfo(EmployeeVO vo, Model model ) {
         employeeService.updateEmploNameInfo(vo);
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원명이 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/emploStateInfoEdit.do")
+    @RequestMapping("/emploStateInfoEdit.do")
     public String employeeStateEdit(EmployeeVO vo, Model model) {
             EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
             model.addAttribute("employee", resultVO);
@@ -267,10 +261,10 @@ public class EmployeeController {
 
         model.addAttribute("empStateList", empStateService.selectEmpStatesByGroup(groIdx));
 
-        return "itman/public/html/popup/employee/emploStateInfoEdit";
+        return "popup/employee/emploStateInfoEdit";
     }
 
-    @RequestMapping("/itman/updateEmploStateInfo.do")
+    @RequestMapping("/updateEmploStateInfo.do")
     public String updateEmploStateInfo(EmployeeVO vo, Model model , HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -280,15 +274,15 @@ public class EmployeeController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원 상태가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/emploNumInfoEdit.do")
+    @RequestMapping("/emploNumInfoEdit.do")
     public String employeeNumEdit(EmployeeVO vo, Model model) {
             EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
             model.addAttribute("employee", resultVO);
 
-        return "itman/public/html/popup/employee/emploNumInfoEdit";
+        return "popup/employee/emploNumInfoEdit";
     }
 
-    @RequestMapping("/itman/updateEmploNumInfo.do")
+    @RequestMapping("/updateEmploNumInfo.do")
     public String updateEmploNumInfo(EmployeeVO vo, Model model , HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -298,34 +292,34 @@ public class EmployeeController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원 사번이 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/insert.do")
+    @RequestMapping("/insert.do")
     public String insertEmployee(EmployeeVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
         String regIdx = (String) session.getAttribute("userIdx");
         vo.setRegIdx(regIdx);
         employeeService.insertEmployee(vo);
-        return EgovframeworkCommonUtil.alertMove(model, "직원이 추가되었습니다", "/itman/employeeList.do");
+        return EgovframeworkCommonUtil.alertMove(model, "직원이 추가되었습니다", "/employeeList.do");
     }
 
-    @RequestMapping("/itman/emploDelConfirm.do")
+    @RequestMapping("/emploDelConfirm.do")
     public String deleteEmploConfirm(EmployeeVO vo, Model model) {
         EmployeeVO resultVO = employeeService.selectEmployeeView(vo);
         model.addAttribute("employee", resultVO);
-        return "itman/public/html/popup/employee/emploDel";
+        return "popup/employee/emploDel";
     }
 
-    @RequestMapping("/itman/emploDel.do")
+    @RequestMapping("/emploDel.do")
     public String deleteEmployee(EmployeeVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
         String delIdx = (String) session.getAttribute("userIdx");
         vo.setDelIdx(delIdx);
         employeeService.deleteEmployee(vo);
-        return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원이 삭제되었습니다","<script>window.opener.location='/itman/employeeList.do'; window.close();</script>");
+        return EgovframeworkCommonUtil.alertMoveWithScript(model, "직원이 삭제되었습니다","<script>window.opener.location='/employeeList.do'; window.close();</script>");
     }
 
-    @RequestMapping("/itman/popup/searchPop.do")
+    @RequestMapping("/popup/searchPop.do")
     public String searchPop(EmployeeVO employeeVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
@@ -342,7 +336,7 @@ public class EmployeeController {
         //페이징 구현
         model.addAttribute("pagination", employeeVO.getPagination());
         model.addAttribute("employeeList", list);
-        return "itman/public/html/popup/searchPop";
+        return "popup/searchPop";
     }
 
 

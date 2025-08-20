@@ -18,7 +18,7 @@ public class StateController {
     @Resource(name = "stateService")
     private StateServiceImpl stateService;
 
-    @RequestMapping("/itman/assetStateList.do")
+    @RequestMapping("/assetStateList.do")
     public String selectAssetStateList(StateVO stateVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range
@@ -37,17 +37,17 @@ public class StateController {
         model.addAttribute("pagination", stateVO.getPagination());
         model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/aStatList";
+        return "inGroup/aStatList";
     }
 
-    @RequestMapping("/itman/editAssetState.do")
+    @RequestMapping("/editAssetState.do")
     public String editAssetState(StateVO vo, Model model) throws Exception {
         StateVO resultVO = stateService.selectAssetStateView(vo);
         model.addAttribute("state", resultVO);
-        return "itman/public/html/popup/contWrite";
+        return "popup/contWrite";
     }
 
-    @PostMapping("/itman/updateState.do")
+    @PostMapping("/updateState.do")
     public String updateAssetState(StateVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -57,13 +57,13 @@ public class StateController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "자산 상태가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/confirmAssetStateDel.do")
+    @RequestMapping("/confirmAssetStateDel.do")
     public String confirmAssetStateDel(StateVO vo, Model model) {
         model.addAttribute("state", vo);
-        return "itman/public/html/popup/contDel";
+        return "popup/contDel";
     }
 
-    @RequestMapping("/itman/deleteAssetState.do")
+    @RequestMapping("/deleteAssetState.do")
     public String deleteAssetState(StateVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);

@@ -18,7 +18,7 @@ public class SupplierController {
     @Resource(name = "supplierService")
     SupplierServiceImpl supplierService;
 
-    @RequestMapping("/itman/supplierList.do")
+    @RequestMapping("/supplierList.do")
     public String selectSupplierList(SupplierVO supplierVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
@@ -34,7 +34,7 @@ public class SupplierController {
         List<SupplierVO> list = supplierService.selectSupplierList(supplierVO);
         model.addAttribute("pagination", supplierVO.getPagination());
         model.addAttribute("resultList", list);
-        return "itman/public/html/ingroup/buyList";
+        return "inGroup/buyList";
     }
 
     @RequestMapping("/popup/selectAssetSupplier.do")
@@ -53,17 +53,17 @@ public class SupplierController {
 
         model.addAttribute("pagination", supplierVO.getPagination());
         model.addAttribute("supplierList", list);
-        return "itman/public/html/popup/supplierPop";
+        return "popup/supplierPop";
     }
 
-    @RequestMapping("/itman/supplierEdit.do")
+    @RequestMapping("/supplierEdit.do")
     public String supplierEdit(SupplierVO vo, Model model) throws Exception {
         SupplierVO supply = supplierService.selectSupplyView(vo);
         model.addAttribute("supply", supply);
-        return "itman/public/html/popup/contEditItmSupplier";
+        return "popup/contEditItmSupplier";
     }
 
-    @PostMapping("/itman/updateSupplier.do")
+    @PostMapping("/updateSupplier.do")
     public String updateSupply(SupplierVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -73,13 +73,13 @@ public class SupplierController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "구매처가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/itman/confirmSupplierDel.do")
+    @RequestMapping("/confirmSupplierDel.do")
     public String confirmSupplierDel(SupplierVO vo, Model model) {
         model.addAttribute("supply", vo);
-        return "itman/public/html/popup/listDelete";
+        return "popup/listDelete";
     }
 
-    @PostMapping("/itman/deleteSupplier.do")
+    @PostMapping("/deleteSupplier.do")
     public String deleteSupply(SupplierVO vo, Model model, HttpSession session) throws Exception {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);

@@ -1,12 +1,8 @@
 package egovframework.itman.division.web;
 
-import egovframework.itman.division.service.DivisionService;
 import egovframework.itman.division.service.DivisionVO;
 import egovframework.itman.division.service.impl.DivisionServiceImpl;
-import egovframework.itman.employee.service.EmployeeVO;
-import egovframework.itman.location.service.LocationVO;
 import egovframework.usr.com.EgovframeworkCommonUtil;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +16,7 @@ public class DivisionController {
     @Resource(name = "divisionService")
     private DivisionServiceImpl divisionService;
 
-    @RequestMapping("/itman/departList.do")
+    @RequestMapping("/departList.do")
     public String selectDivisionList(DivisionVO divisionVO, Model model
             , @RequestParam(defaultValue = "1") int page
             , @RequestParam(defaultValue = "1") int range
@@ -39,18 +35,18 @@ public class DivisionController {
         model.addAttribute("pagination", divisionVO.getPagination());
         model.addAttribute("resultList", list);
 
-        return "itman/public/html/ingroup/departList";
+        return "inGroup/departList";
     }
 
-    @RequestMapping("/itman/divisionWrite.do")
+    @RequestMapping("/divisionWrite.do")
     public String writeEmployeeDivision(DivisionVO vo, Model model) {
         if(vo.getDivIdx() != null){
             DivisionVO resultVO = divisionService.selectDivisionView(vo);
             model.addAttribute("division", resultVO);
         }
-        return "itman/public/html/popup/contWriteItmDivision";
+        return "popup/contWriteItmDivision";
     }
-    @PostMapping(value = "/itman/checkDuplicateEmpDiv.do" ,produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/checkDuplicateEmpDiv.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String checkDuplicateEmpDiv(@RequestParam("divCode") String divCode,@RequestParam(name = "divIdx", required = false) String divIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
@@ -62,7 +58,7 @@ public class DivisionController {
         return divisionService.isDuplicateDivision(vo) ? "0" : "1";
     }
 
-    @PostMapping("/itman/insertDepart.do")
+    @PostMapping("/insertDepart.do")
     public String insertDivision(DivisionVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -72,7 +68,7 @@ public class DivisionController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "부서가 추가되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @PostMapping("/itman/updateDepart.do")
+    @PostMapping("/updateDepart.do")
     public String updateDivision(@ModelAttribute DivisionVO vo, Model model,HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
@@ -81,13 +77,13 @@ public class DivisionController {
         divisionService.updateDivision(vo);
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "부서가 수정되었습니다","<script>window.opener.location.reload(); window.close();</script>");    }
 
-    @RequestMapping("/itman/confirmDivisionDel.do")
+    @RequestMapping("/confirmDivisionDel.do")
     public String confirmDivisionDel(DivisionVO vo, Model model) {
         model.addAttribute("division", vo);
-        return "itman/public/html/popup/contDivisionDel";
+        return "popup/contDivisionDel";
     }
 
-    @PostMapping("/itman/deleteDepart.do")
+    @PostMapping("/deleteDepart.do")
     public String deleteDivision(DivisionVO vo, Model model, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         vo.setGroIdx(groIdx);
