@@ -69,6 +69,7 @@
 						"Content-Type": "application/x-www-form-urlencoded"
 					},
 					body: new URLSearchParams({
+						empStIdx: document.querySelector("input[name='empStIdx']").value.trim(),
 						empStCode: document.querySelector("input[name='empStCode']").value.trim()
 
 					}),

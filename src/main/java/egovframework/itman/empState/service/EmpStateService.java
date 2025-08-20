@@ -1,7 +1,5 @@
 package egovframework.itman.empState.service;
 
-import egovframework.itman.common.Pagination;
-
 import java.util.List;
 
 public interface EmpStateService {
@@ -12,5 +10,4 @@ public interface EmpStateService {
     void insertEmployeeState(EmpStateVO vo);
     void updateEmployeeState(EmpStateVO vo);
     void deleteEmployeeState(EmpStateVO vo);
-    EmpStateVO checkDuplicate(EmpStateVO vo);
 }

@@ -13,7 +13,7 @@
 <c:set var="actionUrl" value="/itman/insertDepart.do" />
 </c:if>
 <c:if test="${!empty division.divIdx}">
-	<c:set var="actionUrl" value="/itman/updateDepart.do?divIdx=${division.divIdx}" />
+	<c:set var="actionUrl" value="/itman/updateDepart.do" />
 </c:if>
 <c:url value="/itman/checkDuplicateEmpDiv.do" var="checkDuplicateUrl"/>
 
@@ -28,6 +28,7 @@
 		</div>
 		<div class="pop_cont">
 			<form method="post" id="form" action="${actionUrl}">
+				<input type="hidden" name="divIdx" value="${division.divIdx}" />
 			<ul class="contEdit">
 				<li>
 					<p class="tit">부서명<span>*</span></p>
@@ -42,7 +43,15 @@
 					<p class="cont"><input type="radio" id="yes" name="DivYn" value="Y" ${division.divYn == 'Y' ? 'checked' : ''} ${empty division.divIdx ? 'checked' : ''} ><label for="yes">사용</label> <input type="radio" id="no" name="DivYn" value="N" ${division.divYn == 'N' ? 'checked' : ''}><label for="no">사용안함</label></p>
 				</li>
 			</ul>
-			<p class="pop_btn"><a href="javascript:window.close();" class="del">취소</a><a href="#" onclick="checkDuplicate();" class="comp">등록</a></p>
+			<p class="pop_btn"><a href="javascript:window.close();" class="del">취소</a><a href="#" onclick="checkDuplicate();" class="comp">
+				<c:if test="${empty division.divIdx}">
+					등록
+				</c:if>
+				<c:if test="${!empty division.divIdx}">
+					수정
+				</c:if>
+
+			</a></p>
 			</form>
 		</div>
 	</div>
@@ -61,6 +70,7 @@
 						"Content-Type": "application/x-www-form-urlencoded"
 					},
 					body: new URLSearchParams({
+						divIdx: document.querySelector("input[name='divIdx']").value.trim(),
 						divCode: document.querySelector("input[name='divCode']").value.trim()
 
 					}),

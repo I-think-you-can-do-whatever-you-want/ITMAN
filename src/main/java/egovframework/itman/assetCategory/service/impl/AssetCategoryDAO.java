@@ -44,7 +44,7 @@ public class AssetCategoryDAO {
       return sqlSession.selectList("assetCategoryDAO.findAll", groIdx);
     }
 
-    public AssetCategoryVO checkDuplicate(AssetCategoryVO vo){
+    public int checkDuplicate(AssetCategoryVO vo){
         return sqlSession.selectOne("assetCategoryDAO.checkDuplicate", vo);
     }
 }

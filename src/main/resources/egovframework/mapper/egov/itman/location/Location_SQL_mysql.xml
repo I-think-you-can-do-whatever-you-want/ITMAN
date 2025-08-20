@@ -121,15 +121,18 @@
             LOC_IDX = #{locIdx}
     </update>
 
-    <select id="checkDuplicate" parameterType="locationVO" resultType="locationVO">
+    <select id="checkDuplicate" parameterType="locationVO" resultType="int">
         SELECT
-            LOC_IDX
+            COUNT(*)
         FROM
             ITM_LOCATION
         WHERE
             DEL_YN = 'N'
           AND GRO_IDX = #{groIdx}
           AND LOC_CODE = #{locCode}
+        <if test="locIdx != null and locIdx != ''">
+            AND LOC_IDX != #{locIdx}
+        </if>
     </select>
 
 </mapper>

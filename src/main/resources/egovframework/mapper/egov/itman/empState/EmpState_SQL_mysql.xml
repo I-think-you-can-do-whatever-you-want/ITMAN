@@ -118,14 +118,17 @@
         WHERE
             EMP_ST_IDX = #{empStIdx}
     </update>
-    <select id="checkDuplicate" parameterType="empStateVO" resultType="empStateVO">
+    <select id="checkDuplicate" parameterType="empStateVO" resultType="int">
         SELECT
-            EMP_ST_IDX
+            COUNT(*)
         FROM
             ITM_EMP_STATE
         WHERE
             DEL_YN = 'N'
         AND GRO_IDX = #{groIdx}
         AND EMP_ST_CODE = #{empStCode}
+        <if test="empStIdx != null and empStIdx != ''">
+            AND EMP_ST_IDX != #{empStIdx}
+        </if>
     </select>
 </mapper>

@@ -1,6 +1,5 @@
 package egovframework.itman.location.service.impl;
 
-import egovframework.itman.common.Pagination;
 import egovframework.itman.location.service.LocationService;
 import egovframework.itman.location.service.LocationVO;
 
@@ -49,9 +48,9 @@ public class LocationServiceImpl implements LocationService {
         locationDAO.deleteAssetLocation(vo);
     }
 
-    @Override
-    public LocationVO checkDuplicate(LocationVO vo){
-        return locationDAO.checkDuplicate(vo);
+    public boolean isDuplicateLocation(LocationVO vo){
+        int count = locationDAO.checkDuplicate(vo);
+        return  count > 0;
     }
 
 }

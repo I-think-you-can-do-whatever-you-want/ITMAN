@@ -52,6 +52,7 @@
 						"Content-Type": "application/x-www-form-urlencoded"
 					},
 					body: new URLSearchParams({
+						locIdx: document.querySelector("input[name='locIdx']").value.trim(),
 						locCode: document.querySelector("input[name='locCode']").value.trim()
 
 					}),
