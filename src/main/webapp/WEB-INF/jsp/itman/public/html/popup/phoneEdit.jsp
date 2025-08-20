@@ -27,7 +27,7 @@
 
 		    <div class="user_box join">
             <ul class="mem">
-            <form action="/itman/updatePhone.do" name="form" id="form" method="post">
+            <form action="/updatePhone.do" name="form" id="form" method="post">
                 <li>
 					<p>휴대폰</p>
 					<div class="tel">
@@ -38,7 +38,6 @@
 								<option value="011" <%= phone1.equals("011") ? "selected" : "" %>>011</option>
 								<option value="012" <%= phone1.equals("012") ? "selected" : "" %>>012</option>
 							</select><span>-</span><input type="tel" id="userphone2" name="userphone2" value="<%= phone2 %>"><span>-</span><input type="tel" id="userphone3" name="userphone3" value="<%= phone3 %>">
-						<!-- </p><a href="#">중복<br/>확인</a> -->
 					</div>
 				</li>
                 </form>
@@ -81,7 +80,7 @@
 		const p2 = document.getElementById("userphone2").value.trim();
 		const p3 = document.getElementById("userphone3").value.trim();
 
-		const fullNumber = p1 + "-" + p2 + "-" + p3;
+		const fullNumber = p1 + p2 + p3;
 		document.getElementById("memTel").value = fullNumber;
 
         form.submit();

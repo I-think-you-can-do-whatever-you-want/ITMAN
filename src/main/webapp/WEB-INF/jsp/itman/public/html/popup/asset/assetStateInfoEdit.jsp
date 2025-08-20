@@ -10,7 +10,7 @@
 <body>
 
 	<div id="popup">
-		<form method="post" action="${pageContext.request.contextPath}/itman/asset/updateAssetStateInfo.do" id="form">
+		<form method="post" action="${pageContext.request.contextPath}/asset/updateAssetStateInfo.do" id="form">
 			<input type="hidden" name="assIdx" value="${asset.assIdx}" />
 			<input type="hidden" id="staName" name="staName" value="${asset.assStaName}" />
 		<div class="pop_tit">

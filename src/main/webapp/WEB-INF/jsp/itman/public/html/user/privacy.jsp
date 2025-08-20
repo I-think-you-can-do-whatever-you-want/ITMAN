@@ -10,7 +10,7 @@
 <body id="mypage">
 	<div id="contents">
 		<div class="">
-			<h2><a href="/itman/myPage.do">서비스 이용약관</a></h2>
+			<h2><a href="/myPage.do">서비스 이용약관</a></h2>
 
 			<h3>개인정보 수집 및 이용 동의</h3>
 			<div class="userPriv">

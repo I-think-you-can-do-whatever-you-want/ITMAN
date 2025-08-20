@@ -17,7 +17,7 @@
     <!-- 2. 검색 폼: action과 hidden 필드로 페이지 정보 유지 -->
     <div class="tit_search">
         <h2>직원 관리</h2>
-        <form id="searchForm" name="searchForm" method="get" action="${pageContext.request.contextPath}/itman/employeeList.do" onsubmit="this.page.value=1; this.range.value=1;">
+        <form id="searchForm" name="searchForm" method="get" action="${pageContext.request.contextPath}/employeeList.do" onsubmit="this.page.value=1; this.range.value=1;">
             <input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
             <input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
             <input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
@@ -43,7 +43,7 @@
 
     <!-- 4. 신규 등록 버튼 -->
     <p class="addContent">
-        <a href="/itman/employeeWrite.do"><span></span><span></span><span></span></a>
+        <a href="/employeeWrite.do"><span></span><span></span><span></span></a>
     </p>
 
     <!-- 5. 목록 출력: resultList는 List<Map> 혹은 List<VO> -->
@@ -60,7 +60,7 @@
             </li>
           <c:if test="${!empty resultList}">
               <c:forEach var="row" items="${resultList}">
-                  <li onclick="location.href='${pageContext.request.contextPath}/itman/employeeView.do?empIdx=${row.empIdx}'">
+                  <li onclick="location.href='${pageContext.request.contextPath}/employeeView.do?empIdx=${row.empIdx}'">
                       <p class="num">${row.empNum}</p>
                       <p class="tit">${row.empName}</p>
                       <div class="depSpot">
@@ -121,7 +121,7 @@
     }
     //처음 버튼 이벤트
     function fn_maxPrev() {
-        var url = "${pageContext.request.contextPath}/itman/employeeList.do";
+        var url = "${pageContext.request.contextPath}/employeeList.do";
         url = url + "?page=" + 1;
         url = url + "&range=" + 1;
         location.href = url;	}
@@ -129,13 +129,13 @@
     function fn_prev(page, range, rangeSize) {
         var page = (((range - 2) * rangeSize) + 1) <= 1 ? 1 : ((range - 2) * rangeSize) + 1 ;
         var range = (range - 1) <= 1 ? 1 : range - 1;
-        var url = "${pageContext.request.contextPath}/itman/employeeList.do";
+        var url = "${pageContext.request.contextPath}/employeeList.do";
         url = url + "?page=" + page;
         url = url + "&range=" + range;
         location.href = url;	}
     //페이지 번호 클릭
     function fn_pagination(page, range, rangeSize, searchType, keyword) {
-        var url = "${pageContext.request.contextPath}/itman/employeeList.do";
+        var url = "${pageContext.request.contextPath}/employeeList.do";
         url = url + "?page=" + page;
         url = url + "&range=" + range;
         location.href = url;		}
@@ -143,7 +143,7 @@
     function fn_next(pageCnt, page, range, rangeSize) {
         var page = (parseInt((range * rangeSize)) + 1) >= pageCnt ? pageCnt / rangeSize * 10 : parseInt((range * rangeSize)) + 1 ;
         var range = (parseInt(range) + 1) >= parseInt(pageCnt / rangeSize + 1) ? parseInt(pageCnt / rangeSize + 1) : (parseInt(range) + 1) ;
-        var url = "${pageContext.request.contextPath}/itman/employeeList.do";
+        var url = "${pageContext.request.contextPath}/employeeList.do";
         url = url + "?page=" + page;
         url = url + "&range=" + range;
         location.href = url;	}
@@ -151,7 +151,7 @@
     function fn_maxNext(pageCnt, range, rangeSize) {
         var page =  pageCnt / rangeSize * 10;
         var range =    parseInt(pageCnt / rangeSize + 1);
-        var url = "${pageContext.request.contextPath}/itman/employeeList.do";
+        var url = "${pageContext.request.contextPath}/employeeList.do";
         url = url + "?page=" + page;
         url = url + "&range=" + range;
         location.href = url;

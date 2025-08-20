@@ -13,7 +13,7 @@
 			<p class="title">직원을 삭제하시겠습니까?</p>
 		</div>
 	<div class="pop_cont">
-		<form method="post" id="form" action="/itman/emploDel.do">
+		<form method="post" id="form" action="/emploDel.do">
 
 		<ul class="contEdit">
 			<input type="hidden" name="empIdx" value="${employee.empIdx}"/>

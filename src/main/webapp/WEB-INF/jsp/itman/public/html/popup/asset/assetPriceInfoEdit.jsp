@@ -13,7 +13,7 @@
 			<p class="title">재고 구매 가격 변경</p>
 		</div>
 		<div class="pop_cont">
-            <form method="post" id="form" action="${pageContext.request.contextPath}/itman/asset/updateAssetPriceInfo.do">
+            <form method="post" id="form" action="${pageContext.request.contextPath}/asset/updateAssetPriceInfo.do">
                 <input type="hidden" name="assIdx" value="${asset.assIdx}">
 			<ul class="contEdit">
 				<li>
@@ -51,15 +51,6 @@
 
 		e.target.value = value;
 	});
-	<%--function updateAsset() {--%>
-	<%--	const assIdx = "${asset.assIdx}";--%>
-	<%--	const price = encodeURIComponent(document.getElementById("price").value);--%>
-
-	<%--	const url = "/itman/asset/updateAssetPriceInfo.do?assIdx=" + assIdx + "&price=" + price;--%>
-
-	<%--	window.opener.location.href = url;--%>
-	<%--	window.close();--%>
-	<%--}--%>
 </script>
 </body>
 </html>

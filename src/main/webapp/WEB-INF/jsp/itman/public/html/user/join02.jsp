@@ -8,16 +8,16 @@
 </head>
 
 <body>
-<c:url value="/itman/checkMail.do" var="checkEmailUrl" />
+<c:url value="/checkMail.do" var="checkEmailUrl" />
 	<div id="contents">
 		<div class="user_box join">
-			<p class="tit"><a href="/itman/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
+			<p class="tit"><a href="/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
 			<ul class="step">
 				<li class="comp"><span>1</span></li>
 				<li class="on"><span>2</span>가입 정보 입력 및 인증</li>
 				<li><span>3</span></li>
 			</ul>
-            <form action="/itman/sendMailCode.do" name="form" id="form" method="post">
+            <form action="/sendMailCode.do" name="form" id="form" method="post">
 			<ul class="mem">
 				<li>
 					<p>사용자 이름</p>

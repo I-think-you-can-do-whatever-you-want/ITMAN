@@ -10,7 +10,7 @@
 <body>
 
 	<div id="popup">
-		<form method="post" action="${pageContext.request.contextPath}/itman/asset/updateAssetCategoryInfo.do" id="form">
+		<form method="post" action="${pageContext.request.contextPath}/asset/updateAssetCategoryInfo.do" id="form">
 			<input type="hidden" name="assIdx" value="${asset.assIdx}" />
 			<input type="hidden" id="assCatName" name="assCatName" value="${asset.assCatName}" />
 <%--			<input type="hidden" id="assCatIdx" name="assCatIdx" value="${asset.assCatIdx}" />--%>
@@ -54,15 +54,6 @@
 				}, 300);
 			}
 		}
-	<%--function updateAsset() {--%>
-	<%--	const assIdx = "${asset.assIdx}";--%>
-	<%--	const assCatIdx = encodeURIComponent(document.getElementById("ass_cat").value);--%>
-
-	<%--	const url = "/itman/asset/updateAssetCategoryInfo.do?assIdx=" + assIdx + "&assCatIdx=" + assCatIdx;--%>
-
-	<%--	window.opener.location.href = url;--%>
-	<%--	window.close();--%>
-	<%--}--%>
 </script>
 </body>
 </html>

@@ -9,17 +9,17 @@
 	 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/header.jsp" />
  </head>
 <body id="mypage">
-<c:url value="/itman/authPassword.do" var="authPassUrl"/>
+<c:url value="/authPassword.do" var="authPassUrl"/>
 	<div id="contents">
 		<div class="user_box join">
-			<h2><a href="/itman/myPage.do">계정 탈퇴</a></h2>
+			<h2><a href="/myPage.do">계정 탈퇴</a></h2>
 			<p class="find_tit mt40">
                 ${sessionScope.loginUser.memName}님의<br/>
 				계정을 삭제<br/>
 				하시겠습니까?
 			</p>
 			<ul class="mem">
-            <form action="/itman/accDel_proc.do" name="form" id="form" method="post">
+            <form action="/accDel_proc.do" name="form" id="form" method="post">
 				<li>
 					<p>비밀번호</p>
 					<div><input type="password" id="inputPw" name="inputPw"></div>

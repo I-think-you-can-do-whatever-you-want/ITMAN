@@ -16,7 +16,7 @@
 		<div class="tit_search">
 			<h2>자산 관리</h2>
 		</div>
-		<form action="/itman/assetInsert.do" method="post" id="frm" enctype="multipart/form-data" name="assetForm" onsubmit="return validateForm()">
+		<form action="/assetInsert.do" method="post" id="frm" enctype="multipart/form-data" name="assetForm" onsubmit="return validateForm()">
 			<input type="hidden" id="gorIdx" name="groIdx" value="${groIdx}">
 			<input type="hidden" id="inGroupCnt" name="inGroupCnt" value="${inGroupCnt}">
 		<ul class="adminView Write">
@@ -47,7 +47,7 @@
 						</c:forEach>
 					</select>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetCategory.do', '자산분류등록팝업', 'width=500, height=350')" href="#none">분류 추가</a></p>
+				<p class="edit"><a onclick="window.open('/asset/contWriteAssetCategory.do', '자산분류등록팝업', 'width=500, height=350')" href="#none">분류 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">상태 <span>*</span></p>
@@ -59,20 +59,20 @@
 						</c:forEach>
 					</select>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetState.do', '자산상태등록팝업', 'width=500, height=350')" href="#none">상태 추가</a></p>
+				<p class="edit"><a onclick="window.open('/asset/contWriteAssetState.do', '자산상태등록팝업', 'width=500, height=350')" href="#none">상태 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">위치 <span>*</span></p>
 				<p class="cont">
 					<input style="display:none" id = "loc_idx" name="locIdx" value="" />
-					<a onclick="window.open('/itman/popup/locationPop.do', '위치등록팝업', 'width=500, height=335')" href="#none" class="popbtn">위치 선택</a><span class="name" id="loc_name"></span></p>
+					<a onclick="window.open('/popup/locationPop.do', '위치등록팝업', 'width=500, height=335')" href="#none" class="popbtn">위치 선택</a><span class="name" id="loc_name"></span></p>
 
-				<p class="edit"><a onclick="window.open('/itman/asset/contWriteAssetLocation.do', '직원등록팝업', 'width=500, height=370')" href="#none">위치 추가</a></p>
+				<p class="edit"><a onclick="window.open('/asset/contWriteAssetLocation.do', '직원등록팝업', 'width=500, height=370')" href="#none">위치 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">사용직원 <span>*</span></p>
 				<input type="hidden" id= "emp_idx" name="empIdx" value="" />
-				<p class="cont"><a onclick="window.open('/itman/popup/searchPop.do', '직원등록팝업', 'width=500, height=335')" href="#none" class="popbtn">직원 선택</a><span class="name" id="emp_name" value=""></span></p>
+				<p class="cont"><a onclick="window.open('/popup/searchPop.do', '직원등록팝업', 'width=500, height=335')" href="#none" class="popbtn">직원 선택</a><span class="name" id="emp_name" value=""></span></p>
 			</li>
 		</ul>
 		
@@ -85,7 +85,7 @@
 
 				<a onclick="window.open('/popup/selectAssetSupplier.do', '구매처팝업', 'width=500, height=335')" href="#none" class="popbtn">구매처 선택</a><span class="name" id="sup_name" value=""></span></p>
 			
-				<p class="edit"><a onclick="window.open('/itman/asset/contWriteSupplier.do', '구매처팝업', 'width=500, height=335')" href="#none">구매처 추가</a></p>
+				<p class="edit"><a onclick="window.open('/asset/contWriteSupplier.do', '구매처팝업', 'width=500, height=335')" href="#none">구매처 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">최초 구매일</p>

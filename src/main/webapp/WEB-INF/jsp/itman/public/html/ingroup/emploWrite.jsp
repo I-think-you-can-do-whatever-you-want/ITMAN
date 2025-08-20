@@ -21,9 +21,9 @@
 			<h2>직원 관리</h2>
 		</div>
 
-		<c:set var="actionUrl" value="/itman/insert.do" />
+		<c:set var="actionUrl" value="/insert.do" />
 		<c:if test="${!empty employee.empIdx}">
-			<c:set var="actionUrl" value="/itman/update.do" />
+			<c:set var="actionUrl" value="/update.do" />
 		</c:if>
 		<form method="post" id='write' name="employeeForm" action="${actionUrl}" onsubmit="return validateForm()">
 			<c:if test="${!empty employee.empIdx}">
@@ -102,7 +102,7 @@
 							</c:forEach>
 					</select>
 				</p>
-                <p class="edit"><a onclick="window.open('/itman/emploDivisionWrite.do', '부서등록팝업', 'width=500, height=335')" href="#none">부서 추가</a></p>
+                <p class="edit"><a onclick="window.open('/emploDivisionWrite.do', '부서등록팝업', 'width=500, height=335')" href="#none">부서 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">직위 <span>*</span></p>
@@ -126,7 +126,7 @@
 						</c:forEach>
 					</select>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/emploPositionWrite.do', '자산분류등록팝업', 'width=500, height=335')" href="#none">직위 추가</a></p>
+				<p class="edit"><a onclick="window.open('/emploPositionWrite.do', '자산분류등록팝업', 'width=500, height=335')" href="#none">직위 추가</a></p>
 			</li>
 			<li>
 				<p class="tit">상태 <span>*</span></p>
@@ -149,12 +149,12 @@
 						</c:forEach>
 					</select>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/emploStateWrite.do', '자산분류등록팝업', 'width=500, height=335')" href="#none">상태 추가</a></p>
+				<p class="edit"><a onclick="window.open('/emploStateWrite.do', '자산분류등록팝업', 'width=500, height=335')" href="#none">상태 추가</a></p>
 			</li>
 		</ul>
 		</form>
 
-		<p class="pagebtn"><a href="/itman/employeeList.do" class="del">취소</a>
+		<p class="pagebtn"><a href="/employeeList.do" class="del">취소</a>
 		<c:choose>
 			<c:when test="${!empty employee.empIdx}">
 				<a href="#" type="submit" class="comp" onclick="if(validateForm()) document.forms['employeeForm'].submit(); return false"

@@ -17,7 +17,7 @@ public class AssLogController {
     @Resource(name = "assLogService")
     private AssLogServiceImpl assLogService;
 
-    @RequestMapping("/itman/assetHistory.do")
+    @RequestMapping("/assetHistory.do")
     public String selectAssetHistoryList(AssLogVO assLogVO, Model model
     , @RequestParam(defaultValue = "1") int page
     , @RequestParam(defaultValue = "1") int range

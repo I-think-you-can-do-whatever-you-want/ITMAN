@@ -10,7 +10,7 @@
  </head>
 <body>
 	<div id="contents">
-		<form id="searchForm" method="get" action="${pageContext.request.contextPath}/itman/assetHistory.do" onsubmit="this.page.value=1; this.range.value=1;">
+		<form id="searchForm" method="get" action="${pageContext.request.contextPath}/assetHistory.do" onsubmit="this.page.value=1; this.range.value=1;">
 
 		<div class="tit_search">
 			<h2>자산 히스토리</h2>
@@ -111,7 +111,7 @@
 		}
 		//처음 버튼 이벤트
 		function fn_maxPrev() {
-			var url = "${pageContext.request.contextPath}/itman/assetHistory.do";
+			var url = "${pageContext.request.contextPath}/assetHistory.do";
 			url = url + "?page=" + 1;
 			url = url + "&range=" + 1;
 			location.href = url;	}
@@ -119,13 +119,13 @@
 		function fn_prev(page, range, rangeSize,searchDiv, searchPos, searchSt, searchSort, searchKyeword) {
 			var page = (((range - 2) * rangeSize) + 1) <= 1 ? 1 : ((range - 2) * rangeSize) + 1 ;
 			var range = (range - 1) <= 1 ? 1 : range - 1;
-			var url = "${pageContext.request.contextPath}/itman/assetHistory.do";
+			var url = "${pageContext.request.contextPath}/assetHistory.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;	}
 		//페이지 번호 클릭
 		function fn_pagination(page, range, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/itman/assetHistory.do";
+			var url = "${pageContext.request.contextPath}/assetHistory.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;		}
@@ -133,7 +133,7 @@
 		function fn_next(pageCnt, page, range, rangeSize) {
 			var page = (parseInt((range * rangeSize)) + 1) >= pageCnt ? pageCnt / rangeSize * 10 : parseInt((range * rangeSize)) + 1 ;
 			var range = (parseInt(range) + 1) >= parseInt(pageCnt / rangeSize + 1) ? parseInt(pageCnt / rangeSize + 1) : (parseInt(range) + 1) ;
-			var url = "${pageContext.request.contextPath}/itman/assetHistory.do";
+			var url = "${pageContext.request.contextPath}/assetHistory.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;	}
@@ -141,7 +141,7 @@
 		function fn_maxNext(pageCnt, range, rangeSize) {
 			var page =  pageCnt / rangeSize * 10;
 			var range =    parseInt(pageCnt / rangeSize + 1);
-			var url = "${pageContext.request.contextPath}/itman/assetHistory.do";
+			var url = "${pageContext.request.contextPath}/assetHistory.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;

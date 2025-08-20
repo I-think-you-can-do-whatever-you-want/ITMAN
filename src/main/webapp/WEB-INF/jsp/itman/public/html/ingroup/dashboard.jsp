@@ -63,34 +63,6 @@
 				</ul>
 			</div>
 		</div>
-		<!-- <div class="overflow mt">
-			<div class="Basic f_l">
-				<div class="base_tit">
-					<p class="tit">시스템 히스토리</p>
-					<p class="more"><a href="shistory.jsp"><img src="../_img/more.png" alt="더보기" /></a></p>
-				</div>
-				<ul class="adminList history">
-					<li class="tit">
-						<p class="admin">처리자</p>
-						<p class="date">일시</p>
-						<p class="tit">분류</p>
-						<p class="stat02">활동 구분</p>
-						<p class="change">내용</p>
-					</li>
-					<?php
-						while($row = (mysqli_fetch_array($sys_query))){
-					?>
-					<li>
-						<p class="admin"><?=$row['MEM_NAME']?></p>
-						<p class="date"><?= $row['REG_DATE']?></p>
-						<p class="tit"><?=$row['SL_CAT']?></p>
-						<p class="stat02"><?=$row['SL_TYPE']?></p>
-						<p class="change"><?= $row['SL_CONT']?></p>
-					</li>
-					<?php }; ?>
-				</ul>
-			</div>
-		</div> -->
 	</div>
 
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />

@@ -12,7 +12,7 @@
 			<p class="title">구매처 수정 팝업</p>
 		</div>
 		<div class="pop_cont">
-			<form method="post" id="form" action="${pageContext.request.contextPath}/itman/updateSupplier.do">
+			<form method="post" id="form" action="${pageContext.request.contextPath}/updateSupplier.do">
 			<ul class="contEdit">
 				<li>
 					<input type="hidden" name="supIdx" value="${supply.supIdx}">

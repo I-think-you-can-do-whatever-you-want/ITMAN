@@ -8,13 +8,13 @@
     <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/title.jsp" />
  </head>
 <body>
-<c:url value="/itman/checkDuplicateEmpPos.do" var="checkDuplicateUrl"/>
+<c:url value="/checkDuplicateEmpPos.do" var="checkDuplicateUrl"/>
 	<div id="popup">
 		<div class="pop_tit">
 			<p class="title">직위 작성 팝업</p>
 		</div>
 		<div class="pop_cont">
-			<form method="post" id="form" action="/itman/insertPosition.do">
+			<form method="post" id="form" action="/insertPosition.do">
 			<ul class="contEdit">
 				<li>
 					<p class="tit">직위명<span>*</span></p>

@@ -16,10 +16,5 @@ import egovframework.com.cmm.ComDefaultVO;
 @Controller
 @SessionAttributes(types = {ComDefaultVO.class})
 public class EgovCommonController {
-	
-  @RequestMapping(value = "/index.do")
-  public String login(HttpServletRequest request, ModelMap model) throws Exception {
-    System.err.println("herere index");
-    return "/index";
-  }
+
 }

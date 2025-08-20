@@ -13,7 +13,7 @@
 			<p class="title">최초 구매일 변경</p>
 		</div>
 		<div class="pop_cont">
-            <form method="post" id="form" action="/itman/asset/updateAssetBuyDateInfo.do">
+            <form method="post" id="form" action="/asset/updateAssetBuyDateInfo.do">
                 <input type="hidden" name="assIdx" value="${asset.assIdx}">
 			<ul class="contEdit">
 				<li>
@@ -39,15 +39,6 @@
 			window.close();
 		}, 300);
 	}
-	<%--function updateAsset() {--%>
-	<%--	const assIdx = "${asset.assIdx}";--%>
-	<%--	const buyDate = encodeURIComponent(document.getElementById("buyDate").value);--%>
-
-	<%--	const url = "/itman/asset/updateAssetBuyDateInfo.do?assIdx=" + assIdx + "&buyDate=" + buyDate;--%>
-
-	<%--	window.opener.location.href = url;--%>
-	<%--	window.close();--%>
-	<%--}--%>
 </script>
 </body>
 </html>

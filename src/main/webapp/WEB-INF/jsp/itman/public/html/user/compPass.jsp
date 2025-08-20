@@ -9,13 +9,13 @@
 <body>
 	<div id="contents">
 		<div class="user_box join">
-			<p class="tit"><a href="/itman/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
+			<p class="tit"><a href="/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
 			<p class="find_tit">
 				재설정할<br/>
 				비밀번호를<br/>
 				입력해주세요.
 			</p>
-			<form action="/itman/changePass_proc.do" name="form" id="form" method="post">
+			<form action="/changePass_proc.do" name="form" id="form" method="post">
 			<ul class="mem">
 				<li>
 					<p>비밀번호</p>

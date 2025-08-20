@@ -35,7 +35,7 @@
 	<div id="contents">
 <div class="groupBox">
 	<div class="groupItem">
-		<a onclick="window.open('${pageContext.request.contextPath}/itman/addGroup.do', '그룹생성팝업', 'width=500, height=400')" href="#" class="addBox">그룹 생성하기</a>
+		<a onclick="window.open('${pageContext.request.contextPath}/addGroup.do', '그룹생성팝업', 'width=500, height=400')" href="#" class="addBox">그룹 생성하기</a>
 	</div>
 
     <c:if test="${!empty groupList}">
@@ -45,13 +45,13 @@
             <div class="groupItem">
                 <div class="Box ${color}">
                     <p class="name">
-                        <a href="#" onclick="goWithSession(${group.groIdx}, '/itman/dashboard.do')">${group.groName}</a>
+                        <a href="#" onclick="goWithSession(${group.groIdx}, '/dashboard.do')">${group.groName}</a>
                     </p>
                     <p class="going">
-                        <a href="#" onclick="goWithSession(${group.groIdx}, '/itman/assetsList.do')">
+                        <a href="#" onclick="goWithSession(${group.groIdx}, '/assetsList.do')">
                             자산<span>${group.groAssetCnt}</span>
                         </a>
-                        <a href="#" onclick="goWithSession(${group.groIdx}, '/itman/employeeList.do')">
+                        <a href="#" onclick="goWithSession(${group.groIdx}, '/employeeList.do')">
                             직원<span>${group.groEmployeeCnt}</span>
                         </a>
                     </p>
@@ -72,7 +72,7 @@
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp" />
 <script>
     function goWithSession(groIdx, targetUrl){
-        fetch("${pageContext.request.contextPath}/itman/setGroIdx.do", {
+        fetch("${pageContext.request.contextPath}/setGroIdx.do", {
             method: "POST",
             headers: {
                 "Content-Type": "application/x-www-form-urlencoded"},

@@ -13,7 +13,7 @@
 	<div id="contents">
 		<div class="tit_search">
 			<h2>구매처 관리</h2>
-			<form name="searchForm" method="get" id="searchForm" action="${pageContext.request.contextPath}/itman/supplierList.do" onsubmit="this.page.value=1; this.range.value=1;">
+			<form name="searchForm" method="get" id="searchForm" action="${pageContext.request.contextPath}/supplierList.do" onsubmit="this.page.value=1; this.range.value=1;">
 				<input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
 				<input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
 				<input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
@@ -36,7 +36,7 @@
 		</div>
 
 		<!-- 글쓰기 버튼-->
-		<p class="addContent"><a onclick="window.open('/itman/asset/contWriteSupplier.do', '구매처 추가 팝업', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="edit">><span></span><span></span><span></span></a></p>
+		<p class="addContent"><a onclick="window.open('/asset/contWriteSupplier.do', '구매처 추가 팝업', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="edit">><span></span><span></span><span></span></a></p>
 		<div class="Basic">
 			<ul class="adminList">
                 <li class="tit">
@@ -57,8 +57,8 @@
 							<p class="mail">${!empty supply.supMail ? supply.supMail : '-'}</p>
 							<p class="tel">${!empty supply.supTel ? supply.supTel : '-'}</p>
 							<p class="editDel" style="padding: 0">
-								<a onclick="window.open('/itman/supplierEdit.do?supIdx=${supply.supIdx}', '수정 팝업', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
-								<a onclick="window.open('/itman/confirmSupplierDel.do?supIdx=${supply.supIdx}', '삭제 팝업', 'width=500, height=300, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
+								<a onclick="window.open('/supplierEdit.do?supIdx=${supply.supIdx}', '수정 팝업', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
+								<a onclick="window.open('/confirmSupplierDel.do?supIdx=${supply.supIdx}', '삭제 팝업', 'width=500, height=300, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
 							</p>
 						</li>
 					</c:forEach>
@@ -107,7 +107,7 @@
 		}
 		//처음 버튼 이벤트
 		function fn_maxPrev() {
-			var url = "${pageContext.request.contextPath}/itman/supplierList.do";
+			var url = "${pageContext.request.contextPath}/supplierList.do";
 			url = url + "?page=" + 1;
 			url = url + "&range=" + 1;
 			location.href = url;	}
@@ -115,13 +115,13 @@
 		function fn_prev(page, range, rangeSize,searchDiv, searchPos, searchSt, searchSort, searchKyeword) {
 			var page = (((range - 2) * rangeSize) + 1) <= 1 ? 1 : ((range - 2) * rangeSize) + 1 ;
 			var range = (range - 1) <= 1 ? 1 : range - 1;
-			var url = "${pageContext.request.contextPath}/itman/supplierList.do";
+			var url = "${pageContext.request.contextPath}/supplierList.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;	}
 		//페이지 번호 클릭
 		function fn_pagination(page, range, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/itman/supplierList.do";
+			var url = "${pageContext.request.contextPath}/supplierList.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;		}
@@ -129,7 +129,7 @@
 		function fn_next(pageCnt, page, range, rangeSize) {
 			var page = (parseInt((range * rangeSize)) + 1) >= pageCnt ? pageCnt / rangeSize * 10 : parseInt((range * rangeSize)) + 1 ;
 			var range = (parseInt(range) + 1) >= parseInt(pageCnt / rangeSize + 1) ? parseInt(pageCnt / rangeSize + 1) : (parseInt(range) + 1) ;
-			var url = "${pageContext.request.contextPath}/itman/supplierList.do";
+			var url = "${pageContext.request.contextPath}/supplierList.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;	}
@@ -137,7 +137,7 @@
 		function fn_maxNext(pageCnt, range, rangeSize) {
 			var page =  pageCnt / rangeSize * 10;
 			var range =    parseInt(pageCnt / rangeSize + 1);
-			var url = "${pageContext.request.contextPath}/itman/supplierList.do";
+			var url = "${pageContext.request.contextPath}/supplierList.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;
@@ -145,13 +145,3 @@
 	</script>
 </body>
 </html>
-
-<%--<?php--%>
-<%--	function queryCount($sql){--%>
-<%--		include "../_inc/dbconn.php";--%>
-<%--		$query_count = mysqli_query($dbconn, $sql);--%>
-<%--        $count =mysqli_num_rows($query_count); --%>
-<%--		return $count;--%>
-<%--	}--%>
-
-<%--?>--%>

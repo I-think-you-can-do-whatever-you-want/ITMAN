@@ -14,7 +14,7 @@
 			<p class="title">그룹생성하기</p>
 		</div>
 		<div class="pop_cont">
-        <form action="${pageContext.request.contextPath}/itman/insertGroup.do" name="form" id="form" method="post" enctype= "multipart/form-data">
+        <form action="${pageContext.request.contextPath}/insertGroup.do" name="form" id="form" method="post" enctype= "multipart/form-data">
 			<input type="hidden" name="groOwnerIdx" value="${userIdx}" />
 			<input type="hidden" name="regIdx" value="${userIdx}" />
 			<ul class="contEdit">

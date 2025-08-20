@@ -12,7 +12,7 @@
 			<p class="title">그룹수정하기</p>
 		</div>
 		<div class="pop_cont">
-            <form method="post" id="form" action="/itman/updateGroup.do" enctype="multipart/form-data">
+            <form method="post" id="form" action="/updateGroup.do" enctype="multipart/form-data">
 			<input type="hidden" name="groIdx" value="${group.groIdx}" >
 				<input type="hidden" name="groOwnerIdx" value="${userIdx}" />
 				<input type="hidden" name="regIdx" value="${userIdx}" />
@@ -25,7 +25,6 @@
 					<p class="tit">그룹 이미지</p>
 					<div class="cont filebox">
 					  <label for="ex_filename">파일찾기</label>
-					  <!-- <form id="FILE_FORM" method="post" enctype="multipart/form-data" action=""> -->
 						<input type="file" id="ex_filename" name="groImgFile" class="upload-hidden">
 						<input class="upload-name" value="${group.groImg}" disabled="disabled">
 				      <!-- </form> -->
@@ -36,7 +35,7 @@
 					<p class="cont"><textarea id="gr_note" name="groNote" placeholder="그룹 설명을 작성해주세요.">${group.groNote}</textarea></p>
 				</li>
 			</ul>
-            <p class="pop_btn"><a href="javascript:self.close();" class="del">취소</a><a href="#" onclick="formSubmit();" class="comp">생성</a></p>
+            <p class="pop_btn"><a href="javascript:self.close();" class="del">취소</a><a href="#" onclick="formSubmit();" class="comp">수정</a></p>
         	</form>
 		</div>
 	</div>

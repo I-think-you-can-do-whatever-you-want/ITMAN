@@ -15,7 +15,7 @@
 			<p class="title">직원 휴대폰 변경</p>
 		</div>
 		<div class="pop_cont">
-            <form method="post" id="form" action="/itman/updateEmploTelInfo.do">
+            <form method="post" id="form" action="/updateEmploTelInfo.do">
                 <input type="hidden" name="empIdx" value="${employee.empIdx}">
 			<ul class="contEdit">
 				<li>

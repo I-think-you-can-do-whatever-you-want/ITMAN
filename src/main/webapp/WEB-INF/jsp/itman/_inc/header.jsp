@@ -10,7 +10,7 @@
 	<div class="h_left">
 		<p class="ham"><a href="#none"><span></span><span></span><span></span></a></p>
 		<h1>
-			<a href="${pageContext.request.contextPath}/itman/dashboard.do">
+			<a href="${pageContext.request.contextPath}/dashboard.do">
 				<img src="${pageContext.request.contextPath}/upload/groImg/${sessionScope.group.groImg}" onerror = "this.src='${pageContext.request.contextPath}/images/_img/groupImage/no_img.png'" />
 
 			</a>
@@ -60,9 +60,9 @@
 		<a href="#" class="hr_btn"><span></span><span></span><span></span></a>
 		<p class="hr_box">
 			<span>${userName}님</span>
-			<a href="${pageContext.request.contextPath}/itman/myPage.do" class="mypage">마이페이지</a>
-			<a href="${pageContext.request.contextPath}/itman/logout.do" class="logout">로그아웃</a>
-			<a href="${pageContext.request.contextPath}/itman/group.do" class="group">전체그룹메인</a>
+			<a href="${pageContext.request.contextPath}/myPage.do" class="mypage">마이페이지</a>
+			<a href="${pageContext.request.contextPath}/logout.do" class="logout">로그아웃</a>
+			<a href="${pageContext.request.contextPath}/group.do" class="group">전체그룹메인</a>
 		</p>
 	</div>
 </header>
@@ -86,7 +86,7 @@
 		</c:forEach>
 	</ul>
 	<p class="go_itman">
-		<a href="${pageContext.request.contextPath}/itman/index.do">
+		<a href="${pageContext.request.contextPath}/index.do">
 			<span><img src="${pageContext.request.contextPath}/images/_img/_favicon/apple-icon-180x180.png" alt="아이티맨"/></span>
 			아이티맨 메인으로가기
 		</a>

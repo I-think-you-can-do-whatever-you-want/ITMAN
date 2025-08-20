@@ -11,7 +11,7 @@
 <body>
 
 	<div id="popup">
-		<form method="post" action="/itman/updateEmploDivisionInfo.do" id="form">
+		<form method="post" action="/updateEmploDivisionInfo.do" id="form">
 			<input type="hidden" name="empIdx" value="${employee.empIdx}" />
 		<div class="pop_tit">
 			<p class="title">부서 변경</p>

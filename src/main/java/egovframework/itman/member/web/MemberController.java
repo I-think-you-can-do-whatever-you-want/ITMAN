@@ -21,17 +21,17 @@ public class MemberController {
     @Resource(name = "passwordEncoder")
     private BCryptPasswordEncoder passwordEncoder;
 
-    @RequestMapping("/itman/user/join.do")
+    @RequestMapping("/user/join.do")
     public String join() {
         return "itman/public/html/user/join01";
     }
 
-    @RequestMapping("/itman/user/writeUserInfo.do")
+    @RequestMapping("/user/writeUserInfo.do")
     public String writeUserInfo() {
         return "itman/public/html/user/join02";
     }
 
-    @PostMapping(value = "/itman/checkMail.do", produces = "application/json;charset=UTF-8" )
+    @PostMapping(value = "/checkMail.do", produces = "application/json;charset=UTF-8" )
     @ResponseBody
     public String checkMail(@RequestParam("email") String email) {
         boolean valid = email != null && email.matches(
@@ -46,7 +46,7 @@ public class MemberController {
 
     }
 
-    @RequestMapping(value = "/itman/sendMailCode.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/sendMailCode.do", method = RequestMethod.POST)
     public String sendMailCode(@ModelAttribute MemberVO vo, @RequestParam("memMail") String email, HttpSession session) throws Exception {
         session.setAttribute("member", vo);
         String code = String.valueOf((int)((Math.random() * 900000) + 100000)); //6자리 랜덤 숫자
@@ -56,7 +56,7 @@ public class MemberController {
         return "itman/public/html/user/certPass";
     }
 
-    @RequestMapping(value = "/itman/checkMailCode.do", method = RequestMethod.POST)
+    @RequestMapping(value = "/checkMailCode.do", method = RequestMethod.POST)
     public String checkMailCode(@RequestParam("inputCode") String inputCode, HttpSession session, Model model) {
         String savedCode = (String) session.getAttribute("authCode");
         model.addAttribute("authCode", savedCode);
@@ -85,12 +85,12 @@ public class MemberController {
         }
     }
 
-    @RequestMapping("/itman/user/login.do")
+    @RequestMapping("/user/login.do")
     public String login() {
         return "itman/public/html/user/login";
     }
 
-    @PostMapping("/itman/user/authUser.do")
+    @PostMapping("/user/authUser.do")
     public String authUser(@ModelAttribute MemberVO vo, HttpSession session,
     @RequestParam("inputMail") String inputMail,
     @RequestParam("inputPw") String inputPw ,
@@ -105,10 +105,10 @@ public class MemberController {
         session.setAttribute("userIp", ip);
         session.setAttribute("loginUser", member);
         session.setAttribute("userIdx", member.getMemIdx());
-        return "redirect:/itman/index.do";
+        return "redirect:/index.do";
     }
 
-    @RequestMapping("/itman/myPage.do")
+    @RequestMapping("/myPage.do")
     public String myPage(HttpSession session, Model model) {
         String userMail = ((MemberVO) session.getAttribute("loginUser")).getMemMail();
         MemberVO vo = memberService.selectMemberByEmail(userMail);
@@ -117,14 +117,14 @@ public class MemberController {
         return "itman/public/html/user/mypage";
     }
 
-    @RequestMapping("/itman/phoneEdit.do")
+    @RequestMapping("/phoneEdit.do")
     public String phoneEdit(HttpSession session, Model model) {
         MemberVO vo = (MemberVO) session.getAttribute("member");
         model.addAttribute("memTel", vo.getMemTel());
         return "itman/public/html/popup/phoneEdit";
     }
 
-    @PostMapping("/itman/updatePhone.do")
+    @PostMapping("/updatePhone.do")
     public String updatePhone(@RequestParam("memTel") String memTel,HttpSession session, Model model) {
         MemberVO vo = (MemberVO) session.getAttribute("member");
         session.removeAttribute("member");
@@ -134,7 +134,7 @@ public class MemberController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "회원 연락처가 변경되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @PostMapping(value = "/itman/authPassword.do", produces = "application/json;charset=UTF-8" )
+    @PostMapping(value = "/authPassword.do", produces = "application/json;charset=UTF-8" )
     @ResponseBody
     public String updatePassword(@RequestParam("inputPw") String inputPw,
                                   HttpSession session) {
@@ -146,53 +146,53 @@ public class MemberController {
         return "0";
     }
 
-    @RequestMapping("/itman/changePass.do")
+    @RequestMapping("/changePass.do")
     public String changePass() {
         return "itman/public/html/user/changePass";
     }
 
-    @PostMapping("/itman/updatePass.do")
+    @PostMapping("/updatePass.do")
     public String updatePass(@RequestParam("newPw") String newPw, HttpSession session, Model model) {
         MemberVO vo = (MemberVO) session.getAttribute("member");
         String encodedPassword = passwordEncoder.encode(newPw);
         vo.setMemPw(encodedPassword);
         session.removeAttribute("member");
         memberService.updateMemPw(vo);
-        return EgovframeworkCommonUtil.alertMove(model, "비밀번호가 변경되었습니다", "/itman/myPage.do");
+        return EgovframeworkCommonUtil.alertMove(model, "비밀번호가 변경되었습니다", "/myPage.do");
     }
 
-    @RequestMapping("/itman/privacy.do")
+    @RequestMapping("/privacy.do")
     public String privacy() {
         return "itman/public/html/user/privacy";
     }
 
-    @RequestMapping("/itman/accDel.do")
+    @RequestMapping("/accDel.do")
     public String accDel(HttpSession session, Model model) {
 
         return "itman/public/html/user/accDel";
     }
 
-    @PostMapping("/itman/accDel_proc.do")
+    @PostMapping("/accDel_proc.do")
     public String accDelProc(HttpSession session, Model model) {
         MemberVO vo = (MemberVO) session.getAttribute("member");
         memberService.deleteMember(vo);
         session.invalidate();
-        return EgovframeworkCommonUtil.alertMove(model, "탈퇴가 완료되었습니다", "/itman/index.do");
+        return EgovframeworkCommonUtil.alertMove(model, "탈퇴가 완료되었습니다", "/index.do");
 
     }
 
-    @GetMapping("/itman/logout.do")
+    @GetMapping("/logout.do")
     public String logout(HttpSession session, Model model) {
         session.invalidate(); // 세션 비우기
-        return EgovframeworkCommonUtil.alertMove(model, "로그아웃 되었습니다", "/itman/index.do");
+        return EgovframeworkCommonUtil.alertMove(model, "로그아웃 되었습니다", "/index.do");
     }
 
-    @RequestMapping("/itman/user/findEmail.do")
+    @RequestMapping("/user/findEmail.do")
     public String findEmail() {
         return "itman/public/html/user/findEmail";
     }
 
-    @PostMapping(value = "/itman/findEmail_proc.do",  produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/findEmail_proc.do",  produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String findEmailProc(@RequestParam("memName") String memName,
                                 @RequestParam("memTel") String memTel,
@@ -208,19 +208,19 @@ public class MemberController {
         return "0";
     }
 
-    @RequestMapping("/itman/compEmail.do")
+    @RequestMapping("/compEmail.do")
     public String compEmail(HttpSession session,Model model) {
         MemberVO vo = (MemberVO) session.getAttribute("foundedUser");
         model.addAttribute("memMail", vo.getMemMail());
         return "itman/public/html/user/compEmail";
     }
 
-    @RequestMapping("/itman/user/findPass.do")
+    @RequestMapping("/user/findPass.do")
     public String findPass() {
         return "itman/public/html/user/findPass";
     }
 
-    @PostMapping(value = "/itman/findPass_proc.do",  produces = "application/json;charset=UTF-8")
+    @PostMapping(value = "/findPass_proc.do",  produces = "application/json;charset=UTF-8")
     @ResponseBody
     public String findPassProc(@RequestParam("memName") String memName,
                                 @RequestParam("memMail") String memMail,
@@ -240,7 +240,7 @@ public class MemberController {
         return "0";
     }
 
-    @PostMapping("/itman/changePass_proc.do")
+    @PostMapping("/changePass_proc.do")
     public String changePassProc(@RequestParam("newPw") String newPw, HttpSession session) {
         MemberVO vo = (MemberVO) session.getAttribute("foundedUser");
         MemberVO user = memberService.selectMemberByEmail(vo.getMemMail());
@@ -248,7 +248,7 @@ public class MemberController {
         user.setMemPw(encodedPassword);
         session.removeAttribute("member");
         memberService.updateMemPw(user);
-        return "redirect:/itman/user/login.do";
+        return "redirect:/user/login.do";
     }
 
     public String getClientIPv4(HttpServletRequest request) {

@@ -17,7 +17,7 @@
     <div class="pop_cont">
         <ul class="contEdit">
             <li>
-                <form action="${pageContext.request.contextPath}/itman/asset/assetEmployeeInfoEdit.do" id="searchForm" method="post" onsubmit="this.page.value=1; this.range.value=1;">
+                <form action="${pageContext.request.contextPath}/asset/assetEmployeeInfoEdit.do" id="searchForm" method="post" onsubmit="this.page.value=1; this.range.value=1;">
                     <input type="hidden" id="assIdx" name="assIdx" value="${asset.assIdx}" />
                     <input type="hidden" id="page"      name="pagination.page"      value="${pagination.page}" />
                     <input type="hidden" id="range"     name="pagination.range"     value="${pagination.range}" />
@@ -67,7 +67,7 @@
         <p class="pop_btn"><a href="javascript:window.close();" class="del">취소</a></p>
     </div>
 </div>
-<form action="${pageContext.request.contextPath}/itman/asset/updateAssetEmployeeInfo.do" id="form_proc" method="post" >
+<form action="${pageContext.request.contextPath}/asset/updateAssetEmployeeInfo.do" id="form_proc" method="post" >
     <input type="hidden" name="assIdx" value="${asset.assIdx}" />
     <input type="hidden" id="emp_idx" name="empIdx" value="" />
     <input type="hidden" id="emp_name" name="assEmpName" value="" />
@@ -114,7 +114,7 @@
     function fn_maxPrev() {
         const form = document.forms["searchForm"];
         const assIdx = form.assIdx.value.trim();
-        var url = "${pageContext.request.contextPath}/itman/asset/assetEmployeeInfoEdit.do";
+        var url = "${pageContext.request.contextPath}/asset/assetEmployeeInfoEdit.do";
         url = url + "?assIdx=" + assIdx;
         url = url + "&page=" + 1;
         url = url + "&range=" + 1;
@@ -125,7 +125,7 @@
         const assIdx = form.assIdx.value.trim();
         var page = (((range - 2) * rangeSize) + 1) <= 1 ? 1 : ((range - 2) * rangeSize) + 1 ;
         var range = (range - 1) <= 1 ? 1 : range - 1;
-        var url = "${pageContext.request.contextPath}/itman/asset/assetEmployeeInfoEdit.do";
+        var url = "${pageContext.request.contextPath}/asset/assetEmployeeInfoEdit.do";
         url = url + "?assIdx=" + assIdx;
         url = url + "&page=" + page;
         url = url + "&range=" + range;
@@ -134,7 +134,7 @@
     function fn_pagination(page, range, rangeSize, searchType, keyword) {
         const form = document.forms["searchForm"];
         const assIdx = form.assIdx.value.trim();
-        var url = "${pageContext.request.contextPath}/itman/asset/assetEmployeeInfoEdit.do";
+        var url = "${pageContext.request.contextPath}/asset/assetEmployeeInfoEdit.do";
         url = url + "?assIdx=" + assIdx;
         url = url + "&page=" + page;
         url = url + "&range=" + range;
@@ -145,7 +145,7 @@
         const assIdx = form.assIdx.value.trim();
         var page = (parseInt((range * rangeSize)) + 1) >= pageCnt ? pageCnt / rangeSize * 10 : parseInt((range * rangeSize)) + 1 ;
         var range = (parseInt(range) + 1) >= parseInt(pageCnt / rangeSize + 1) ? parseInt(pageCnt / rangeSize + 1) : (parseInt(range) + 1) ;
-        var url = "${pageContext.request.contextPath}/itman/asset/assetEmployeeInfoEdit.do";
+        var url = "${pageContext.request.contextPath}/asset/assetEmployeeInfoEdit.do";
         url = url + "?assIdx=" + assIdx;
         url = url + "&page=" + page;
         url = url + "&range=" + range;
@@ -156,7 +156,7 @@
         const assIdx = form.assIdx.value.trim();
         var page =  pageCnt / rangeSize * 10;
         var range =    parseInt(pageCnt / rangeSize + 1);
-        var url = "${pageContext.request.contextPath}/itman/asset/assetEmployeeInfoEdit.do";
+        var url = "${pageContext.request.contextPath}/asset/assetEmployeeInfoEdit.do";
         url = url + "?assIdx=" + assIdx;
         url = url + "&page=" + page;
         url = url + "&range=" + range;

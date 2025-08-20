@@ -21,7 +21,7 @@
 <body>
 	<div id="contents">
 		<div class="user_box join">
-			<p class="tit"><a href="/itman/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
+			<p class="tit"><a href="/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
 			<p class="find_tit">
 				고객님의<br/>
 				정보와 일치하는<br/>
@@ -31,8 +31,8 @@
 
 			<p class="find_comp">${maskedMail}</p>
 
-			<p class="user_btn"><a href="/itman/user/login.do">로그인 하기</a></p>
-			<p class="mam_btn"><a href="/itman/user/findPass.do">비밀번호 찾기</a></p>
+			<p class="user_btn"><a href="/user/login.do">로그인 하기</a></p>
+			<p class="mam_btn"><a href="/user/findPass.do">비밀번호 찾기</a></p>
 		</div>
 	</div>
 	<jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/footer.jsp"/>

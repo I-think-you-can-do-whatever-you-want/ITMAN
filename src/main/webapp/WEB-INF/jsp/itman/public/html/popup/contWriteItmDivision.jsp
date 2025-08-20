@@ -10,12 +10,12 @@
  </head>
 <body>
 <c:if test="${empty division.divIdx}">
-<c:set var="actionUrl" value="/itman/insertDepart.do" />
+<c:set var="actionUrl" value="/insertDepart.do" />
 </c:if>
 <c:if test="${!empty division.divIdx}">
-	<c:set var="actionUrl" value="/itman/updateDepart.do" />
+	<c:set var="actionUrl" value="/updateDepart.do" />
 </c:if>
-<c:url value="/itman/checkDuplicateEmpDiv.do" var="checkDuplicateUrl"/>
+<c:url value="/checkDuplicateEmpDiv.do" var="checkDuplicateUrl"/>
 
 	<div id="popup">
 		<div class="pop_tit">

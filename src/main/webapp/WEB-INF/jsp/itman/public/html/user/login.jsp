@@ -9,9 +9,9 @@
 <body>
 	<div id="contents">
 		<div class="user_box">
-			<p class="tit"><a href="/itman/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
+			<p class="tit"><a href="/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
 
-            <form action="/itman/user/authUser.do" name="form" id="form" method="post">
+            <form action="/user/authUser.do" name="form" id="form" method="post">
 			<ul class="mem">
 				<li>
 					<p>이메일</p>
@@ -24,7 +24,7 @@
 			</ul>
 			<p class="user_btn" ><a href="#" onclick="formSubmit();">로그인</a></p>
 </form>
-			<p class="mam_btn"><a href="/itman/user/join.do">회원가입</a><a href="/itman/user/findEmail.do">이메일 찾기</a><a href="/itman/user/findPass.do">비밀번호 찾기</a></p>
+			<p class="mam_btn"><a href="/user/join.do">회원가입</a><a href="/user/findEmail.do">이메일 찾기</a><a href="/user/findPass.do">비밀번호 찾기</a></p>
 		</div>
 	</div>
 	<c:if test="${!empty msg}">

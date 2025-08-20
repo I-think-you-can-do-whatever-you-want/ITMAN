@@ -20,7 +20,7 @@
 		
 		<!-- 글삭제 -->
 		<p class="delContent">
-			<a href="#" onclick="window.open('/itman/emploDelConfirm.do?empIdx='+ ${employee.empIdx},  '삭제팝업', 'width=500, height=335')"><img alt="삭제버튼" src="../../../../../../images/_img/del_view.png"/></a>
+			<a href="#" onclick="window.open('/emploDelConfirm.do?empIdx='+ ${employee.empIdx},  '삭제팝업', 'width=500, height=335')"><img alt="삭제버튼" src="../../../../../../images/_img/del_view.png"/></a>
 		</p>
 
 		<ul class="adminView">
@@ -28,12 +28,12 @@
 			<li>
 				<p class="tit v02">사번</p>
 				<p class="cont">${employee.empNum}</p>
-				<p class="edit"><a onclick="window.open('/itman/emploNumInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/emploNumInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
 			</li>
 			<li>
 				<p class="tit v02">이름</p>
 				<p class="cont">${employee.empName}</p>
-				<p class="edit"><a onclick="window.open('/itman/emploNameInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/emploNameInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
 			</li>
 			<li>
 				<p class="tit v02">이메일</p>
@@ -46,7 +46,7 @@
 
 					</c:otherwise>
 				</c:choose>
-				<p class="edit"><a onclick="window.open('/itman/emploMailInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/emploMailInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
 			</li>
 			<li>
 				<p class="tit v02">휴대폰</p>
@@ -59,22 +59,22 @@
 					</c:otherwise>
 				</c:choose>
 <%--				<p class="cont">${employee.empTel}</p>--%>
-				<p class="edit"><a onclick="window.open('/itman/emploTellInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/emploTellInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
 			</li>
 			<li>
 				<p class="tit v02">부서</p>
 				<p class="cont">${employee.empDiv}</p>
-				<p class="edit"><a onclick="window.open('/itman/emploDivisionInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/emploDivisionInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
 			</li>
 			<li>
 				<p class="tit v02">직위</p>
 				<p class="cont">${employee.posName}</p>
-				<p class="edit"><a onclick="window.open('/itman/emploPosInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/emploPosInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
 			</li>
 			<li>
 				<p class="tit v02">상태</p>
 				<p class="cont">${employee.empState}</p>
-				<p class="edit"><a onclick="window.open('/itman/emploStateInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/emploStateInfoEdit.do?empIdx=' + ${employee.empIdx}, '수정팝업', 'width=500, height=335')" href="#none" class="edit">수정</a></p>
 			</li>
 		</ul>
 
@@ -122,7 +122,7 @@
 	 function confirmDelete(empIdx) {
 		 if (confirm("정말 삭제하시겠습니까?")) {
 			 // 삭제 진행
-			 location.href = "/itman/delete.do?empIdx=" + empIdx + "&delYn=Y";
+			 location.href = "/delete.do?empIdx=" + empIdx + "&delYn=Y";
 		 }
 	 }
  </script>

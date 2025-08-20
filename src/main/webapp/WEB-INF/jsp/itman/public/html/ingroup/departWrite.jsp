@@ -21,9 +21,9 @@
 			<h2>부서 관리</h2>
 		</div>
 
-		<c:set var="actionUrl" value="/itman/departInsert.do" />
+		<c:set var="actionUrl" value="/departInsert.do" />
 		<c:if test="${!empty division.divIdx}">
-			<c:set var="actionUrl" value="/itman/departUpdate.do" />
+			<c:set var="actionUrl" value="/departUpdate.do" />
 		</c:if>
 		<form method="post" id='write' name="divisionForm" action="${actionUrl}" onsubmit="return validateForm()">
 			<c:if test="${!empty division.divIdx}">
@@ -92,7 +92,7 @@
 		</ul>
 		</form>
 
-		<p class="pagebtn"><a href="/itman/departList.do" class="del">취소</a>
+		<p class="pagebtn"><a href="/departList.do" class="del">취소</a>
 		<c:choose>
 			<c:when test="${!empty division.divIdx}">
 				<a href="#" type="submit" class="comp" onclick="if(validateForm()) document.forms['divisionForm'].submit(); return false"

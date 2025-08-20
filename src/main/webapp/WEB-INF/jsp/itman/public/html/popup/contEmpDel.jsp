@@ -9,7 +9,7 @@
 <body>
 
 	<div id="popup">
-		<form method="post" name="form" action="${pageContext.request.contextPath}/itman/deleteEmploState.do" >
+		<form method="post" name="form" action="${pageContext.request.contextPath}/deleteEmploState.do" >
 			<input type="hidden" name="empStIdx" value="${empState.empStIdx}">
 		<div class="pop_tit">
 			<p class="title">삭제하시겠습니까?</p>

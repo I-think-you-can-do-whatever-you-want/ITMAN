@@ -8,14 +8,14 @@
 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/title.jsp"/>
  </head>
 <body>
-<c:url value="/itman/checkDuplicateAssLoc.do" var="checkDuplicateUrl"/>
+<c:url value="/checkDuplicateAssLoc.do" var="checkDuplicateUrl"/>
 
 	<div id="popup">
 		<div class="pop_tit">
 			<p class="title">자산 위치 수정 팝업</p>
 		</div>
 		<div class="pop_cont">
-			<form method="post" id="form" action="${pageContext.request.contextPath}/itman/updateLocation.do">
+			<form method="post" id="form" action="${pageContext.request.contextPath}/updateLocation.do">
 			<input type="hidden" name="locIdx" value="${location.locIdx}" >
 			<ul class="contEdit">
 				<li>

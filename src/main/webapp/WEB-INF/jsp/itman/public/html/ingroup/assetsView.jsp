@@ -15,17 +15,15 @@
 		<div class="tit_search">
 			<h2>자산 관리</h2>
 		</div>
-<%--		<input type="hidden" id="gorIdx" name="groIdx" value="${groIdx}">--%>
 		<!-- 글삭제 -->
-		<p class="delContent"><a onclick="window.open('/itman/asset/confirmAssetDel.do?assIdx=${asset.assIdx}', '삭제팝업', 'width=500, height=300')" href="#none"><img src="../../../../../../images/_img/del_view.png"></a></p>
+		<p class="delContent"><a onclick="window.open('/asset/confirmAssetDel.do?assIdx=${asset.assIdx}', '삭제팝업', 'width=500, height=300')" href="#none"><img src="../../../../../../images/_img/del_view.png"></a></p>
 
 		<div class="viewTop">
 			<div class="img">
 				<span><img id="img" src="${pageContext.request.contextPath}/upload/assImg/${asset.image}" onerror="this.src='${pageContext.request.contextPath}/images/_img/noimg.png'"/></span>
-				<!-- 이미지없을때 <span><img src="_img/noimg.png" style="width:50px" alt="이미지없음"/></span> -->
 				<p class="filebox">
 				  <label for="filename">파일찾기</label> 
-				  <form id="FILE_FORM" method="post" enctype="multipart/form-data" action="/itman/asset/updateAssetPictureInfo.do">
+				  <form id="FILE_FORM" method="post" enctype="multipart/form-data" action="/asset/updateAssetPictureInfo.do">
 				<input type="hidden" name="assIdx" value="${asset.assIdx}">
 				<input type="file" id="filename" name="assImgFile" class="upload-hidden" style="display:none">
 				  </form>
@@ -41,13 +39,13 @@
 					<p class="cont">${asset.assName}</p>
 					<p class="edit">
 <%--						<a onclick="window.open('<?='../popup/asset/assetNameInfoEdit.php?ass_idx='.$row['ASS_IDX']?>', '수정팝업', 'width=500, height=300')" href="#" class="edit">수정</a>--%>
-						<a onclick="window.open('/itman/asset/assetNameInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width=500, height=300')" href="#" class="edit">수정</a>
+						<a onclick="window.open('/asset/assetNameInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width=500, height=300')" href="#" class="edit">수정</a>
 					</p>
 				</li> 
 				<li>
 					<p class="tit">분류</p>
 					<p class="cont">${asset.assCatName}</p>
-					<p class="edit"><a onclick="window.open('/itman/asset/assetCategoryInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width=500, height=300')" href="#none" class="edit">수정</a></p>
+					<p class="edit"><a onclick="window.open('/asset/assetCategoryInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width=500, height=300')" href="#none" class="edit">수정</a></p>
 				</li> 
 				<li>
 					<p class="tit">최초 등록 일시</p>
@@ -56,18 +54,18 @@
 				<li>
 					<p class="tit">상태</p>
 					<p class="cont">${asset.assStaName}</p>
-					<p class="edit"><a onclick="window.open('/itman/asset/assetStateInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width=500, height=300')" href="#none" class="edit">수정</a></p>
+					<p class="edit"><a onclick="window.open('/asset/assetStateInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width=500, height=300')" href="#none" class="edit">수정</a></p>
 				</li> 
 				<li>
 					<p class="tit">위치</p>
 					<p class="cont">${asset.assLocName}</p>
-					<p class="edit"><a onclick="window.open('/itman/asset/assetLocationInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width=500, height=300')" href="#none" class="edit">수정</a></p>
+					<p class="edit"><a onclick="window.open('/asset/assetLocationInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width=500, height=300')" href="#none" class="edit">수정</a></p>
 				</li> 
 				<li>
 					<p class="tit">사용직원</p>
 					<p class="cont">${asset.assEmpName}</p>
 					<input type="hidden" id= "emp_idx" name="empIdx" value="" />
-					<p class="edit"><a onclick="window.open('/itman/asset/assetEmployeeInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width = 500, height = 630')" href="#none" class="edit">수정</a></p>
+					<p class="edit"><a onclick="window.open('/asset/assetEmployeeInfoEdit.do?assIdx=${asset.assIdx}', '수정팝업', 'width = 500, height = 630')" href="#none" class="edit">수정</a></p>
 				</li>
 				<li>
 					<p class="tit">최종 수정 일시</p>
@@ -90,7 +88,7 @@
 						</c:otherwise>
 					</c:choose>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/asset/assetSupplyInfoEdit.do?assIdx=${asset.assIdx}', '직원등록팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/asset/assetSupplyInfoEdit.do?assIdx=${asset.assIdx}', '직원등록팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
 			</li> <br/>
 			<li>
 				<p class="tit">최초 구매일</p>
@@ -104,7 +102,7 @@
 						</c:otherwise>
 					</c:choose>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/asset/assetBuyDateInfoEdit.do?assIdx=${asset.assIdx}', '직원등록팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/asset/assetBuyDateInfoEdit.do?assIdx=${asset.assIdx}', '직원등록팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
 			</li> <br/>
 			<li>
 				<p class="tit">가격(원)</p>
@@ -118,7 +116,7 @@
 						</c:otherwise>
 					</c:choose>
 				</p>
-				<p class="edit"><a onclick="window.open('/itman/asset/assetPriceInfoEdit.do?assIdx=${asset.assIdx}', '직원등록팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
+				<p class="edit"><a onclick="window.open('/asset/assetPriceInfoEdit.do?assIdx=${asset.assIdx}', '직원등록팝업', 'width=500, height=335')" href="#" class="edit">수정</a></p>
 			</li> <br/>
 		</ul>
 

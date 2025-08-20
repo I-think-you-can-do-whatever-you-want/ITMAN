@@ -9,7 +9,7 @@
 
  </head>
 <body>
-<c:url value="/itman/authPassword.do" var="authPassUrl"/>
+<c:url value="/authPassword.do" var="authPassUrl"/>
 	<div id="popup">
 		<div class="pop_tit">
 			<p class="title">삭제하시겠습니까?</p>
@@ -17,7 +17,7 @@
 		<div class="pop_cont">
 			<ul class="contEdit">
 				<li>
-					<form action="/itman/deleteGroup.do" name="form" id="form" method="post">
+					<form action="/deleteGroup.do" name="form" id="form" method="post">
 						<input type="hidden" name="groIdx" value="${group.groIdx}">
 						<p class="tit">비밀번호</p>
 						<p class="cont"><input id="inputPw" name="inputPw" type="password"/></p>
@@ -64,7 +64,6 @@
 			}
 
 			if (code === 1) {
-				alert("삭제되었습니다.");
 				document.forms['form'].submit();
 			}
 		} catch (e) {

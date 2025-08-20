@@ -15,7 +15,7 @@
 			<p class="title">직원 이메일 변경</p>
 		</div>
 		<div class="pop_cont">
-            <form method="post" id="form" action="/itman/updateEmploMailInfo.do">
+            <form method="post" id="form" action="/updateEmploMailInfo.do">
                 <input type="hidden" name="empIdx" value="${employee.empIdx}">
 			<ul class="contEdit">
 				<li>

@@ -8,14 +8,14 @@
 	 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/title.jsp"/>
  </head>
 <body>
-<c:url value="/itman/checkDuplicateAssCat.do" var="checkDuplicateUrl"/>
+<c:url value="/checkDuplicateAssCat.do" var="checkDuplicateUrl"/>
 	<div id="popup">
 		<div class="pop_tit">
 			<p class="title">정보를 입력해주세요</p>
 		</div>
 		<div class="pop_cont">
 			<ul class="contEdit">
-				<form id="form" name="form" method="post" action="${pageContext.request.contextPath}/itman/insertEmploDivision.do" >
+				<form id="form" name="form" method="post" action="${pageContext.request.contextPath}/insertEmploDivision.do" >
 				<li>
 					<p class="tit">부서명 <span>*</span></p>
 					<p class="cont"><input id="div_name" name="divName" type="text" placeholder="추가할 부서명을 입력해 주세요."></p>

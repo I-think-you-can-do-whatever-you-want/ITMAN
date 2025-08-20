@@ -9,16 +9,16 @@
  </head>
 <body>
 <c:if test="${!empty supply}">
-	<c:set var="actionUrl" value="${pageContext.request.contextPath}/itman/deleteSupplier.do" />
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/deleteSupplier.do" />
 </c:if>
 <c:if test="${!empty location}">
-	<c:set var="actionUrl" value="${pageContext.request.contextPath}/itman/deleteLocation.do" />
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/deleteLocation.do" />
 </c:if>
 <c:if test="${!empty assetCategory}">
-	<c:set var="actionUrl" value="${pageContext.request.contextPath}/itman/deleteAssetCategory.do" />
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/deleteAssetCategory.do" />
 </c:if>
 <c:if test="${!empty position}">
-    <c:set var="actionUrl" value="${pageContext.request.contextPath}/itman/deletePosition.do"/>
+    <c:set var="actionUrl" value="${pageContext.request.contextPath}/deletePosition.do"/>
 </c:if>
 
 	<div id="popup">

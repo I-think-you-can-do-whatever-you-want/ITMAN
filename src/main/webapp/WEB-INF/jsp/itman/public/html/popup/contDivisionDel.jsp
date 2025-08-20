@@ -12,7 +12,7 @@
 		<div class="pop_tit">
 			<p class="title">삭제하시겠습니까?</p>
 		</div>
-		<form method="post" name="form" action="${pageContext.request.contextPath}/itman/deleteDepart.do">
+		<form method="post" name="form" action="${pageContext.request.contextPath}/deleteDepart.do">
 			<input type="hidden" name="divIdx" value="${division.divIdx}">
 		<div class="pop_cont">
 			<ul class="contEdit">

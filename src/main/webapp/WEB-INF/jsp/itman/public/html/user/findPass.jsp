@@ -7,16 +7,16 @@
   <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/title.jsp"/>
  </head>
 <body>
-<c:url value="/itman/findPass_proc.do" var="authUserUrl"/>
+<c:url value="/findPass_proc.do" var="authUserUrl"/>
 	<div id="contents">
 		<div class="user_box join">
-			<p class="tit"><a href="/itman/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
+			<p class="tit"><a href="/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
 			<p class="find_tit">
 				비밀번호를<br/>잊으셨나요?
 				<span>회원가입시 입력하셨던 정보를 하단에 입력해주세요.</span>
 			</p>
 
-            <form action="/itman/sendMailCode.do" name="form" id="form" method="post">
+            <form action="/sendMailCode.do" name="form" id="form" method="post">
 			<ul class="mem">
 				<li>
 					<p>사용자 이름</p>

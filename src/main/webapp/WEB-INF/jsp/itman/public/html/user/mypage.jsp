@@ -22,19 +22,19 @@
 				</li>
 				<li>
 					<p>휴대폰 번호</p>
-					<div>${member.memTel}<a onclick="window.open('/itman/phoneEdit.do', '수정팝업', 'width=500, height=335')" href="#none">수정</a></div>
+					<div>${member.memTel}<a onclick="window.open('/phoneEdit.do', '수정팝업', 'width=500, height=335')" href="#none">수정</a></div>
 				</li>
 				<li>
 					<p>비밀번호</p>
-					<div class="full"><a href="/itman/changePass.do">변경</a></div>
+					<div class="full"><a href="/changePass.do">변경</a></div>
 				</li>
 			</ul>
 			
 			<h3>계정관리</h3>
 			<ul class="boxlist">
-				<li><a href="/itman/myGroup.do">그룹관리</a></li>
-				<li><a href="/itman/privacy.do">서비스 이용약관</a></li>
-				<li><a href="/itman/accDel.do">계정탈퇴</a></li>
+				<li><a href="/myGroup.do">그룹관리</a></li>
+				<li><a href="/privacy.do">서비스 이용약관</a></li>
+				<li><a href="/accDel.do">계정탈퇴</a></li>
 			</ul>
 		</div>
 	</div>

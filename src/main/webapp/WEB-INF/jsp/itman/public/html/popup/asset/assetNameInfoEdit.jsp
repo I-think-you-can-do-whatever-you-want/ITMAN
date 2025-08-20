@@ -9,7 +9,7 @@
 <body>
 
 	<div id="popup">
-		<form method="post" action="${pageContext.request.contextPath}/itman/asset/updateAssetNameInfo.do" id="form">
+		<form method="post" action="${pageContext.request.contextPath}/asset/updateAssetNameInfo.do" id="form">
 			<input type="hidden" name="assIdx" value="${asset.assIdx}" />
 		<div class="pop_tit">
 			<p class="title">자산명 변경</p>
@@ -40,17 +40,6 @@
 			window.close();
 		}, 300);
 	}
-	<%--function updateAsset() {--%>
-	<%--	// $("#form").submit();--%>
-	<%--	document.forms['form'].submit();--%>
-	<%--	const assIdx = "${asset.assIdx}";--%>
-	<%--	const assName = encodeURIComponent(document.getElementById("newName").value);--%>
-
-	<%--	const url = "/itman/asset/updateAssetNameInfo.do?assIdx=" + assIdx + "&assName=" + assName;--%>
-
-	<%--	window.opener.location.href = url;--%>
-	<%--	window.close();--%>
-	<%--}--%>
 </script>
 </body>
 </html>

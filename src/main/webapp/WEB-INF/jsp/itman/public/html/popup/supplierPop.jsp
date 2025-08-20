@@ -9,7 +9,6 @@
 	 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/title.jsp" />
  </head>
 <body>
-
 	<div id="popup">
 		<div class="pop_tit">
 			<p class="title">구매처 찾기</p>

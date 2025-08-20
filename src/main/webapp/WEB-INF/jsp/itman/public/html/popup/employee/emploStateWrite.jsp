@@ -9,12 +9,12 @@
  </head>
 <body>
 <c:if test="${!empty empState.empStIdx}">
-	<c:set var="actionUrl" value="${pageContext.request.contextPath}/itman/updateEmploState.do"/>
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/updateEmploState.do"/>
 </c:if>
 <c:if test="${empty empState.empStIdx}">
-	<c:set var="actionUrl" value="${pageContext.request.contextPath}/itman/insertEmploState.do"/>
+	<c:set var="actionUrl" value="${pageContext.request.contextPath}/insertEmploState.do"/>
 </c:if>
-<c:url value="/itman/checkDuplicateEmpSta.do" var="checkDuplicateUrl"/>
+<c:url value="/checkDuplicateEmpSta.do" var="checkDuplicateUrl"/>
 
 
 	<div id="popup">

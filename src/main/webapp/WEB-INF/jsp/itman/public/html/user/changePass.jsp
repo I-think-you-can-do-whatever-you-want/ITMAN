@@ -9,12 +9,12 @@
 	 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/header.jsp"/>
  </head>
 <body id="group">
-<c:url value="/itman/authPassword.do" var="authPassUrl"/>
+<c:url value="/authPassword.do" var="authPassUrl"/>
 	<div id="contents">
 		<div class="mypage_box">
-			<h2><a href="/itman/myPage.do">비밀번호 변경</a></h2>
+			<h2><a href="/myPage.do">비밀번호 변경</a></h2>
 			<ul class="myinfo pass">
-			<form action="/itman/updatePass.do" name="form" id="form" method="post">
+			<form action="/updatePass.do" name="form" id="form" method="post">
 				<li>
 					<p>현재 비밀번호</p>
 					<div><input id="inputPw" name="inputPw" type="password"/></div>
@@ -88,7 +88,6 @@
 			}
 
 			if (code === 1) {
-				alert("비밀번호가 변경되었습니다.");
 				document.forms['form'].submit();
 			}
 		} catch (e) {

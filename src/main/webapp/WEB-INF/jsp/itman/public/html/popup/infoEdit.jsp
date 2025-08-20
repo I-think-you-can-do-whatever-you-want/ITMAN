@@ -6,7 +6,6 @@
   <? include "../_inc/title.php"; ?>
  </head>
 <body>
-
 	<div id="popup">
 		<div class="pop_tit">
 			<p class="title">정보 변경</p>

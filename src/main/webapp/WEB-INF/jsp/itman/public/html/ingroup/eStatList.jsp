@@ -12,7 +12,7 @@
 <div id="contents">
 		<div class="tit_search">
 			<h2>직원 상태 관리</h2>
-			<form id="searchForm" method="get" action="${pageContext.request.contextPath}/itman/employeeStateList.do" onsubmit="this.page.value=1; this.range.value=1;">
+			<form id="searchForm" method="get" action="${pageContext.request.contextPath}/employeeStateList.do" onsubmit="this.page.value=1; this.range.value=1;">
 			<p class="list_search">
 				<select name="pagination.searching.searchCondition">
 					<option value="" >전체</option>
@@ -30,7 +30,7 @@
 		</div>
 
 		<!-- 글쓰기 버튼-->
-		<p class="addContent"><a href="#" onclick="window.open('/itman/emploStateWrite.do', '직원 상태 추가 팝업', 'width=500, height=300, status=no,toolbar=no,scrollbars=no')" class="edit">><span></span><span></span><span></span></a></p>
+		<p class="addContent"><a href="#" onclick="window.open('/emploStateWrite.do', '직원 상태 추가 팝업', 'width=500, height=300, status=no,toolbar=no,scrollbars=no')" class="edit">><span></span><span></span><span></span></a></p>
 
 			<div class="Basic">
 			<ul class="adminList">
@@ -49,8 +49,8 @@
 							<p class="num">${empState.empStCnt}</p>
 							<p class="tit">${empState.slNote}</p>
 							<p class="editDel" style="padding: 0">
-								<a href="#" onclick="window.open('/itman/editEmploState.do?empStIdx=${empState.empStIdx}', 'EditPopUp', 'width=500, height=300, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
-								<a href="#" onclick="window.open('/itman/confirmEmploStateDel.do?empStIdx=${empState.empStIdx}', 'EditPopUp', 'width=500, height=250, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
+								<a href="#" onclick="window.open('/editEmploState.do?empStIdx=${empState.empStIdx}', 'EditPopUp', 'width=500, height=300, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
+								<a href="#" onclick="window.open('/confirmEmploStateDel.do?empStIdx=${empState.empStIdx}', 'EditPopUp', 'width=500, height=250, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
 							</p>
 						</li>
 					</c:forEach>
@@ -99,7 +99,7 @@
 	}
 	//처음 버튼 이벤트
 	function fn_maxPrev() {
-		var url = "${pageContext.request.contextPath}/itman/employeeStateList.do";
+		var url = "${pageContext.request.contextPath}/employeeStateList.do";
 		url = url + "?page=" + 1;
 		url = url + "&range=" + 1;
 		location.href = url;	}
@@ -107,13 +107,13 @@
 	function fn_prev(page, range, rangeSize,searchDiv, searchPos, searchSt, searchSort, searchKyeword) {
 		var page = (((range - 2) * rangeSize) + 1) <= 1 ? 1 : ((range - 2) * rangeSize) + 1 ;
 		var range = (range - 1) <= 1 ? 1 : range - 1;
-		var url = "${pageContext.request.contextPath}/itman/employeeStateList.do";
+		var url = "${pageContext.request.contextPath}/employeeStateList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		location.href = url;	}
 	//페이지 번호 클릭
 	function fn_pagination(page, range, rangeSize, searchType, keyword) {
-		var url = "${pageContext.request.contextPath}/itman/employeeStateList.do";
+		var url = "${pageContext.request.contextPath}/employeeStateList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		location.href = url;		}
@@ -121,7 +121,7 @@
 	function fn_next(pageCnt, page, range, rangeSize) {
 		var page = (parseInt((range * rangeSize)) + 1) >= pageCnt ? pageCnt / rangeSize * 10 : parseInt((range * rangeSize)) + 1 ;
 		var range = (parseInt(range) + 1) >= parseInt(pageCnt / rangeSize + 1) ? parseInt(pageCnt / rangeSize + 1) : (parseInt(range) + 1) ;
-		var url = "${pageContext.request.contextPath}/itman/employeeStateList.do";
+		var url = "${pageContext.request.contextPath}/employeeStateList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		location.href = url;	}
@@ -129,7 +129,7 @@
 	function fn_maxNext(pageCnt, range, rangeSize) {
 		var page =  pageCnt / rangeSize * 10;
 		var range =    parseInt(pageCnt / rangeSize + 1);
-		var url = "${pageContext.request.contextPath}/itman/employeeStateList.do";
+		var url = "${pageContext.request.contextPath}/employeeStateList.do";
 		url = url + "?page=" + page;
 		url = url + "&range=" + range;
 		location.href = url;
@@ -137,13 +137,3 @@
 </script>
 </body>
 </html>
-
-<%--<?php--%>
-<%--	function queryCount($sql){--%>
-<%--		include "../_inc/dbconn.php";--%>
-<%--		$query_count = mysqli_query($dbconn, $sql);--%>
-<%--        $count =mysqli_num_rows($query_count); --%>
-<%--		return $count;--%>
-<%--	}--%>
-
-<%--?>--%>

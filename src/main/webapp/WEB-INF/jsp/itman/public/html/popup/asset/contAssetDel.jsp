@@ -9,7 +9,7 @@
 <body>
 
 	<div id="popup">
-		<form method="post" action="${pageContext.request.contextPath}/itman/asset/deleteAsset.do" name="form">
+		<form method="post" action="${pageContext.request.contextPath}/asset/deleteAsset.do" name="form">
 		<input type="hidden" name="assIdx" value="${asset.assIdx}">
 		<div class="pop_tit">
 			<p class="title">자산을 삭제하시겠습니까?</p>
@@ -30,7 +30,7 @@
 	function deleteAsset(){
 		document.forms['form'].submit();
 		setTimeout(() => {
-			window.opener.location.href="${pageContext.request.contextPath}/itman/assetsList.do";
+			window.opener.location.href="${pageContext.request.contextPath}/assetsList.do";
 			window.close();
 		}, 300);
 	}

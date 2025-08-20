@@ -12,7 +12,7 @@
 	<div id="contents">
 		<div class="tit_search">
 			<h2>자산 분류 관리</h2>
-			<form id="searchForm" action="${pageContext.request.contextPath}/itman/assetCategory.do" method="post" onsubmit="this.page.value=1; this.range.value=1;">
+			<form id="searchForm" action="${pageContext.request.contextPath}/assetCategory.do" method="post" onsubmit="this.page.value=1; this.range.value=1;">
                 <input type="hidden" name="pagination.page" value="${pagination.page}" />
 				<input type="hidden" name="pagination.range" value="${pagination.range}" />
 				<input type="hidden" id="rangeSize" name="pagination.rangeSize" value="${pagination.rangeSize}" />
@@ -30,7 +30,7 @@
 
 		<div class="num_list">
 			<p class="total">총 <span>${pagination.listCnt}</span>건의 결과가 있습니다.</p>
-			<a href="/itman/downloadAssetCategoryData.do"
+			<a href="/downloadAssetCategoryData.do"
 			   style="float: right; background-color: #28a745; color: white; padding: 5px 10px; border-radius: 2px; text-decoration: none; font-weight: bold;">
 			   엑셀 다운로드
 			</a>
@@ -38,7 +38,7 @@
 
         <?=$test?>
 		<!-- 글쓰기 버튼-->
-		<p class="addContent"><a onclick="window.open('/itman/asset/contWriteAssetCategory.do', '자산 분류 추가 팝업', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="edit">><span></span><span></span><span></span></a></p>
+		<p class="addContent"><a onclick="window.open('/asset/contWriteAssetCategory.do', '자산 분류 추가 팝업', 'width=500, height=500, status=no,toolbar=no,scrollbars=no')" class="edit">><span></span><span></span><span></span></a></p>
 		<div class="Basic">
 			<ul class="adminList">
                 <li class="tit">
@@ -54,8 +54,8 @@
 							<p class="tit">${assCat.assCatName}</p>
 							<p class="tit">${assCat.slNote}</p>
 							<p class="editDel" style="padding: 0">
-								<a href="#" onclick="window.open('/itman/editAssetCategory.do?assCatIdx=${assCat.assCatIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
-								<a href="#" onclick="window.open('/itman/confirmAssetCategoryDel.do?assCatIdx=${assCat.assCatIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
+								<a href="#" onclick="window.open('/editAssetCategory.do?assCatIdx=${assCat.assCatIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
+								<a href="#" onclick="window.open('/confirmAssetCategoryDel.do?assCatIdx=${assCat.assCatIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
 							</p>
 						</li>
 					</c:forEach>
@@ -104,7 +104,7 @@
 		}
 		//처음 버튼 이벤트
 		function fn_maxPrev() {
-			var url = "${pageContext.request.contextPath}/itman/assetCategory.do";
+			var url = "${pageContext.request.contextPath}/assetCategory.do";
 			url = url + "?page=" + 1;
 			url = url + "&range=" + 1;
 			location.href = url;	}
@@ -112,13 +112,13 @@
 		function fn_prev(page, range, rangeSize,searchDiv, searchPos, searchSt, searchSort, searchKyeword) {
 			var page = (((range - 2) * rangeSize) + 1) <= 1 ? 1 : ((range - 2) * rangeSize) + 1 ;
 			var range = (range - 1) <= 1 ? 1 : range - 1;
-			var url = "${pageContext.request.contextPath}/itman/assetCategory.do";
+			var url = "${pageContext.request.contextPath}/assetCategory.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;	}
 		//페이지 번호 클릭
 		function fn_pagination(page, range, rangeSize, searchType, keyword) {
-			var url = "${pageContext.request.contextPath}/itman/assetCategory.do";
+			var url = "${pageContext.request.contextPath}/assetCategory.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;		}
@@ -126,7 +126,7 @@
 		function fn_next(pageCnt, page, range, rangeSize) {
 			var page = (parseInt((range * rangeSize)) + 1) >= pageCnt ? pageCnt / rangeSize * 10 : parseInt((range * rangeSize)) + 1 ;
 			var range = (parseInt(range) + 1) >= parseInt(pageCnt / rangeSize + 1) ? parseInt(pageCnt / rangeSize + 1) : (parseInt(range) + 1) ;
-			var url = "${pageContext.request.contextPath}/itman/assetCategory.do";
+			var url = "${pageContext.request.contextPath}/assetCategory.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;	}
@@ -134,7 +134,7 @@
 		function fn_maxNext(pageCnt, range, rangeSize) {
 			var page =  pageCnt / rangeSize * 10;
 			var range =    parseInt(pageCnt / rangeSize + 1);
-			var url = "${pageContext.request.contextPath}/itman/assetCategory.do";
+			var url = "${pageContext.request.contextPath}/assetCategory.do";
 			url = url + "?page=" + page;
 			url = url + "&range=" + range;
 			location.href = url;
@@ -142,11 +142,3 @@
 	</script>
 </body>
 </html>
-
-<%--<?php--%>
-<%--	function queryCount($sql){--%>
-<%--		include "../_inc/dbconn.php";--%>
-<%--		$query_count = mysqli_query($dbconn, $sql);--%>
-<%--        $count =mysqli_num_rows($query_count); --%>
-<%--		return $count;--%>
-<%--	}--%>

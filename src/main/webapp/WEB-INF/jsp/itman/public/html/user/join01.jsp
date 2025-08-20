@@ -6,12 +6,11 @@
 <html lang="ko">
  <head>
 	 <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/title.jsp" />
-
  </head>
 <body>
 	<div id="contents">
 		<div class="user_box join">
-			<p class="tit"><a href="${pageContext.request.contextPath}/itman/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
+			<p class="tit"><a href="${pageContext.request.contextPath}/index.do"><img src="../../../../../../images/_img/itman_logo.png" alt="아이티맨" /></a></p>
 			<ul class="step">
 				<li class="on"><span>1</span>서비스 이용약관</li>
 				<li><span>2</span></li>
@@ -251,7 +250,7 @@
 				return false;
 			}
 
-			location.href='/itman/user/writeUserInfo.do';
+			location.href='/user/writeUserInfo.do';
 		}
 	</script>
 </body>

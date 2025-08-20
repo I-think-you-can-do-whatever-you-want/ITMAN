@@ -8,14 +8,14 @@
   <jsp:include page="${pageContext.request.contextPath}/WEB-INF/jsp/itman/_inc/title.jsp" />
  </head>
 <body>
-<c:url value="/itman/checkDuplicateAssCat.do" var="checkDuplicateUrl"/>
+<c:url value="/checkDuplicateAssCat.do" var="checkDuplicateUrl"/>
 
 	<div id="popup">
 		<div class="pop_tit">
 			<p class="title">자산 분류 수정 팝업</p>
 		</div>
 		<div class="pop_cont">
-			<form method="post" id="form" action="${pageContext.request.contextPath}/itman/updateAssetCategory.do">
+			<form method="post" id="form" action="${pageContext.request.contextPath}/updateAssetCategory.do">
 			<input type="hidden" name="assCatIdx" value="${assetCategory.assCatIdx}" />
 			<ul class="contEdit">
 				<li>
