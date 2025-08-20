@@ -37,7 +37,7 @@ public class EmpStateDAO {
     public void deleteEmployeeState(EmpStateVO vo) {
         sqlSession.update("empStateDAO.deleteEmployeeState", vo);
     }
-    public EmpStateVO checkDuplicate(EmpStateVO vo){
+    public int checkDuplicate(EmpStateVO vo){
         return sqlSession.selectOne("empStateDAO.checkDuplicate", vo);
     }
 }

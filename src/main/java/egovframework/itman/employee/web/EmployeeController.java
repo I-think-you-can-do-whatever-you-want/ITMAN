@@ -120,16 +120,14 @@ public class EmployeeController {
 
     @PostMapping(value = "/itman/checkDuplicateEmpPos.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String checkDuplicateEmpPos(@RequestParam("posCode") String posCode, HttpSession session) {
+    public String checkDuplicateEmpPos(@RequestParam("posCode") String posCode,@RequestParam(name = "posIdx", required = false) String posIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         PositionVO vo = new PositionVO();
         vo.setPosCode(posCode);
         vo.setGroIdx(groIdx);
-        PositionVO resultVO = positionService.checkDuplicate(vo);
-        if (resultVO != null){
-            return "0";
-        }
-        return "1";
+        vo.setPosIdx(posIdx);
+
+        return positionService.isDuplicatePosition(vo) ? "0" : "1";
     }
     @PostMapping("/itman/insertEmploPosition.do")
     public String insertEmployeePosition(PositionVO vo, Model model, HttpSession session) {
@@ -149,16 +147,14 @@ public class EmployeeController {
 
     @PostMapping(value = "/itman/checkDuplicateEmpSta.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String checkDuplicateEmpSta(@RequestParam("empStCode") String empStCode, HttpSession session) {
+    public String checkDuplicateEmpSta(@RequestParam("empStCode") String empStCode, @RequestParam(name = "empStIdx", required = false) String empStIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         EmpStateVO vo = new EmpStateVO();
         vo.setEmpStCode(empStCode);
         vo.setGroIdx(groIdx);
-        EmpStateVO resultVO = empStateService.checkDuplicate(vo);
-        if (resultVO != null){
-            return "0";
-        }
-        return "1";
+        vo.setEmpStIdx(empStIdx);
+
+        return empStateService.isDuplicateEmpState(vo) ? "0" : "1";
     }
     @PostMapping("/itman/insertEmploState.do")
     public String insertEmployeeState(EmpStateVO vo, Model model, HttpSession session) {

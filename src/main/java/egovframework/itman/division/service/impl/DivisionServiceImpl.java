@@ -48,8 +48,8 @@ public class DivisionServiceImpl implements DivisionService {
         divisionDAO.deleteDivision(divisionVO);
     }
 
-    @Override
-    public DivisionVO checkDuplicate(DivisionVO vo){
-        return divisionDAO.checkDuplicate(vo);
+    public boolean isDuplicateDivision(DivisionVO vo){
+        int count = divisionDAO.checkDuplicate(vo);
+        return count > 0;
     }
 }

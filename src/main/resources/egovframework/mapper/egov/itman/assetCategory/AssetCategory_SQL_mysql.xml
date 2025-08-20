@@ -132,14 +132,17 @@
         AND GRO_IDX = #{groIdx}
     </select>
 
-    <select id="checkDuplicate" parameterType="assetCategoryVO" resultType="assetCategoryVO">
+    <select id="checkDuplicate" parameterType="assetCategoryVO" resultType="int">
         SELECT
-            ASS_CAT_IDX
+        COUNT(*)
         FROM
             ITM_ASSET_CATEGORY
         WHERE
             DEL_YN = 'N'
         AND GRO_IDX = #{groIdx}
         AND ASS_CAT_CODE = ${assCatCode}
+        <if test="assCatIdx != null and assCatIdx != ''">
+            AND ASS_CAT_IDX != #{assCatIdx}
+            </if>
     </select>
 </mapper>

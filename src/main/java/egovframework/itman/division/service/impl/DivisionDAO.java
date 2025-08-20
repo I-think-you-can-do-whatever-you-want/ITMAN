@@ -40,7 +40,7 @@ public class DivisionDAO {
     public void deleteDivision(DivisionVO divisionVO){
         sqlSession.update("divisionDAO.deleteDivision", divisionVO);
     }
-    public DivisionVO checkDuplicate(DivisionVO vo){
+    public int checkDuplicate(DivisionVO vo){
         return sqlSession.selectOne("divisionDAO.checkDuplicate", vo);
     }
 }

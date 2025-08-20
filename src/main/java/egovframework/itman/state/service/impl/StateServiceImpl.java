@@ -50,8 +50,9 @@ public class StateServiceImpl implements StateService {
     public void deleteAssetState(StateVO vo) throws Exception {
         stateDAO.deleteAssetState(vo);
     }
-    @Override
-    public StateVO checkDuplicate(StateVO vo){
-        return stateDAO.checkDuplicate(vo);
+
+    public boolean isDuplicateState(StateVO vo){
+        int count = stateDAO.checkDuplicate(vo);
+        return count > 0;
     }
 }

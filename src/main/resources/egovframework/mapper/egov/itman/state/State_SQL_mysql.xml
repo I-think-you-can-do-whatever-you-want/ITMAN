@@ -140,14 +140,17 @@
             STA_IDX = #{staIdx}
     </update>
 
-    <select id="checkDuplicate" parameterType="stateVO" resultType="stateVO">
+    <select id="checkDuplicate" parameterType="stateVO" resultType="int">
         SELECT
-            STA_IDX
+            COUNT(*)
         FROM
             ITM_STATE
         WHERE
             DEL_YN = 'N'
         AND GRO_IDX = #{groIdx}
         AND STA_CODE = #{staCode}
+        <if test="staIdx != null and staIdx != ''">
+            AND STA_IDX != #{staIdx}
+        </if>
     </select>
 </mapper>

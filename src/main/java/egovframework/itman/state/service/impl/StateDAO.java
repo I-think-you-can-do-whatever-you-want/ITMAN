@@ -40,7 +40,7 @@ public class StateDAO {
     public void deleteAssetState(StateVO vo) throws Exception {
         sqlSession.update("stateDAO.deleteAssetState", vo);
     }
-    public StateVO checkDuplicate(StateVO vo){
+    public int checkDuplicate(StateVO vo){
         return sqlSession.selectOne("stateDAO.checkDuplicate", vo);
     }
 }

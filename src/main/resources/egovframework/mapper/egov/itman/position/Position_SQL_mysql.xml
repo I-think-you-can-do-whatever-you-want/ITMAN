@@ -109,15 +109,18 @@
         WHERE
             POS_IDX = #{posIdx}
     </update>
-    <select id="checkDuplicate" parameterType="positionVO" resultType="positionVO">
+    <select id="checkDuplicate" parameterType="positionVO" resultType="int">
         SELECT
-            POS_IDX
+            COUNT(*)
         FROM
             ITM_POSITION
         WHERE
             DEL_YN = 'N'
         AND GRO_IDX = #{groIdx}
         AND POS_CODE = #{posCode}
+        <if test="posIdx != null and posIdx != ''">
+            AND POS_IDX != #{posIdx}
+        </if>
     </select>
 </mapper>
 
