@@ -52,16 +52,14 @@ public class DivisionController {
     }
     @PostMapping(value = "/itman/checkDuplicateEmpDiv.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String checkDuplicateEmpDiv(@RequestParam("divCode") String divCode, HttpSession session) {
+    public String checkDuplicateEmpDiv(@RequestParam("divCode") String divCode,@RequestParam(name = "divIdx", required = false) String divIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         DivisionVO vo = new DivisionVO();
         vo.setDivCode(divCode);
         vo.setGroIdx(groIdx);
-        DivisionVO resultVO = divisionService.checkDuplicate(vo);
-        if (resultVO != null){
-            return "0";
-        }
-        return "1";
+        vo.setDivIdx(divIdx);
+
+        return divisionService.isDuplicateDivision(vo) ? "0" : "1";
     }
 
     @PostMapping("/itman/insertDepart.do")

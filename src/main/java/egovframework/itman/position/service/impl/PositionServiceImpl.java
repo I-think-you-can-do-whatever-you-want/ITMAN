@@ -48,8 +48,8 @@ public class PositionServiceImpl implements PositionService {
         positionDAO.deletePosition(positionVO);
     }
 
-    @Override
-    public PositionVO checkDuplicate(PositionVO vo){
-        return positionDAO.checkDuplicate(vo);
+    public boolean isDuplicatePosition(PositionVO vo) {
+        int count = positionDAO.checkDuplicate(vo);
+        return count > 0;
     }
 }

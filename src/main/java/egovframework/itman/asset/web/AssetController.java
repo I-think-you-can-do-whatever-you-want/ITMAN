@@ -33,11 +33,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import javax.xml.stream.Location;
 import java.io.File;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class AssetController {
@@ -182,16 +179,14 @@ public class AssetController {
 
     @PostMapping(value = "/itman/checkDuplicateAssCat.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String checkDuplicatedAssCat(@RequestParam("assCatCode") String assCatCode, HttpSession session) {
+    public String checkDuplicatedAssCat(@RequestParam("assCatCode") String assCatCode, @RequestParam(name = "assCatIdx", required = false) String assCatIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         AssetCategoryVO vo = new AssetCategoryVO();
         vo.setAssCatCode(assCatCode);
         vo.setGroIdx(groIdx);
-        AssetCategoryVO resultVO = assetCategoryService.checkDuplicate(vo);
-        if (resultVO != null){
-            return "0";
-        }
-        return "1";
+        vo.setAssCatIdx(assCatIdx);
+
+        return assetCategoryService.isDuplicateCategory(vo) ? "0" : "1";
     }
 
     @PostMapping("/itman/asset/insertAssetCategory.do")
@@ -211,16 +206,14 @@ public class AssetController {
 
     @PostMapping(value = "/itman/checkDuplicateAssSta.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String checkDuplicatedAssSta(@RequestParam("staCode") String staCode, HttpSession session) {
+    public String checkDuplicatedAssSta(@RequestParam("staCode") String staCode, @RequestParam(name = "staIdx", required = false) String staIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         StateVO vo = new StateVO();
         vo.setStaCode(staCode);
         vo.setGroIdx(groIdx);
-        StateVO resultVO = stateService.checkDuplicate(vo);
-        if (resultVO != null){
-            return "0";
-        }
-        return "1";
+        vo.setStaIdx(staIdx);
+
+        return stateService.isDuplicateState(vo) ? "0" : "1";
     }
 
     @PostMapping("/itman/asset/insertAssetState.do")
@@ -239,16 +232,14 @@ public class AssetController {
     }
     @PostMapping(value = "/itman/checkDuplicateAssLoc.do" ,produces = "application/json;charset=UTF-8")
     @ResponseBody
-    public String checkDuplicateAssLoc(@RequestParam("locCode") String locCode, HttpSession session) {
+    public String checkDuplicateAssLoc(@RequestParam("locCode") String locCode, @RequestParam(name = "locIdx", required = false) String locIdx, HttpSession session) {
         String groIdx = (String) session.getAttribute("groIdx");
         LocationVO vo = new LocationVO();
         vo.setLocCode(locCode);
         vo.setGroIdx(groIdx);
-        LocationVO resultVO = locationService.checkDuplicate(vo);
-        if (resultVO != null){
-            return "0";
-        }
-        return "1";
+        vo.setLocIdx(locIdx);
+
+        return locationService.isDuplicateLocation(vo) ? "0" : "1";
     }
 
     @PostMapping("/itman/asset/insertAssetLocation.do")

@@ -53,6 +53,7 @@
 						"Content-Type": "application/x-www-form-urlencoded"
 					},
 					body: new URLSearchParams({
+						assCatIdx: document.querySelector("input[name='assCatIdx']").value.trim() ,
 						assCatCode: document.querySelector("input[name='assCatCode']").value.trim()
 
 					}),

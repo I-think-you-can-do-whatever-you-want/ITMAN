@@ -53,6 +53,7 @@
 						"Content-Type": "application/x-www-form-urlencoded"
 					},
 					body: new URLSearchParams({
+						staIdx: document.querySelector("input[name='staIdx']").value.trim(),
 						staCode: document.querySelector("input[name='staCode']").value.trim()
 
 					}),

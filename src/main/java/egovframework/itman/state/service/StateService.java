@@ -13,5 +13,4 @@ public interface StateService {
     void insertAssetState(StateVO vo) throws Exception;
     void updateAssetState(StateVO vo) throws Exception;
     void deleteAssetState(StateVO vo) throws Exception;
-    StateVO checkDuplicate(StateVO vo);
 }

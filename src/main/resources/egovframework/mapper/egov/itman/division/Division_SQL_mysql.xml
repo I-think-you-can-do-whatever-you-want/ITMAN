@@ -120,15 +120,18 @@
         WHERE
             DIV_IDX = #{divIdx}
     </update>
-    <select id="checkDuplicate" parameterType="divisionVO" resultType="divisionVO">
+    <select id="checkDuplicate" parameterType="divisionVO" resultType="int">
         SELECT
-            DIV_IDX
+            COUNT(*)
         FROM
             ITM_DIVISION
         WHERE
             DEL_YN ='N'
         AND GRO_IDX = #{groIdx}
         AND DIV_CODE = #{divCode}
+        <if test="divIdx != null and divIdx != ''">
+            AND DIV_IDX != #{divIdx}
+        </if>
     </select>
 </mapper>
 
