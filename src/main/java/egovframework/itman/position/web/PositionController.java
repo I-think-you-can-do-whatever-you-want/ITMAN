@@ -1,5 +1,6 @@
 package egovframework.itman.position.web;
 
+import egovframework.itman.position.service.PositionService;
 import egovframework.itman.position.service.PositionVO;
 import egovframework.itman.position.service.impl.PositionServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Controller
 public class PositionController {
-    @Resource(name = "positionService")
-    public PositionServiceImpl positionService;
+    @Resource
+    public PositionService positionService;
 
     @RequestMapping("/spotList.do")
     public String selectPositionList(PositionVO positionVO, Model model

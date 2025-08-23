@@ -11,5 +11,6 @@ public interface PositionService {
     void insertPosition(PositionVO positionVO);
     void updatePosition(PositionVO positionVO);
     void deletePosition(PositionVO positionVO);
+    boolean isDuplicatePosition(PositionVO vo);
 
 }

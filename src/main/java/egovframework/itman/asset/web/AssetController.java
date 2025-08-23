@@ -3,21 +3,29 @@ package egovframework.itman.asset.web;
 import egovframework.itman.assLog.service.AssLogService;
 import egovframework.itman.assLog.service.AssLogVO;
 import egovframework.itman.assLog.service.impl.AssLogServiceImpl;
+import egovframework.itman.asset.service.AssetService;
 import egovframework.itman.asset.service.AssetVO;
 import egovframework.itman.asset.service.impl.AssetServiceImpl;
+import egovframework.itman.assetCategory.service.AssetCategoryService;
 import egovframework.itman.assetCategory.service.AssetCategoryVO;
 import egovframework.itman.assetCategory.service.impl.AssetCategoryDAO;
 import egovframework.itman.assetCategory.service.impl.AssetCategoryServiceImpl;
 import egovframework.itman.common.Pagination;
+import egovframework.itman.employee.service.EmployeeService;
 import egovframework.itman.employee.service.EmployeeVO;
 import egovframework.itman.employee.service.impl.EmployeeServiceImpl;
 import egovframework.itman.group.service.GroupVO;
+import egovframework.itman.hardware.service.HardwareService;
 import egovframework.itman.hardware.service.impl.HardwareServiceImpl;
+import egovframework.itman.location.service.LocationService;
 import egovframework.itman.location.service.LocationVO;
 import egovframework.itman.location.service.impl.LocationServiceImpl;
+import egovframework.itman.software.service.SoftwareService;
 import egovframework.itman.software.service.impl.SoftwareServiceImpl;
+import egovframework.itman.state.service.StateService;
 import egovframework.itman.state.service.StateVO;
 import egovframework.itman.state.service.impl.StateServiceImpl;
+import egovframework.itman.supplier.service.SupplierService;
 import egovframework.itman.supplier.service.SupplierVO;
 import egovframework.itman.supplier.service.impl.SupplierServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -38,24 +46,24 @@ import java.util.List;
 
 @Controller
 public class AssetController {
-    @Resource(name = "assetService")
-    AssetServiceImpl assetService;
-    @Resource(name = "assetCategoryService")
-    AssetCategoryServiceImpl assetCategoryService;
-    @Resource(name = "stateService")
-    StateServiceImpl stateService;
-    @Resource(name = "supplierService")
-    SupplierServiceImpl supplierService;
-    @Resource(name = "locationService")
-    LocationServiceImpl locationService;
-    @Resource(name = "employeeService")
-    EmployeeServiceImpl employeeService;
-    @Resource(name= "hardwareService")
-    HardwareServiceImpl hardwareService;
-    @Resource(name= "softwareService")
-    SoftwareServiceImpl softwareService;
-    @Resource(name= "assLogService")
-    AssLogServiceImpl assLogService;
+    @Resource
+    AssetService assetService;
+    @Resource
+    AssetCategoryService assetCategoryService;
+    @Resource
+    StateService stateService;
+    @Resource
+    SupplierService supplierService;
+    @Resource
+    LocationService locationService;
+    @Resource
+    EmployeeService employeeService;
+    @Resource
+    HardwareService hardwareService;
+    @Resource
+    SoftwareService softwareService;
+    @Resource
+    AssLogService assLogService;
 
 
     private void selectByGroup(String groIdx, Model model) throws Exception {

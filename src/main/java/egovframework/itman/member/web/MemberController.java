@@ -1,5 +1,6 @@
 package egovframework.itman.member.web;
 
+import egovframework.itman.member.service.MemberService;
 import egovframework.itman.member.service.MemberVO;
 import egovframework.itman.member.service.impl.MemberServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -16,8 +17,8 @@ import java.net.InetAddress;
 
 @Controller
 public class MemberController {
-    @Resource(name = "memberService")
-    private MemberServiceImpl memberService;
+    @Resource
+    private MemberService memberService;
     @Resource(name = "passwordEncoder")
     private BCryptPasswordEncoder passwordEncoder;
 

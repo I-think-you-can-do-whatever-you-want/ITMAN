@@ -1,5 +1,6 @@
 package egovframework.itman.assetCategory.web;
 
+import egovframework.itman.assetCategory.service.AssetCategoryService;
 import egovframework.itman.assetCategory.service.AssetCategoryVO;
 import egovframework.itman.assetCategory.service.impl.AssetCategoryServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Controller
 public class AssetCategoryController {
-    @Resource(name = "assetCategoryService")
-    private AssetCategoryServiceImpl assetCategoryService;
+    @Resource
+    private AssetCategoryService assetCategoryService;
 
     @RequestMapping("/assetCategory.do")
     public String selectAssetCategoryList(AssetCategoryVO assetCategoryVO, Model model,

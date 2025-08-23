@@ -9,8 +9,12 @@ import java.util.List;
 
 @Service("positionService")
 public class PositionServiceImpl implements PositionService {
-    @Autowired
-    private PositionDAO positionDAO;
+
+    private final PositionDAO positionDAO;
+
+    public PositionServiceImpl(PositionDAO positionDAO) {
+        this.positionDAO = positionDAO;
+    }
 
     @Override
     public List<PositionVO> selectPositionsByGroup(String groIdx) {

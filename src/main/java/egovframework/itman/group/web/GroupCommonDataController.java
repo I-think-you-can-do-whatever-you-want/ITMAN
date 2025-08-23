@@ -1,5 +1,6 @@
 package egovframework.itman.group.web;
 
+import egovframework.itman.group.service.GroupService;
 import egovframework.itman.group.service.GroupVO;
 import egovframework.itman.group.service.impl.GroupServiceImpl;
 import egovframework.itman.member.service.MemberVO;
@@ -14,10 +15,9 @@ import java.util.List;
 
 @ControllerAdvice
 public class GroupCommonDataController {
-    @Resource(name = "groupService")
-    GroupServiceImpl groupService;
-    @Resource(name = "memberService")
-    MemberServiceImpl memberService;
+    @Resource
+    GroupService groupService;
+
 
     @ModelAttribute("headerData")
     public GroupVO getHeaderData(HttpSession session) throws Exception {

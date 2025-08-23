@@ -9,7 +9,6 @@ import java.util.List;
 
 @Service("softwareService")
 public class SoftwareServiceImpl implements SoftwareService {
-    @Resource
     SoftwareDAO softwareDAO;
 
     @Override

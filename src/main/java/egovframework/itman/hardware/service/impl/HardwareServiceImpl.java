@@ -4,12 +4,13 @@ import egovframework.itman.hardware.service.HardwareService;
 import egovframework.itman.hardware.service.HardwareVO;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-
 @Service("hardwareService")
 public class HardwareServiceImpl implements HardwareService {
-    @Resource
-    HardwareDAO hardwareDAO;
+    private final HardwareDAO hardwareDAO;
+
+    public HardwareServiceImpl(HardwareDAO hardwareDAO) {
+        this.hardwareDAO = hardwareDAO;
+    }
 
     @Override
     public HardwareVO selectHardwareView(String assIdx) throws Exception {

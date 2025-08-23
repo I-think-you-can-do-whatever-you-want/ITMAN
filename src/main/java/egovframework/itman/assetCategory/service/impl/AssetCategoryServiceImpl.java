@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service("assetCategoryService")
 public class AssetCategoryServiceImpl implements AssetCategoryService {
-    @Resource(name = "assetCategoryDAO")
-    private AssetCategoryDAO assetCategoryDAO;
+
+    private final AssetCategoryDAO assetCategoryDAO;
+
+    public AssetCategoryServiceImpl(AssetCategoryDAO assetCategoryDAO) {
+        this.assetCategoryDAO = assetCategoryDAO;
+    }
 
     @Override
     public List<AssetCategoryVO> selectAssetCategoriesByGroup(String groIdx) throws Exception{

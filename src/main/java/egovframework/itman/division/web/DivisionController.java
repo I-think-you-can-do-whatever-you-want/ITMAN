@@ -1,5 +1,6 @@
 package egovframework.itman.division.web;
 
+import egovframework.itman.division.service.DivisionService;
 import egovframework.itman.division.service.DivisionVO;
 import egovframework.itman.division.service.impl.DivisionServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -13,8 +14,8 @@ import java.util.List;
 
 @Controller
 public class DivisionController {
-    @Resource(name = "divisionService")
-    private DivisionServiceImpl divisionService;
+    @Resource
+    private DivisionService divisionService;
 
     @RequestMapping("/departList.do")
     public String selectDivisionList(DivisionVO divisionVO, Model model

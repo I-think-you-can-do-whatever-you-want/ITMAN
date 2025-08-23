@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service("locationService")
 public class LocationServiceImpl implements LocationService {
-    @Resource
-    LocationDAO locationDAO;
+
+    private final LocationDAO locationDAO;
+
+    public LocationServiceImpl(LocationDAO locationDAO) {
+        this.locationDAO = locationDAO;
+    }
 
     @Override
     public List<LocationVO> selectLocationsByGroup(String groIdx) {

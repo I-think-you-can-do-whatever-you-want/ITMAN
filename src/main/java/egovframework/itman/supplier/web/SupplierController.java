@@ -1,5 +1,6 @@
 package egovframework.itman.supplier.web;
 
+import egovframework.itman.supplier.service.SupplierService;
 import egovframework.itman.supplier.service.SupplierVO;
 import egovframework.itman.supplier.service.impl.SupplierServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Controller
 public class SupplierController {
-    @Resource(name = "supplierService")
-    SupplierServiceImpl supplierService;
+    @Resource
+    SupplierService supplierService;
 
     @RequestMapping("/supplierList.do")
     public String selectSupplierList(SupplierVO supplierVO, Model model

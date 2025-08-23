@@ -11,5 +11,5 @@ public interface AssetCategoryService {
     void updateAssetCategory(AssetCategoryVO vo) throws Exception;
     void deleteAssetCategory(AssetCategoryVO vo) throws Exception;
     List<AssetCategoryVO> findAll(String groIdx) throws Exception;
-
+    boolean isDuplicateCategory(AssetCategoryVO vo);
 }

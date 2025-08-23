@@ -1,5 +1,6 @@
 package egovframework.itman.empState.web;
 
+import egovframework.itman.empState.service.EmpStateService;
 import egovframework.itman.empState.service.EmpStateVO;
 import egovframework.itman.empState.service.impl.EmpStateServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Controller
 public class EmpStateController {
-    @Resource(name = "empStateService")
-    EmpStateServiceImpl empStateService;
+    @Resource
+    EmpStateService empStateService;
 
     @RequestMapping("/employeeStateList.do")
     public String selectEmpStateList(EmpStateVO empStateVO, Model model

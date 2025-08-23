@@ -12,10 +12,13 @@ import javax.mail.internet.MimeMessage;
 
 @Service("memberService")
 public class MemberServiceImpl implements MemberService {
-    @Resource(name = "memberDAO")
-    private MemberDAO memberDAO;
+    private final MemberDAO memberDAO;
     @Resource(name = "mailSender")
     private JavaMailSender mailSender;
+
+    public MemberServiceImpl(MemberDAO memberDAO) {
+        this.memberDAO = memberDAO;
+    }
 
     @Override
     public boolean existsByEmail(String email){

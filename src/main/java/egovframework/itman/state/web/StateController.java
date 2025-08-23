@@ -1,5 +1,6 @@
 package egovframework.itman.state.web;
 
+import egovframework.itman.state.service.StateService;
 import egovframework.itman.state.service.StateVO;
 import egovframework.itman.state.service.impl.StateServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Controller
 public class StateController {
-    @Resource(name = "stateService")
-    private StateServiceImpl stateService;
+    @Resource
+    private StateService stateService;
 
     @RequestMapping("/assetStateList.do")
     public String selectAssetStateList(StateVO stateVO, Model model

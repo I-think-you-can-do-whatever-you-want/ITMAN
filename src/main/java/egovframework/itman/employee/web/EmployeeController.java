@@ -1,13 +1,18 @@
 package egovframework.itman.employee.web;
 
 
+import egovframework.itman.asset.service.AssetService;
 import egovframework.itman.asset.service.AssetVO;
 import egovframework.itman.asset.service.impl.AssetServiceImpl;
+import egovframework.itman.division.service.DivisionService;
 import egovframework.itman.division.service.DivisionVO;
 import egovframework.itman.division.service.impl.DivisionServiceImpl;
+import egovframework.itman.empState.service.EmpStateService;
 import egovframework.itman.empState.service.EmpStateVO;
+import egovframework.itman.employee.service.EmployeeService;
 import egovframework.itman.employee.service.EmployeeVO;
 import egovframework.itman.employee.service.impl.EmployeeServiceImpl;
+import egovframework.itman.position.service.PositionService;
 import egovframework.itman.position.service.PositionVO;
 import egovframework.itman.position.service.impl.PositionServiceImpl;
 import egovframework.itman.empState.service.impl.EmpStateServiceImpl;
@@ -26,16 +31,16 @@ import java.util.List;
 @Controller
 
 public class EmployeeController {
-    @Resource(name = "employeeService")
-    private EmployeeServiceImpl employeeService;
-    @Resource(name = "divisionService")
-    private DivisionServiceImpl divisionService;
-    @Resource(name = "empStateService")
-    private EmpStateServiceImpl empStateService;
-    @Resource(name = "positionService")
-    private PositionServiceImpl positionService;
-    @Resource(name = "assetService")
-    private AssetServiceImpl assetService;
+    @Resource
+    private EmployeeService employeeService;
+    @Resource
+    private DivisionService divisionService;
+    @Resource
+    private EmpStateService empStateService;
+    @Resource
+    private PositionService positionService;
+    @Resource
+    private AssetService assetService;
 
     private void addCommonLists(String groIdx, Model model) {
         model.addAttribute("divisionList", divisionService.selectDivisionsByGroup(groIdx));

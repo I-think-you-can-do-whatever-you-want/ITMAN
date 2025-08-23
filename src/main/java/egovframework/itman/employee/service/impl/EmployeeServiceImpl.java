@@ -4,13 +4,16 @@ import egovframework.itman.employee.service.EmployeeService;
 import egovframework.itman.employee.service.EmployeeVO;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
 import java.util.List;
 
 @Service("employeeService")
 public class EmployeeServiceImpl implements EmployeeService {
-    @Resource(name = "employeeDAO")
-    private EmployeeDAO employeeDAO;
+
+    private final EmployeeDAO employeeDAO;
+
+    public EmployeeServiceImpl(EmployeeDAO employeeDAO) {
+        this.employeeDAO = employeeDAO;
+    }
 
     @Override
     public List<EmployeeVO> selectEmployeeList(EmployeeVO vo) throws Exception {

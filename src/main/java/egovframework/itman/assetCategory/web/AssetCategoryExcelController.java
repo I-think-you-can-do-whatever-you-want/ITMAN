@@ -1,5 +1,6 @@
 package egovframework.itman.assetCategory.web;
 
+import egovframework.itman.assetCategory.service.AssetCategoryService;
 import egovframework.itman.assetCategory.service.AssetCategoryVO;
 import egovframework.itman.assetCategory.service.impl.AssetCategoryServiceImpl;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Controller
 public class AssetCategoryExcelController {
-    @Resource(name = "assetCategoryService")
-    private AssetCategoryServiceImpl assetCategoryService;
+    @Resource
+    private AssetCategoryService assetCategoryService;
 
     @GetMapping("/downloadAssetCategoryData.do")
     public void downloadAssetCategoryData(HttpServletResponse response, String groIdx, HttpSession session) throws Exception {

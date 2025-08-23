@@ -13,5 +13,6 @@ public interface LocationService {
     void insertAssetLocation(LocationVO vo) throws Exception;
     void updateAssetLocation(LocationVO vo) throws Exception;
     void deleteAssetLocation(LocationVO vo) throws Exception;
+    boolean isDuplicateLocation(LocationVO vo);
 
 }

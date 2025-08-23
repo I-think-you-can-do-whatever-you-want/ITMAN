@@ -1,5 +1,6 @@
 package egovframework.itman.location.web;
 
+import egovframework.itman.location.service.LocationService;
 import egovframework.itman.location.service.LocationVO;
 import egovframework.itman.location.service.impl.LocationServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
@@ -15,8 +16,8 @@ import java.util.List;
 
 @Controller
 public class LocationController {
-    @Resource(name = "locationService")
-    LocationServiceImpl locationService;
+    @Resource
+    LocationService locationService;
 
     @RequestMapping("/popup/locationPop.do")
     public String locationPop(LocationVO locationVO, Model model

@@ -10,4 +10,5 @@ public interface DivisionService {
     void insertDivision(DivisionVO divisionVO);
     void updateDivision(DivisionVO divisionVO);
     void deleteDivision(DivisionVO divisionVO);
+    boolean isDuplicateDivision(DivisionVO vo);
 }

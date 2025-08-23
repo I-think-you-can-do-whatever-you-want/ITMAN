@@ -10,8 +10,12 @@ import java.util.List;
 
 @Service("assLogService")
 public class AssLogServiceImpl implements AssLogService {
-    @Resource
-    AssLogDAO assLogDAO;
+
+    private final AssLogDAO assLogDAO;
+
+    public AssLogServiceImpl(AssLogDAO assLogDAO) {
+        this.assLogDAO = assLogDAO;
+    }
 
     @Override
     public void insertAssLog(AssLogVO assLogVO){

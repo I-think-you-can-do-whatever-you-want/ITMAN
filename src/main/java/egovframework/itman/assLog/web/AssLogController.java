@@ -1,8 +1,7 @@
 package egovframework.itman.assLog.web;
 
+import egovframework.itman.assLog.service.AssLogService;
 import egovframework.itman.assLog.service.AssLogVO;
-import egovframework.itman.assLog.service.impl.AssLogServiceImpl;
-import egovframework.itman.common.Pagination;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +13,8 @@ import java.util.List;
 
 @Controller
 public class AssLogController {
-    @Resource(name = "assLogService")
-    private AssLogServiceImpl assLogService;
+    @Resource
+    private AssLogService assLogService;
 
     @RequestMapping("/assetHistory.do")
     public String selectAssetHistoryList(AssLogVO assLogVO, Model model

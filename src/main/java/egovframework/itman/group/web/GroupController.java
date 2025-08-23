@@ -1,5 +1,6 @@
 package egovframework.itman.group.web;
 
+import egovframework.itman.group.service.GroupService;
 import egovframework.itman.group.service.GroupVO;
 import egovframework.itman.group.service.impl.GroupServiceImpl;
 import egovframework.itman.member.service.MemberVO;
@@ -20,9 +21,9 @@ import java.util.List;
 
 @Controller
 public class GroupController {
-    private final GroupServiceImpl groupService;
+    private final GroupService groupService;
 
-    public GroupController(GroupServiceImpl groupService) {
+    public GroupController(GroupService groupService) {
         this.groupService = groupService;
     }
 
