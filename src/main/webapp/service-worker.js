@@ -1,4 +1,4 @@
-const SW_VERSION = 'v1.3.1';
+const SW_VERSION = 'v1.3.2';
 const STATIC_CACHE = `static-${SW_VERSION}`;
 
 self.addEventListener('install', (event) => {
@@ -6,8 +6,8 @@ self.addEventListener('install', (event) => {
     event.waitUntil(
         caches.open(STATIC_CACHE).then((cache) => {
             return cache.addAll([
-                '/pwa/start.html',   // 앱 진입용만 캐시
-                '/pwa/offline.html', // 오프라인 대체 페이지
+                '/pwa/start.html',
+                '/pwa/offline.html',
                 '/pwa/icons/icon-192.png',
                 '/pwa/icons/icon-310.png'
             ]);
