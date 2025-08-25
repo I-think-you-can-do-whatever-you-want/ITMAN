@@ -53,6 +53,9 @@
 				<li>
 					<a href="assetHistory.do?id=9" class="${pageNumDepth01 == 9 ? 'on' : ''}">자산 히스토리</a>
 				</li>
+				<li>
+					<a href="shareBoard.do?id=10" class="${pageNumDepth01 == 10 ? 'on' : ''}">공유 대시보드</a>
+				</li>
 			</ul>
 		</div>
 	</div>
