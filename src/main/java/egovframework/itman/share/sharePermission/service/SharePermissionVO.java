@@ -1,5 +1,7 @@
 package egovframework.itman.share.sharePermission.service;
 
+import egovframework.itman.common.Searching;
+
 public class SharePermissionVO {
     private String shaIdx;         // 공유 IDX
     private String ownerMemIdx;   // 권한을 공유해준 멤버
@@ -17,6 +19,37 @@ public class SharePermissionVO {
 
     private String regDate;      // 생성일시
     private String modDate;
+    private String rowNum;
+    private String groName;
+    private Searching searching;
+
+    public SharePermissionVO() {
+        this.searching = new Searching();
+    }
+
+    public Searching getSearching() {
+        return searching;
+    }
+
+    public void setSearching(Searching searching) {
+        this.searching = searching;
+    }
+
+    public String getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(String rowNum) {
+        this.rowNum = rowNum;
+    }
+
+    public String getGroName() {
+        return groName;
+    }
+
+    public void setGroName(String groName) {
+        this.groName = groName;
+    }
 
     public String getShaIdx() {
         return shaIdx;

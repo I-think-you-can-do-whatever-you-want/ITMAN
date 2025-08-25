@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shareRequestDAO">
+    <select id="selectReceivedRequestList" parameterType="string" resultType="shareRequestVO">
+    SELECT
+        ROW_NUMBER() OVER (ORDER BY r.CREATED_AT) AS rowNum,
+        m.MEM_NAME AS requesterName,
+        g.GRO_NAME AS groName,
+        r.REQ_IDX,
+        r.STATUS,
+        r.CREATED_AT
+    FROM ITM_SHARE_REQUEST r
+             JOIN ITM_SHARE_INVITE i
+                  ON r.INV_IDX = i.INV_IDX
+             JOIN ITM_MEMBER m
+                  ON r.REQ_MEM_IDX = m.MEM_IDX
+             JOIN ITM_GROUP g
+                  ON i.GRO_IDX = g.GRO_IDX
+    WHERE i.REG_IDX = #{memIdx}
+    ORDER BY rowNum DESC
+    </select>
+
+    <select id="selectReceivedRequestListCnt" parameterType="string" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM ITM_SHARE_REQUEST r
+                 JOIN ITM_SHARE_INVITE i
+                      ON r.INV_IDX = i.INV_IDX
+                 JOIN ITM_MEMBER m
+                      ON r.REQ_MEM_IDX = m.MEM_IDX
+                 JOIN ITM_GROUP g
+                      ON i.GRO_IDX = g.GRO_IDX
+        WHERE i.REG_IDX = #{memIdx}
+    </select>
+
+</mapper>

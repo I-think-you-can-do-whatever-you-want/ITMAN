@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="sharePermissionDAO">
+    <select id="selectSharedGroupListByMemIdx" parameterType="sharePermissionVO" resultType="sharePermissionVO">
+        SELECT  p.SHA_IDX AS shaIdx,
+                ROW_NUMBER() OVER (ORDER BY i.INV_IDX) AS rowNum,
+                g.GRO_NAME AS groName,
+                p.TARGET_MEM_NAME AS targetMemName,
+                p.PERM_MASK AS permMask,
+                p.VALID_TO AS validTo
+        FROM ITM_SHARE_PERMISSION p
+                 JOIN ITM_GROUP g ON g.GRO_IDX = p.GRO_IDX
+                 LEFT JOIN ITM_SHARE_INVITE i ON i.REG_IDX = p.OWNER_MEM_IDX AND i.DEL_YN = 'N'
+        WHERE
+            p.OWNER_MEM_IDX = #{ownerMemIdx}
+          AND p.IS_ACTIVE = 'Y'
+        <if test="searching.searchCondition != null and searching.searchCondition != ''">
+            AND g.GRO_IDX = #{searching.searchCondition}
+        </if>
+        ORDER BY rowNum DESC
+    </select>
+    <select id="selectSharedGroupListByMemIdxCnt" parameterType="sharePermissionVO" resultType="int">
+        SELECT COUNT(*)
+        FROM ITM_SHARE_PERMISSION p
+                 JOIN ITM_GROUP g ON g.GRO_IDX = p.GRO_IDX
+                 LEFT JOIN ITM_SHARE_INVITE i ON i.REG_IDX = p.OWNER_MEM_IDX AND i.DEL_YN = 'N'
+        WHERE
+            p.OWNER_MEM_IDX = #{ownerMemIdx}
+          AND p.IS_ACTIVE = 'Y'
+        <if test="searching.searchCondition != null and searching.searchCondition != ''">
+            AND g.GRO_IDX = #{searching.searchCondition}
+        </if>
+    </select>
+</mapper>

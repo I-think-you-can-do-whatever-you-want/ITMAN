@@ -4,6 +4,10 @@ import egovframework.itman.group.service.GroupService;
 import egovframework.itman.group.service.GroupVO;
 import egovframework.itman.share.shareInvite.service.ShareInviteService;
 import egovframework.itman.share.shareInvite.service.ShareInviteVO;
+import egovframework.itman.share.sharePermission.service.SharePermissionService;
+import egovframework.itman.share.sharePermission.service.SharePermissionVO;
+import egovframework.itman.share.shareRequest.service.ShareRequestService;
+import egovframework.itman.share.shareRequest.service.ShareRequestVO;
 import egovframework.usr.com.EgovframeworkCommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +25,10 @@ public class ShareController {
     private GroupService groupService;
     @Resource
     private ShareInviteService shareInviteService;
+    @Resource
+    private SharePermissionService sharePermissionService;
+    @Resource
+    private ShareRequestService shareRequestService;
 
     @RequestMapping("/shareBoard.do")
     public String shareBoard(Model model) {
@@ -34,15 +42,25 @@ public class ShareController {
     }
 
     @RequestMapping("/myShareGroup.do")
-    public String myShareGroup(ShareInviteVO shareInviteVO ,Model model, HttpSession session){
+    public String myShareGroup(ShareInviteVO shareInviteVO, SharePermissionVO sharePermissionVO, Model model, HttpSession session){
         String memIdx = (String) session.getAttribute("userIdx");
+        //나의 공유 그룹 조회
         shareInviteVO.setRegIdx(memIdx);
         List<ShareInviteVO> mySharedGroupList = shareInviteService.selectMyShareGroupList(shareInviteVO);
         int mySharedGroupListCnt = shareInviteService.selectMyShareGroupListCnt(shareInviteVO);
-        System.err.println("mySharedGroupListCnt = " + mySharedGroupListCnt);
-
         model.addAttribute("mySharedGroupList", mySharedGroupList);
         model.addAttribute("mySharedGroupListCnt", mySharedGroupListCnt);
+        //그룹 공유 현황
+        sharePermissionVO.setOwnerMemIdx(memIdx);
+        List<SharePermissionVO> mySharedPermissionList = sharePermissionService.selectSharedGroupListByMemIdx(sharePermissionVO);
+        int mySharedPermissionListCnt = sharePermissionService.selectSharedGroupListByMemIdxCnt(sharePermissionVO);
+        model.addAttribute("mySharedPermissionList", mySharedPermissionList);
+        model.addAttribute("mySharedPermissionListCnt", mySharedPermissionListCnt);
+        //받은 요청 현황
+        List<ShareRequestVO> receivedRequestList = shareRequestService.selectReceivedRequestList(memIdx);
+        int receivedRequestListCnt = shareRequestService.selectReceivedRequestListCnt(memIdx);
+        model.addAttribute("receivedRequestList", receivedRequestList);
+        model.addAttribute("receivedRequestListCnt", receivedRequestListCnt);
         return "inGroup/myShareGroup";
     }
 

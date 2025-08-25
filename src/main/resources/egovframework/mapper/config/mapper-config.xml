@@ -32,6 +32,8 @@
 		<typeAlias alias="groupVO" 			type="egovframework.itman.group.service.GroupVO" />
 		<typeAlias alias="memberVO" 		type="egovframework.itman.member.service.MemberVO" />
 		<typeAlias alias="shareInviteVO" 	type="egovframework.itman.share.shareInvite.service.ShareInviteVO"/>
+		<typeAlias alias="sharePermissionVO" type="egovframework.itman.share.sharePermission.service.SharePermissionVO" />
+		<typeAlias alias="shareRequestVO" 	type="egovframework.itman.share.shareRequest.service.ShareRequestVO" />
 	</typeAliases>
     
 </configuration>

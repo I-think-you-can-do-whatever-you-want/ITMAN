@@ -34,6 +34,11 @@
 	</div>
 	<script>
 		function createInviteCode() {
+			const groIdx = document.getElementById(gro_Idx);
+			if(!groIdx){
+				alert("그룹을 선택해주세요");
+				return;
+			}
 			fetch("${pageContext.request.contextPath}/createInviteCode.do")
 					.then(response => response.text())
 					.then(code => {

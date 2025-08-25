@@ -13,6 +13,7 @@
         SELECT
             ROW_NUMBER() OVER (ORDER BY i.INV_IDX) AS rowNum,
             i.INV_IDX      AS invIdx,
+            g.GRO_IDX      AS groIdx,
             g.GRO_NAME     AS groName,
             i.INVITE_CODE  AS inviteCode,
             (
@@ -27,8 +28,9 @@
                  JOIN ITM_GROUP g ON g.GRO_IDX = i.GRO_IDX
         WHERE i.REG_IDX = #{regIdx}
           AND i.DEL_YN = 'N'
-        ORDER BY rowNum
+        ORDER BY rowNum DESC
     </select>
+
     <select id="selectMyShareGroupListCnt" parameterType="shareInviteVO" resultType="int">
         SELECT
             COUNT(*)
