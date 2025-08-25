@@ -1,4 +1,4 @@
-package egovframework.itman.shareRequest.service;
+package egovframework.itman.share.shareRequest.service;
 
 public class ShareRequestVO {
     private String reqIdx;         // 공유 요청 IDX

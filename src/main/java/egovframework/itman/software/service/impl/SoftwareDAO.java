@@ -12,7 +12,7 @@ public class SoftwareDAO {
     @Autowired
     SqlSession sqlSession;
 
-    public List<SoftwareVO> selectSoftwareList(String assIdx) throws Exception{
+    public List<SoftwareVO> selectSoftwareList(String assIdx){
         return sqlSession.selectList("softwareDAO.selectSoftwareList", assIdx);
     }
 }

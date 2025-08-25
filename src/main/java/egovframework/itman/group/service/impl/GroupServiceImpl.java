@@ -28,6 +28,11 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
+    public List<GroupVO> selectGroupListNotShare(String memIdx){
+        return groupDAO.selectGroupListNotShare(memIdx);
+    }
+
+    @Override
     public List<GroupVO> getAllGroupData(String memIdx) throws Exception{
         return groupDAO.getAllGroupData(memIdx);
     }

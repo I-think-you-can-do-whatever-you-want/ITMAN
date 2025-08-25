@@ -47,7 +47,7 @@
 			<div class="Basic f_r">
 				<div class="base_tit">
 					<p class="tit">나의 공유 그룹</p>
-					<p class="more"><a href="assetHistory.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
+					<p class="more"><a href="myShareGroup.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
 				</div>
 				<!-- 기존 '나의 공유 그룹' 리스트 -->
 				<ul class="adminList history">
@@ -81,7 +81,7 @@
 			<div class="Basic f_l">
 				<div class="base_tit mt">
 					<p class="tit">나의 공유 히스토리</p>
-					<p class="more"><a href="assetHistory.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
+					<p class="more"><a href="myShareHistory.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
 				</div>
 				<!-- 기존 '나의 공유 히스토리' 리스트 -->
 				<ul class="adminList history">
@@ -112,7 +112,7 @@
 			<div class="Basic f_r">
 				<div class="base_tit">
 					<p class="tit">공유 받은 그룹</p>
-					<p class="more"><a href="assetHistory.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
+					<p class="more"><a href="sharedGroup.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
 				</div>
 				<!-- 기존 '공유 받은 그룹' 리스트 -->
 				<ul class="adminList history">
@@ -146,7 +146,7 @@
 			<div class="Basic f_l">
 				<div class="base_tit mt">
 					<p class="tit">공유 히스토리</p>
-					<p class="more"><a href="assetHistory.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
+					<p class="more"><a href="sharedHistory.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
 				</div>
 				<!-- 기존 '공유 히스토리' 리스트 -->
 				<ul class="adminList history">

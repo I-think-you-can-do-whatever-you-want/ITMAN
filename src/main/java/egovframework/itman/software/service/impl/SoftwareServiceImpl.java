@@ -9,10 +9,14 @@ import java.util.List;
 
 @Service("softwareService")
 public class SoftwareServiceImpl implements SoftwareService {
-    SoftwareDAO softwareDAO;
+    private final SoftwareDAO softwareDAO;
+
+    public SoftwareServiceImpl(SoftwareDAO softwareDAO) {
+        this.softwareDAO = softwareDAO;
+    }
 
     @Override
-    public List<SoftwareVO> selectSoftwareList(String assIdx) throws Exception{
+    public List<SoftwareVO> selectSoftwareList(String assIdx){
         return softwareDAO.selectSoftwareList(assIdx);
     }
 }

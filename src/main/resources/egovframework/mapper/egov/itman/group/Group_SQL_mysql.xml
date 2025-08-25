@@ -31,6 +31,22 @@
         ORDER BY g.GRO_IDX
     </select>
 
+    <select id="selectGroupListNotShare" parameterType="string" resultType="groupVO">
+        SELECT
+            g.GRO_IDX AS groIdx,
+            g.GRO_NAME AS groName,
+            (SELECT COUNT(a.ASS_IDX) FROM ITM_ASSET a WHERE a.GRO_IDX = g.GRO_IDX AND a.DEL_YN = 'N') AS groAssetCnt,
+            (SELECT COUNT(e.EMP_IDX) FROM ITM_EMPLOYE e WHERE e.GRO_IDX = g.GRO_IDX AND e.DEL_YN = 'N') AS groEmployeeCnt
+        FROM ITM_GROUP g
+                 LEFT JOIN ITM_MEMBER m ON m.MEM_IDX = g.REG_IDX
+                 LEFT JOIN ITM_SHARE_INVITE i ON i.GRO_IDX = g.GRO_IDX AND i.DEL_YN = 'N'
+        WHERE g.DEL_YN = 'N'
+          AND m.DEL_YN = 'N'
+          AND m.MEM_IDX = #{memIdx}
+          AND i.GRO_IDX IS NULL
+        ORDER BY g.GRO_IDX
+    </select>
+
     <select id="getAllGroupData" parameterType="string" resultType="groupVO">
         SELECT
             GRO_IDX AS groIdx,

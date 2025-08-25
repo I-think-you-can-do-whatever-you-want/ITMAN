@@ -2,38 +2,23 @@ package egovframework.itman.asset.web;
 
 import egovframework.itman.assLog.service.AssLogService;
 import egovframework.itman.assLog.service.AssLogVO;
-import egovframework.itman.assLog.service.impl.AssLogServiceImpl;
 import egovframework.itman.asset.service.AssetService;
 import egovframework.itman.asset.service.AssetVO;
-import egovframework.itman.asset.service.impl.AssetServiceImpl;
 import egovframework.itman.assetCategory.service.AssetCategoryService;
 import egovframework.itman.assetCategory.service.AssetCategoryVO;
-import egovframework.itman.assetCategory.service.impl.AssetCategoryDAO;
-import egovframework.itman.assetCategory.service.impl.AssetCategoryServiceImpl;
-import egovframework.itman.common.Pagination;
 import egovframework.itman.employee.service.EmployeeService;
 import egovframework.itman.employee.service.EmployeeVO;
-import egovframework.itman.employee.service.impl.EmployeeServiceImpl;
-import egovframework.itman.group.service.GroupVO;
 import egovframework.itman.hardware.service.HardwareService;
-import egovframework.itman.hardware.service.impl.HardwareServiceImpl;
 import egovframework.itman.location.service.LocationService;
 import egovframework.itman.location.service.LocationVO;
-import egovframework.itman.location.service.impl.LocationServiceImpl;
 import egovframework.itman.software.service.SoftwareService;
-import egovframework.itman.software.service.impl.SoftwareServiceImpl;
 import egovframework.itman.state.service.StateService;
 import egovframework.itman.state.service.StateVO;
-import egovframework.itman.state.service.impl.StateServiceImpl;
 import egovframework.itman.supplier.service.SupplierService;
 import egovframework.itman.supplier.service.SupplierVO;
-import egovframework.itman.supplier.service.impl.SupplierServiceImpl;
 import egovframework.usr.com.EgovframeworkCommonUtil;
-import org.springframework.http.MediaType;
-import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -76,7 +61,8 @@ public class AssetController {
 
     private void selectByAssIdx(String assIdx, Model model) throws Exception {
         model.addAttribute("hardware", hardwareService.selectHardwareView(assIdx));
-        model.addAttribute("software", softwareService.selectSoftwareList(assIdx));}
+        model.addAttribute("software", softwareService.selectSoftwareList(assIdx));
+    }
 
     private void setInsertAssLog(AssLogVO assLogVO, AssetVO vo) {
         assLogVO.setAssIdx(vo.getAssIdx());

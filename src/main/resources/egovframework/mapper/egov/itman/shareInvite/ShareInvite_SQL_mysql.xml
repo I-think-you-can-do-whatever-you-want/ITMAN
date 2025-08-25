@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shareInviteDAO">
+    <select id="countByInviteCode" parameterType="string" resultType="int">
+        SELECT COUNT(*)
+        FROM ITM_SHARE_INVITE
+        WHERE INVITE_CODE = #{inviteCode}
+    </select>
+    <select id="selectMyShareGroupList" parameterType="shareInviteVO" resultType="shareInviteVO">
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY i.INV_IDX) AS rowNum,
+            i.INV_IDX      AS invIdx,
+            g.GRO_NAME     AS groName,
+            i.INVITE_CODE  AS inviteCode,
+            (
+                SELECT COUNT(*)
+                FROM ITM_SHARE_PERMISSION p
+                WHERE p.GRO_IDX = i.GRO_IDX
+                  AND p.OWNER_MEM_IDX = #{regIdx}
+                  AND p.IS_ACTIVE = 'Y'
+            )              AS shareCnt,
+            i.REG_DATE   AS regDate
+        FROM ITM_SHARE_INVITE i
+                 JOIN ITM_GROUP g ON g.GRO_IDX = i.GRO_IDX
+        WHERE i.REG_IDX = #{regIdx}
+          AND i.DEL_YN = 'N'
+        ORDER BY rowNum
+    </select>
+    <select id="selectMyShareGroupListCnt" parameterType="shareInviteVO" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM ITM_SHARE_INVITE i
+                 JOIN ITM_GROUP g ON g.GRO_IDX = i.GRO_IDX
+        WHERE i.REG_IDX = #{regIdx}
+          AND i.DEL_YN = 'N'
+    </select>
+
+    <insert id="insertShareInvite" parameterType="shareInviteVO">
+        INSERT INTO
+        ITM_SHARE_INVITE(
+            GRO_IDX,
+            INVITE_CODE,
+            REG_IDX,
+            DEL_YN,
+            REG_DATE
+        )
+        VALUES (
+                #{groIdx},
+                #{inviteCode},
+                #{regIdx},
+                'N',
+                NOW()
+               )
+    </insert>
+
+</mapper>

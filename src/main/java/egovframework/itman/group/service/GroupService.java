@@ -5,6 +5,7 @@ import java.util.List;
 public interface GroupService {
     GroupVO getHeaderData(String groIdx) throws Exception;
     List<GroupVO> selectGroupList(String memIdx) throws Exception;
+    List<GroupVO> selectGroupListNotShare(String memIdx);
     List<GroupVO> getAllGroupData(String memIdx) throws Exception;
     void insertGroup(GroupVO vo) throws Exception;
     void updateGroup(GroupVO vo) throws Exception;

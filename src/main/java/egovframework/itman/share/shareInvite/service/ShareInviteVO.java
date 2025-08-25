@@ -1,4 +1,4 @@
-package egovframework.itman.shareInvite.service;
+package egovframework.itman.share.shareInvite.service;
 
 public class ShareInviteVO {
     private String invIdx;     // 초대 IDX
@@ -11,6 +11,33 @@ public class ShareInviteVO {
     private String isActive;   // Y=유효, N=비활성
     private String delYn;      // 삭제 여부
     private String regDate;  // 생성일시
+    private String shareCnt; //공유 받아 사용하는 유저 수
+    private String rowNum;
+    private String groName;
+
+    public String getGroName() {
+        return groName;
+    }
+
+    public void setGroName(String groName) {
+        this.groName = groName;
+    }
+
+    public String getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(String rowNum) {
+        this.rowNum = rowNum;
+    }
+
+    public String getShareCnt() {
+        return shareCnt;
+    }
+
+    public void setShareCnt(String shareCnt) {
+        this.shareCnt = shareCnt;
+    }
 
     public String getInvIdx() {
         return invIdx;

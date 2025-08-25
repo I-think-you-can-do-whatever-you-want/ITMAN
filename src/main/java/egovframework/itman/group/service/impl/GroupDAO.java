@@ -20,6 +20,10 @@ public class GroupDAO {
         return sqlSession.selectList("groupDAO.selectGroupList", memIdx);
     }
 
+    public List<GroupVO> selectGroupListNotShare(String memIdx){
+        return sqlSession.selectList("groupDAO.selectGroupListNotShare", memIdx);
+    }
+
     public List<GroupVO> getAllGroupData(String memIdx) throws Exception{
         return sqlSession.selectList("groupDAO.getAllGroupData", memIdx);
     }

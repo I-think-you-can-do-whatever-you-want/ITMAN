@@ -146,8 +146,5 @@ public class GroupController {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "그룹이 삭제되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
 
-    @RequestMapping("/shareBoard.do")
-    public String shareBoard(Model model) {
-        return "inGroup/shareBoard";
-    }
+
 }

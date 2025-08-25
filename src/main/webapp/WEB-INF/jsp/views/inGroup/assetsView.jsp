@@ -126,21 +126,36 @@
 				<tbody>
 					<tr>
 						<th>OS</th>
-<%--						<td><?=$ITM_HARDWARE_OS_ARR[0]?></td>--%>
-						<td>${hardware.os}</td>
-
+						<c:choose>
+							<c:when test="${!empty hardware}">
+								<td>${hardware.os}</td>
+							</c:when>
+							<c:otherwise>
+								<td>-</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
-					<?php ?>
 					<tr>
 						<th>CPU</th>
-<%--						<td><?=$ITM_HARDWARE_CPU_ARR[0]?></td>--%>
-						<td>${hardware.cpu}</td>
+						<c:choose>
+							<c:when test="${!empty hardware}">
+								<td>${hardware.cpu}</td>
+							</c:when>
+							<c:otherwise>
+								<td>-</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 					<tr>
 						<th>MEMORY</th>
-						<td>
-						${hardware.memory}
-						</td>
+						<c:choose>
+							<c:when test="${!empty hardware}">
+								<td>${hardware.memory}</td>
+							</c:when>
+							<c:otherwise>
+								<td>-</td>
+							</c:otherwise>
+						</c:choose>
 					</tr>
 				</tbody>
 			</table>

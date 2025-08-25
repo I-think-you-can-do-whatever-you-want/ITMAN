@@ -1,4 +1,4 @@
-package egovframework.itman.sharePermission.service;
+package egovframework.itman.share.sharePermission.service;
 
 public class SharePermissionVO {
     private String shaIdx;         // 공유 IDX

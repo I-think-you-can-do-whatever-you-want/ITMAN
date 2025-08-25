@@ -1,4 +1,4 @@
-package egovframework.itman.shareHistory.service;
+package egovframework.itman.share.shareHistory.service;
 
 public class ShareHistory {
     private String hisIdx;       // 히스토리 PK
