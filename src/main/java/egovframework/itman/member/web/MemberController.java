@@ -22,6 +22,7 @@ public class MemberController {
     @Resource(name = "passwordEncoder")
     private BCryptPasswordEncoder passwordEncoder;
 
+
     @RequestMapping("/user/join.do")
     public String join() {
         return "user/join01";
