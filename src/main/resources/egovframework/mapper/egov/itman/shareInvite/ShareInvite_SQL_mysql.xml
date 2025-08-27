@@ -9,6 +9,7 @@
         FROM ITM_SHARE_INVITE
         WHERE INVITE_CODE = #{inviteCode}
     </select>
+
     <select id="selectMyShareGroupList" parameterType="shareInviteVO" resultType="shareInviteVO">
         SELECT
             ROW_NUMBER() OVER (ORDER BY i.INV_IDX) AS rowNum,
@@ -57,5 +58,21 @@
                 NOW()
                )
     </insert>
-
+    <select id="checkInviteCode" parameterType="string" resultType="boolean">
+        SELECT
+            EXISTS (
+                SELECT 1
+                FROM ITM_SHARE_INVITE
+                WHERE INVITE_CODE = #{inviteCode}
+                  AND DEL_YN = 'N'
+            )
+    </select>
+    <select id="selectByInviteCode" parameterType="string" resultType="shareInviteVO">
+        SELECT
+            INV_IDX AS invIdx,
+            REG_IDX AS regIdx
+            FROM ITM_SHARE_INVITE
+        WHERE INVITE_CODE = #{inviteCode}
+          AND DEL_YN = 'N'
+    </select>
 </mapper>

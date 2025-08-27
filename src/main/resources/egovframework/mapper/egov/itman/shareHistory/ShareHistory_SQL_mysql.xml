@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="shareHistoryDAO">
+<select id="selectMyShareHistory" parameterType="string" resultType="shareHistoryVO">
+    SELECT
+        p.TARGET_MEM_NAME AS targetMemName,
+        h.ACTION_AT AS actionAt,
+        g.GRO_NAME AS groName,
+        h.EVENT_TYPE AS eventType,
+        h.NOTE AS note
+        FROM ITM_SHARE_HISTORY h
+        JOIN ITM_GROUP g ON g.REG_IDX = h.OWNER_MEM_IDX
+        LEFT JOIN ITM_SHARE_PERMISSION p ON p.OWNER_MEM_IDX = h.OWNER_MEM_IDX
+        WHERE
+            h.OWNER_MEM_IDX = #{ownerMemIdx}
+        ORDER BY h.ACTION_AT DESC
+        LIMIT 0 , 20
+</select>
+
+    <select id="selectSharedHistory" parameterType="string" resultType="shareHistoryVO">
+        SELECT
+            o.MEM_NAME      AS ownerName,
+            h.ACTION_AT     AS actionAt,
+            g.GRO_NAME      AS groName,
+            h.EVENT_TYPE    AS eventType,
+            h.NOTE          AS note
+        FROM ITM_SHARE_HISTORY h
+                 JOIN ITM_GROUP g
+                      ON g.GRO_IDX = h.GRO_IDX
+                 JOIN ITM_MEMBER o
+                      ON o.MEM_IDX = h.OWNER_MEM_IDX
+        WHERE h.TARGET_MEM_IDX = #{targetMemIdx}
+        ORDER BY h.ACTION_AT DESC
+        LIMIT 0 , 20
+    </select>
+</mapper>

@@ -34,6 +34,7 @@
 		<typeAlias alias="shareInviteVO" 	type="egovframework.itman.share.shareInvite.service.ShareInviteVO"/>
 		<typeAlias alias="sharePermissionVO" type="egovframework.itman.share.sharePermission.service.SharePermissionVO" />
 		<typeAlias alias="shareRequestVO" 	type="egovframework.itman.share.shareRequest.service.ShareRequestVO" />
+		<typeAlias alias="shareHistoryVO" 	type="egovframework.itman.share.shareHistory.service.ShareHistoryVO" />
 	</typeAliases>
     
 </configuration>

@@ -55,33 +55,21 @@
 						<p class="admin">그룹명</p>
 						<p class="date">공유 코드</p>
 					</li>
-					<c:if test="${!empty shareList}">
-						<c:forEach var="assetState" items="${shareList}">
+					<c:if test="${!empty mySharedGroupList}">
+						<c:forEach var="group" items="${mySharedGroupList}">
 							<li>
-								<p class="admin">${assetState.staName}</p>
-								<p class="date">${assetState.staCnt}</p>
+								<p class="admin">${group.groName}</p>
+								<p class="date">${group.inviteCode}</p>
 							</li>
 						</c:forEach>
 					</c:if>
-					<li>
-						<p class="admin">인사처</p>
-						<p class="date">A23GEC</p>
-					</li>
-					<li>
-						<p class="admin">회계처</p>
-						<p class="date">QWE231</p>
-					</li>
-					<li>
-						<p class="admin">경영기획처</p>
-						<p class="date">CG24AZ</p>
-					</li>
 				</ul>
 			</div>
 
 			<div class="Basic f_l">
 				<div class="base_tit mt">
 					<p class="tit">나의 공유 히스토리</p>
-					<p class="more"><a href="myShareHistory.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
+
 				</div>
 				<!-- 기존 '나의 공유 히스토리' 리스트 -->
 				<ul class="adminList history">
@@ -92,15 +80,19 @@
 						<p class="type">활동 구분</p>
 						<p class="change">내용</p>
 					</li>
-					<li>
-						<p class="admin">인사처 홍길동 부장</p>
-						<p class="date">2025.08.16</p>
-						<p class="stat02">인사처</p>
-						<div class="typeChange">
-							<p class="type">공유 요청 승인</p>
-							<p class="change"></p>
-						</div>
-					</li>
+					<c:if test="${!empty myShareHistoryList}">
+						<c:forEach var="history" items="${myShareHistoryList}">
+							<li>
+								<p class="admin">${history.targetMemName}</p>
+								<p class="date">${history.actionAt}</p>
+								<p class="stat02">${history.groName}</p>
+								<div class="typeChange">
+									<p class="type">${history.eventType}</p>
+									<p class="change">${history.note}</p>
+								</div>
+							</li>
+						</c:forEach>
+					</c:if>
 				</ul>
 			</div>
 		</div>
@@ -120,52 +112,44 @@
 						<p class="admin">그룹명</p>
 						<p class="date">공유 코드</p>
 					</li>
-					<c:if test="${!empty shareList}">
-						<c:forEach var="assetState" items="${shareList}">
+					<c:if test="${!empty mySharedPermissionList}">
+						<c:forEach var="group" items="${mySharedPermissionList}">
 							<li>
-								<p class="admin">${assetState.staName}</p>
-								<p class="date">${assetState.staCnt}</p>
+								<p class="admin">${group.groName}</p>
+								<p class="date">${group.validTo}</p>
 							</li>
 						</c:forEach>
 					</c:if>
-					<li>
-						<p class="admin">인사처</p>
-						<p class="date">A23GEC</p>
-					</li>
-					<li>
-						<p class="admin">회계처</p>
-						<p class="date">QWE231</p>
-					</li>
-					<li>
-						<p class="admin">경영기획처</p>
-						<p class="date">CG24AZ</p>
-					</li>
+
 				</ul>
 			</div>
 
 			<div class="Basic f_l">
 				<div class="base_tit mt">
 					<p class="tit">공유 히스토리</p>
-					<p class="more"><a href="sharedHistory.do"><img src="../../../../images/_img/more.png" alt="더보기" /></a></p>
 				</div>
 				<!-- 기존 '공유 히스토리' 리스트 -->
 				<ul class="adminList history">
 					<li class="tit">
-						<p class="admin">대상자</p>
+						<p class="admin">처리자</p>
 						<p class="date">일시</p>
 						<p class="stat02">그룹명</p>
 						<p class="type">활동 구분</p>
 						<p class="change">내용</p>
 					</li>
-					<li>
-						<p class="admin">인사처 홍길동 부장</p>
-						<p class="date">2025.08.16</p>
-						<p class="stat02">인사처</p>
-						<div class="typeChange">
-							<p class="type">공유 요청 승인</p>
-							<p class="change"></p>
-						</div>
-					</li>
+					<c:if test="${!empty sharedHistory}">
+						<c:forEach var="history" items="${sharedHistory}">
+							<li>
+								<p class="admin">${history.ownerName}</p>
+								<p class="date">${history.actionAt}</p>
+								<p class="stat02">${history.groName}</p>
+								<div class="typeChange">
+									<p class="type">${history.eventType}</p>
+									<p class="change">${history.note}</p>
+								</div>
+							</li>
+						</c:forEach>
+					</c:if>
 				</ul>
 			</div>
 		</div>

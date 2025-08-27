@@ -27,4 +27,10 @@ public class ShareInviteDAO {
     public void insertShareInvite(ShareInviteVO shareInviteVO){
         sqlSession.insert("shareInviteDAO.insertShareInvite", shareInviteVO);
     }
+    public boolean checkInviteCode(String inviteCode) {
+        return sqlSession.selectOne("shareInviteDAO.checkInviteCode", inviteCode);
+    }
+    public ShareInviteVO selectByInviteCode(String inviteCode){
+        return sqlSession.selectOne("shareInviteDAO.selectByInviteCode", inviteCode);
+    }
 }

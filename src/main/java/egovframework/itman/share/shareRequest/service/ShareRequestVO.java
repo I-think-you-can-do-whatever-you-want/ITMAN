@@ -4,16 +4,41 @@ public class ShareRequestVO {
     private String reqIdx;         // 공유 요청 IDX
     private String invIdx;         // 초대 코드 참조
     private String reqMemIdx; // 요청자 MEM_IDX
-
     private String status;          // 승인 상태 (승인 대기/승인/거절)
     private String approvedBy;     // 승인/거절 처리자 MEM_IDX
     private String approvedDate;     // 승인/거절 시각
     private String note;            // 승인/거절 사유
-
-    private String regDate;      // 생성일시
-    private String modDate;      // 수정일시
+    private String createdAt;      // 생성일시
+    private String updateAt;      // 수정일시
     private String requesterName;
     private String groName;
+    private String ownerName;
+    private String reqNote;
+    private String rowNum;
+
+    public String getRowNum() {
+        return rowNum;
+    }
+
+    public void setRowNum(String rowNum) {
+        this.rowNum = rowNum;
+    }
+
+    public String getReqNote() {
+        return reqNote;
+    }
+
+    public void setReqNote(String reqNote) {
+        this.reqNote = reqNote;
+    }
+
+    public String getOwnerName() {
+        return ownerName;
+    }
+
+    public void setOwnerName(String ownerName) {
+        this.ownerName = ownerName;
+    }
 
     public String getGroName() {
         return groName;
@@ -87,19 +112,19 @@ public class ShareRequestVO {
         this.note = note;
     }
 
-    public String getRegDate() {
-        return regDate;
+    public String getCreatedAt() {
+        return createdAt;
     }
 
-    public void setRegDate(String regDate) {
-        this.regDate = regDate;
+    public void setCreatedAt(String createdAt) {
+        this.createdAt = createdAt;
     }
 
-    public String getModDate() {
-        return modDate;
+    public String getUpdateAt() {
+        return updateAt;
     }
 
-    public void setModDate(String modDate) {
-        this.modDate = modDate;
+    public void setUpdateAt(String updateAt) {
+        this.updateAt = updateAt;
     }
 }

@@ -12,7 +12,6 @@
 		<h1>
 			<a href="${pageContext.request.contextPath}/dashboard.do">
 				<img src="${pageContext.request.contextPath}/upload/groImg/${sessionScope.group.groImg}" onerror = "this.src='${pageContext.request.contextPath}/images/_img/groupImage/no_img.png'" />
-
 			</a>
 		</h1>
 		<div class="tmn">

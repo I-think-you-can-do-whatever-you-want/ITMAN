@@ -23,4 +23,30 @@ public class ShareRequestServiceImpl implements ShareRequestService {
     public int selectReceivedRequestListCnt(String memIdx) {
         return shareRequestDAO.selectReceivedRequestListCnt(memIdx);
     }
+
+    @Override
+    public List<ShareRequestVO> selectRequestList(String reqMemIdx) {
+        return shareRequestDAO.selectRequestList(reqMemIdx);
+    }
+
+    @Override
+    public int selectRequestListCnt(String reqMemIdx) {
+        return shareRequestDAO.selectRequestListCnt(reqMemIdx);
+    }
+
+    @Override
+    public void insertShareRequest(ShareRequestVO shareRequestVO){
+        shareRequestDAO.insertShareRequest(shareRequestVO);
+    }
+
+    @Override
+    public ShareRequestVO selectReceivedRequest(String reqMemIdx) {
+        return shareRequestDAO.selectReceivedRequest(reqMemIdx);
+    }
+
+    @Override
+    public void approvedRequest(ShareRequestVO shareRequestVO){
+        shareRequestDAO.approvedRequest(shareRequestVO);
+    }
 }
+

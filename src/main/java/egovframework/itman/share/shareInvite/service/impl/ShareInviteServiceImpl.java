@@ -38,4 +38,14 @@ public class ShareInviteServiceImpl implements ShareInviteService {
     public void insertShareInvite(ShareInviteVO shareInviteVO){
         shareInviteDAO.insertShareInvite(shareInviteVO);
     }
+
+    @Override
+    public Boolean checkInviteCode(String inviteCode){
+        return shareInviteDAO.checkInviteCode(inviteCode);
+    }
+
+    @Override
+    public ShareInviteVO selectByInviteCode(String inviteCode){
+        return shareInviteDAO.selectByInviteCode(inviteCode);
+    }
 }

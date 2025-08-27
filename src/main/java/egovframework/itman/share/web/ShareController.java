@@ -2,6 +2,8 @@ package egovframework.itman.share.web;
 
 import egovframework.itman.group.service.GroupService;
 import egovframework.itman.group.service.GroupVO;
+import egovframework.itman.share.shareHistory.service.ShareHistoryService;
+import egovframework.itman.share.shareHistory.service.ShareHistoryVO;
 import egovframework.itman.share.shareInvite.service.ShareInviteService;
 import egovframework.itman.share.shareInvite.service.ShareInviteVO;
 import egovframework.itman.share.sharePermission.service.SharePermissionService;
@@ -11,9 +13,7 @@ import egovframework.itman.share.shareRequest.service.ShareRequestVO;
 import egovframework.usr.com.EgovframeworkCommonUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
@@ -29,16 +29,27 @@ public class ShareController {
     private SharePermissionService sharePermissionService;
     @Resource
     private ShareRequestService shareRequestService;
+    @Resource
+    private ShareHistoryService shareHistoryService;
 
     @RequestMapping("/shareBoard.do")
-    public String shareBoard(Model model) {
-        return "inGroup/shareBoard";
-    }
+    public String shareBoard(@RequestParam(value = "id",defaultValue = "10")int id, HttpSession session,Model model,
+                             ShareInviteVO shareInviteVO, SharePermissionVO sharePermissionVO) {
+        model.addAttribute("pageNumDepth01", id);
+        String memIdx = (String) session.getAttribute("userIdx");
 
-    //나의 공유
-    @RequestMapping("/myShareHistory.do")
-    public String myShareHistory(Model model) {
-        return "inGroup/myShareHistory";
+        shareInviteVO.setRegIdx(memIdx);
+        List<ShareInviteVO> mySharedGroupList = shareInviteService.selectMyShareGroupList(shareInviteVO);
+        model.addAttribute("mySharedGroupList", mySharedGroupList);
+        sharePermissionVO.setOwnerMemIdx(memIdx);
+        List<SharePermissionVO> mySharedPermissionList = sharePermissionService.selectMySharedPermissionList(sharePermissionVO);
+        model.addAttribute("mySharedPermissionList", mySharedPermissionList);
+
+        List<ShareHistoryVO> myShareHistoryList = shareHistoryService.selectMyShareHistory(memIdx);
+        model.addAttribute("myShareHistoryList", myShareHistoryList);
+        List<ShareHistoryVO> sharedHistoryList = shareHistoryService.selectSharedHistory(memIdx);
+        model.addAttribute("sharedHistoryList", sharedHistoryList);
+        return "inGroup/shareBoard";
     }
 
     @RequestMapping("/myShareGroup.do")
@@ -52,8 +63,8 @@ public class ShareController {
         model.addAttribute("mySharedGroupListCnt", mySharedGroupListCnt);
         //그룹 공유 현황
         sharePermissionVO.setOwnerMemIdx(memIdx);
-        List<SharePermissionVO> mySharedPermissionList = sharePermissionService.selectSharedGroupListByMemIdx(sharePermissionVO);
-        int mySharedPermissionListCnt = sharePermissionService.selectSharedGroupListByMemIdxCnt(sharePermissionVO);
+        List<SharePermissionVO> mySharedPermissionList = sharePermissionService.selectMySharedPermissionList(sharePermissionVO);
+        int mySharedPermissionListCnt = sharePermissionService.selectMySharedPermissionListCnt(sharePermissionVO);
         model.addAttribute("mySharedPermissionList", mySharedPermissionList);
         model.addAttribute("mySharedPermissionListCnt", mySharedPermissionListCnt);
         //받은 요청 현황
@@ -64,15 +75,20 @@ public class ShareController {
         return "inGroup/myShareGroup";
     }
 
-
-    //내가 공유 받은
-    @RequestMapping("/sharedHistory.do")
-    public String sharedHistory(Model model) {
-        return "inGroup/sharedHistory";
-    }
-
     @RequestMapping("/sharedGroup.do")
-    public String sharedGroup(Model model) {
+    public String sharedGroup(SharePermissionVO sharePermissionVO,ShareRequestVO shareRequestVO ,HttpSession session ,Model model) {
+        String memIdx = (String) session.getAttribute("userIdx");
+        sharePermissionVO.setTargetMemIdx(memIdx);
+        List<SharePermissionVO> sharedGroupList = sharePermissionService.selectSharedPermissionList(sharePermissionVO);
+        int sharedGroupListCnt = sharePermissionService.selectSharedPermissionListCnt(sharePermissionVO);
+        model.addAttribute("sharedGroupList", sharedGroupList);
+        model.addAttribute("sharedGroupListCnt", sharedGroupListCnt);
+
+        List<ShareRequestVO> selectRequestList = shareRequestService.selectRequestList(memIdx);
+        int selectRequestListCnt = shareRequestService.selectRequestListCnt(memIdx);
+        System.err.println("selectRequestListCnt: " + selectRequestListCnt);
+        model.addAttribute("selectRequestList", selectRequestList);
+        model.addAttribute("selectRequestListCnt", selectRequestListCnt);
         return "inGroup/sharedGroup";
     }
 
@@ -88,7 +104,7 @@ public class ShareController {
     @ResponseBody
     public String createInviteCode() throws Exception {
         String code = shareInviteService.generateUniqueInviteCode(10);
-        return code;
+        return "";
     }
 
     @PostMapping("/insertSharedGroup.do")
@@ -119,12 +135,26 @@ public class ShareController {
     }
     //공유 요청 승인
     @RequestMapping("/confirmSharedGroupApprove.do")
-    public String confirmSharedGroupApprove(Model model) {
-        return "popup/group/confirmSharedGroupDel";
+    public String confirmSharedGroupApprove(ShareRequestVO shareRequestVO, Model model) {
+        ShareRequestVO request = shareRequestService.selectReceivedRequest(shareRequestVO.getReqIdx());
+        model.addAttribute("request", request);
+        return "popup/group/confirmSharedGroupApprove";
     }
 
     @PostMapping("/approveSharedGroup.do")
-    public String approveSharedGroup(Model model) {
+    public String approveSharedGroup(@ModelAttribute SharePermissionVO sharePermissionVO, ShareRequestVO shareRequestVO,Model model, HttpSession session) {
+        String memIdx = (String) session.getAttribute("userIdx");
+        String groIdx = (String) session.getAttribute("groIdx");
+        shareRequestVO.setApprovedBy(memIdx);
+        shareRequestVO.setStatus("APPROVED");
+        shareRequestService.approvedRequest(shareRequestVO);
+
+        sharePermissionVO.setOwnerMemIdx(memIdx);
+        sharePermissionVO.setGroIdx(groIdx);
+        sharePermissionVO.setTargetMemIdx(shareRequestVO.getReqMemIdx());
+
+        sharePermissionService.insertPermission(sharePermissionVO);
+
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "공유 요청이 승인되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
     //공유 요청 거절
@@ -147,5 +177,30 @@ public class ShareController {
     public String deleteSharedGroup(Model model) {
         return EgovframeworkCommonUtil.alertMoveWithScript(model, "공유 그룹이 삭제되었습니다","<script>window.opener.location.reload(); window.close();</script>");
     }
+
+    @RequestMapping("/writeRequest.do")
+    public String writeRequest(Model model) {
+        return "popup/group/writeRequest";
+    }
+
+    @PostMapping(value = "/checkInviteCode.do", produces = "application/json;charset=UTF-8")
+    @ResponseBody
+    public String checkInviteCode(@RequestParam(name = "inviteCode")String inviteCode , Model model) {
+        boolean exists = shareInviteService.checkInviteCode(inviteCode);
+        return exists ? "1" : "0";    }
+
+    @PostMapping("/insertRequest.do")
+    public String insertRequest(@RequestParam(name = "inviteCode")String inviteCode,ShareRequestVO shareRequestVO, HttpSession session ,Model model) {
+        String memIdx = session.getAttribute("userIdx").toString();
+
+        ShareInviteVO invite = shareInviteService.selectByInviteCode(inviteCode);
+        shareRequestVO.setInvIdx(invite.getInvIdx());
+        shareRequestVO.setReqMemIdx(memIdx);
+        shareRequestVO.setStatus("PENDING");
+        shareRequestService.insertShareRequest(shareRequestVO);
+
+        return EgovframeworkCommonUtil.alertMoveWithScript(model, "공유 요청이 전송되었습니다","<script>window.opener.location.reload(); window.close();</script>");
+    }
+
 }
 

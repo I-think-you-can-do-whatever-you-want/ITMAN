@@ -14,11 +14,26 @@ public class SharePermissionServiceImpl implements SharePermissionService {
     }
 
     @Override
-    public List<SharePermissionVO> selectSharedGroupListByMemIdx(SharePermissionVO sharePermissionVO){
-        return sharePermissionDAO.selectSharedGroupListByMemIdx(sharePermissionVO);
+    public List<SharePermissionVO> selectMySharedPermissionList(SharePermissionVO sharePermissionVO){
+        return sharePermissionDAO.selectMySharedPermissionList(sharePermissionVO);
     }
     @Override
-    public int selectSharedGroupListByMemIdxCnt(SharePermissionVO sharePermissionVO){
-        return sharePermissionDAO.selectSharedGroupListByMemIdxCnt(sharePermissionVO);
+    public int selectMySharedPermissionListCnt(SharePermissionVO sharePermissionVO){
+        return sharePermissionDAO.selectMySharedPermissionListCnt(sharePermissionVO);
+    }
+
+    @Override
+    public List<SharePermissionVO> selectSharedPermissionList(SharePermissionVO sharePermissionVO) {
+        return sharePermissionDAO.selectSharedPermissionList(sharePermissionVO);
+    }
+
+    @Override
+    public int selectSharedPermissionListCnt(SharePermissionVO sharePermissionVO) {
+        return sharePermissionDAO.selectSharedPermissionListCnt(sharePermissionVO);
+    }
+
+    @Override
+    public void insertPermission(SharePermissionVO sharePermissionVO){
+        sharePermissionDAO.insertPermission(sharePermissionVO);
     }
 }

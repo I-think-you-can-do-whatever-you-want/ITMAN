@@ -4,34 +4,93 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="sharePermissionDAO">
-    <select id="selectSharedGroupListByMemIdx" parameterType="sharePermissionVO" resultType="sharePermissionVO">
-        SELECT  p.SHA_IDX AS shaIdx,
-                ROW_NUMBER() OVER (ORDER BY i.INV_IDX) AS rowNum,
-                g.GRO_NAME AS groName,
-                p.TARGET_MEM_NAME AS targetMemName,
-                p.PERM_MASK AS permMask,
-                p.VALID_TO AS validTo
+    <sql id="mySharedPermissionCondition">
+ <where> p.OWNER_MEM_IDX = #{ownerMemIdx}
+  AND p.IS_ACTIVE = 'Y'
+  <if test="searching.searchCondition != null and searching.searchCondition != ''">
+   AND g.GRO_IDX = #{searching.searchCondition}
+   </if>
+    </where>
+     </sql>
+    <select id="selectMySharedPermissionList" parameterType="sharePermissionVO" resultType="sharePermissionVO">
+        SELECT
+        ROW_NUMBER() OVER (ORDER BY i.INV_IDX) AS rowNum,
+        p.SHA_IDX AS shaIdx,
+        g.GRO_NAME AS groName,
+        p.TARGET_MEM_NAME AS targetMemName,
+        p.PERM_MASK AS permMask,
+        p.VALID_TO AS validTo
         FROM ITM_SHARE_PERMISSION p
-                 JOIN ITM_GROUP g ON g.GRO_IDX = p.GRO_IDX
-                 LEFT JOIN ITM_SHARE_INVITE i ON i.REG_IDX = p.OWNER_MEM_IDX AND i.DEL_YN = 'N'
-        WHERE
-            p.OWNER_MEM_IDX = #{ownerMemIdx}
-          AND p.IS_ACTIVE = 'Y'
-        <if test="searching.searchCondition != null and searching.searchCondition != ''">
-            AND g.GRO_IDX = #{searching.searchCondition}
-        </if>
+        JOIN ITM_GROUP g
+        ON g.GRO_IDX = p.GRO_IDX
+        JOIN ITM_SHARE_INVITE i
+        ON i.GRO_IDX = p.GRO_IDX
+        AND i.REG_IDX = p.OWNER_MEM_IDX
+        AND i.DEL_YN = 'N'
+        <include refid="mySharedPermissionCondition" />
         ORDER BY rowNum DESC
     </select>
-    <select id="selectSharedGroupListByMemIdxCnt" parameterType="sharePermissionVO" resultType="int">
+
+
+    <select id="selectMySharedPermissionListCnt" parameterType="sharePermissionVO" resultType="int">
         SELECT COUNT(*)
         FROM ITM_SHARE_PERMISSION p
-                 JOIN ITM_GROUP g ON g.GRO_IDX = p.GRO_IDX
-                 LEFT JOIN ITM_SHARE_INVITE i ON i.REG_IDX = p.OWNER_MEM_IDX AND i.DEL_YN = 'N'
-        WHERE
-            p.OWNER_MEM_IDX = #{ownerMemIdx}
-          AND p.IS_ACTIVE = 'Y'
-        <if test="searching.searchCondition != null and searching.searchCondition != ''">
-            AND g.GRO_IDX = #{searching.searchCondition}
-        </if>
+        JOIN ITM_GROUP g
+        ON g.GRO_IDX = p.GRO_IDX
+        JOIN ITM_SHARE_INVITE i
+        ON i.GRO_IDX = p.GRO_IDX
+        AND i.REG_IDX = p.OWNER_MEM_IDX
+        AND i.DEL_YN = 'N'
+        <include refid="mySharedPermissionCondition" />
     </select>
+
+    <sql id="sharedPermissionCondition">
+        <where>
+            p.TARGET_MEM_IDX = #{targetMemIdx}
+            AND p.IS_ACTIVE = 'Y'
+        </where>
+    </sql>
+
+    <select id="selectSharedPermissionList" parameterType="sharePermissionVO" resultType="sharePermissionVO">
+        SELECT  p.SHA_IDX AS shaIdx,
+        ROW_NUMBER() OVER (ORDER BY p.SHA_IDX) AS rowNum,
+        g.GRO_NAME AS groName,
+        m.MEM_NAME AS memName,
+        p.PERM_MASK AS permMask,
+        p.VALID_TO AS validTo
+        FROM ITM_SHARE_PERMISSION p
+        JOIN ITM_GROUP g ON g.GRO_IDX = p.GRO_IDX
+        LEFT JOIN ITM_MEMBER m ON m.MEM_IDX = p.OWNER_MEM_IDX AND m.DEL_YN = 'N'
+        <include refid="sharedPermissionCondition" />
+        ORDER BY rowNum DESC
+    </select>
+    <select id="selectSharedPermissionListCnt" parameterType="sharePermissionVO" resultType="int">
+        SELECT COUNT(*)
+        FROM ITM_SHARE_PERMISSION p
+        JOIN ITM_GROUP g ON g.GRO_IDX = p.GRO_IDX
+        LEFT JOIN ITM_MEMBER m ON m.MEM_IDX = p.OWNER_MEM_IDX AND m.DEL_YN = 'N'
+        <include refid="sharedPermissionCondition" />
+    </select>
+
+    <insert id="insertPermission" parameterType="sharePermissionVO">
+        INSERT INTO
+            ITM_SHARE_PERMISSION
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+                OWNER_MEM_IDX,
+                TARGET_MEM_IDX,
+                <if test="targetMemName != null and targetMemName != ''">TARGET_MEM_NAME,</if>
+                GRO_IDX,
+                PERM_MASK,
+                IS_ACTIVE
+            </trim>
+            VALUES
+            <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{ownerMemIdx},
+                #{targetMemIdx},
+                <if test="targetMemName != null and targetMemName != ''">#{targetMemName},</if>
+                #{groIdx},
+                #{permMask},
+                'Y'
+            </trim>
+    </insert>
 </mapper>

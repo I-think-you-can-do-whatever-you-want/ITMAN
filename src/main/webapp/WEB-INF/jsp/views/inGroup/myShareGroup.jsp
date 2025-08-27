@@ -135,11 +135,17 @@
 				<p class="tit">${row.targetMemName}</p>
 				<p class="tit">
 					<c:choose>
-						<c:when test="${row.permMask == '4'}">조회, 삽입/수정, 삭제</c:when>
-						<c:when test="${row.permMask == '2'}">조회, 삽입/수정</c:when>
+						<c:when test="${row.permMask == '4'}">조회 | 수정 | 삭제</c:when>
+						<c:when test="${row.permMask == '2'}">조회 | 수정</c:when>
 						<c:otherwise>조회</c:otherwise>
 					</c:choose>
 				</p>
+					<p class="pos">
+						<c:choose>
+							<c:when test="${!empty row.validTo}">${row.validTo}</c:when>
+							<c:otherwise>-</c:otherwise>
+						</c:choose>
+					</p>
 				<p class="editDel" style="padding: 0;">
 					<a href="#" onclick="window.open('/divisionWrite.do', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
 					<a href="#" onclick="window.open('/confirmDivisionDel.do', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
@@ -152,7 +158,6 @@
 							일치하는 자료가 없습니다.
 						</div>
 					</c:if>
-
 			</ul>
 		</div>
 		</div>
@@ -182,15 +187,11 @@
 								<p class="cod">${row.requesterName}</p>
 								<p class="tit">${row.groName}</p>
 								<p class="pos">
-									<c:choose>
-										<c:when test="${row.status == 'APPROVED'}">승인</c:when>
-										<c:when test="${row.status == 'REJECTED'}">거절</c:when>
-										<c:otherwise>승인 대기</c:otherwise>
-									</c:choose>
+									<c:if test="${row.status == 'PENDING'}">승인 대기</c:if>
 								</p>
 								<p class="editDel" style="padding: 0;">
-									<a href="#" onclick="window.open('/divisionWrite.do', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">승인</a>
-									<a href="#" onclick="window.open('/confirmDivisionDel.do', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">거절</a>
+									<a href="#" onclick="window.open('/confirmSharedGroupApprove.do?reqIdx=${row.reqIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">승인</a>
+									<a href="#" onclick="window.open('/confirmSharedGroupReject.do', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">거절</a>
 								</p>
 							</li>
 						</c:forEach>

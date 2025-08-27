@@ -47,7 +47,7 @@
 
 
 		<div class="num_list">
-			<p class="total">총 <span>${pagination.listCnt}</span>건의 결과가 있습니다.</p>
+			<p class="total">총 <span>${sharedGroupListCnt}</span>건의 결과가 있습니다.</p>
 		</div>
 
 		<div class="Basic">
@@ -59,41 +59,26 @@
 					<p class="pos">보유 권한</p>
 					<p class="editDel">관리</p>
 				</li>
-				<c:if test="${!empty resultList}">
-					<c:forEach var="row" items="${resultList}">
+				<c:if test="${!empty sharedGroupList}">
+					<c:forEach var="row" items="${sharedGroupList}">
 				<li>
 				<p class="num">${row.rowNum}</p>
-				<p class="cod">${row.divCode}</p>
-				<p class="tit">${row.divName}</p>
+				<p class="cod">${row.memName}</p>
+				<p class="tit">${row.groName}</p>
 				<p class="pos">
 					<c:choose>
-						<c:when test="${row.divYn == 'Y'}">사용</c:when>
-						<c:otherwise>사용안함</c:otherwise>
+						<c:when test="${row.permMask == '7'}">조회, 수정, 삭제</c:when>
+						<c:when test="${row.permMask == '3'}">조회, 수정</c:when>
+						<c:otherwise>조회</c:otherwise>
 					</c:choose>
 				</p>
 				<p class="editDel" style="padding: 0;">
-					<a href="#" onclick="window.open('/divisionWrite.do?divIdx=${row.divIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
-					<a href="#" onclick="window.open('/confirmDivisionDel.do?divIdx=${row.divIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
+					<a href="#" onclick="window.open('/confirmDivisionDel.do', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
 				</p>
 				</li>
 				</c:forEach>
 				</c:if>
-				<li>
-					<p class="num">1</p>
-					<p class="cod">김희숙</p>
-					<p class="tit">한국폴리텍 AI융합소프트웨어과</p>
-					<p class="pos">
-						<c:choose>
-							<c:when test="${row.divYn == 'Y'}">사용</c:when>
-							<c:otherwise>조회</c:otherwise>
-						</c:choose>
-					</p>
-					<p class="editDel" style="padding: 0;">
-						<a href="#" onclick="window.open('/confirmDivisionDel.do?divIdx=${row.divIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
-					</p>
-				</li>
-
-                    <c:if test="${pagination.listCnt == 0}">
+                    <c:if test="${empty sharedGroupList}">
 						<div style="text-align:center; margin-top:20px;">
 							일치하는 자료가 없습니다.
 						</div>
@@ -109,13 +94,11 @@
 
 
 			<div class="num_list">
-				<p class="total">총 <span>${pagination.listCnt}</span>건의 결과가 있습니다.</p>
+				<p class="total">총 <span>${selectRequestListCnt}</span>건의 결과가 있습니다.</p>
 			</div>
 
-
-			<!-- 글쓰기 버튼-->
 			<p class="addContent">
-				<a href="#" onclick="window.open('/divisionWrite.do' ,'부서 추가 팝업' ,'width=500, height=335, status=no,toolbar=no,scrollbars=no' )" class="edit"><span></span><span></span><span></span></a></p>
+				<a href="#" onclick="window.open('/writeRequest.do' ,'요청 추가 팝업' ,'width=500, height=335, status=no,toolbar=no,scrollbars=no' )" class="edit"><span></span><span></span><span></span></a></p>
 
 			<div class="Basic">
 				<ul class="adminList">
@@ -123,45 +106,32 @@
 						<p class="num">No</p>
 						<p class="cod">처리자</p>
 						<p class="tit">그룹명</p>
+						<p class="pos">요청일시</p>
 						<p class="pos">요청상태</p>
 						<p class="editDel">관리</p>
 					</li>
-					<c:if test="${!empty resultList}">
-						<c:forEach var="row" items="${resultList}">
+					<c:if test="${!empty selectRequestList}">
+						<c:forEach var="row" items="${selectRequestList}">
 							<li>
 								<p class="num">${row.rowNum}</p>
-								<p class="cod">${row.divCode}</p>
-								<p class="tit">${row.divName}</p>
+								<p class="cod">${row.ownerName}</p>
+								<p class="tit">${row.groName}</p>
+								<p class="pos">${row.createdAt}</p>
 								<p class="pos">
 									<c:choose>
-										<c:when test="${row.divYn == 'Y'}">사용</c:when>
-										<c:otherwise>사용안함</c:otherwise>
+										<c:when test="${row.status == 'APPROVED'}">승인</c:when>
+										<c:when test="${row.status == 'REJECTED'}">거절</c:when>
+										<c:otherwise>승인 대기</c:otherwise>
 									</c:choose>
 								</p>
 								<p class="editDel" style="padding: 0;">
-									<a href="#" onclick="window.open('/divisionWrite.do?divIdx=${row.divIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
-									<a href="#" onclick="window.open('/confirmDivisionDel.do?divIdx=${row.divIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
+									<a href="#" onclick="window.open('/divisionWrite.do', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
+									<a href="#" onclick="window.open('/confirmDivisionDel.do', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">삭제</a>
 								</p>
 							</li>
 						</c:forEach>
 					</c:if>
-					<li>
-						<p class="num">1</p>
-						<p class="cod">최민서</p>
-						<p class="tit">한국폴리텍 학생처</p>
-						<p class="pos">
-							<c:choose>
-								<c:when test="${row.divYn == 'Y'}">사용</c:when>
-								<c:otherwise>승인 대기</c:otherwise>
-							</c:choose>
-						</p>
-						<p class="editDel" style="padding: 0;">
-							<a href="#" onclick="window.open('/divisionWrite.do?divIdx=${row.divIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="edit">수정</a>
-							<a href="#" onclick="window.open('/confirmDivisionDel.do?divIdx=${row.divIdx}', 'EditPopUp', 'width=500, height=350, status=no,toolbar=no,scrollbars=no')" class="del">철회</a>
-						</p>
-					</li>
-
-					<c:if test="${pagination.listCnt == 0}">
+					<c:if test="${empty selectRequestList}">
 						<div style="text-align:center; margin-top:20px;">
 							일치하는 자료가 없습니다.
 						</div>

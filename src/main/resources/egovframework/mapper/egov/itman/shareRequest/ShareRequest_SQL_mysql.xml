@@ -7,9 +7,9 @@
     <select id="selectReceivedRequestList" parameterType="string" resultType="shareRequestVO">
     SELECT
         ROW_NUMBER() OVER (ORDER BY r.CREATED_AT) AS rowNum,
+        r.REQ_IDX AS reqIdx,
         m.MEM_NAME AS requesterName,
         g.GRO_NAME AS groName,
-        r.REQ_IDX,
         r.STATUS,
         r.CREATED_AT
     FROM ITM_SHARE_REQUEST r
@@ -20,6 +20,7 @@
              JOIN ITM_GROUP g
                   ON i.GRO_IDX = g.GRO_IDX
     WHERE i.REG_IDX = #{memIdx}
+    AND r.STATUS = 'PENDING'
     ORDER BY rowNum DESC
     </select>
 
@@ -34,6 +35,83 @@
                  JOIN ITM_GROUP g
                       ON i.GRO_IDX = g.GRO_IDX
         WHERE i.REG_IDX = #{memIdx}
+          AND r.STATUS = 'PENDING'
     </select>
 
+    <select id="selectRequestList" parameterType="string" resultType="shareRequestVO">
+        SELECT
+            ROW_NUMBER() OVER (ORDER BY r.CREATED_AT) AS rowNum,
+            o.MEM_NAME  AS ownerName,
+            g.GRO_NAME  AS groName,
+            r.REQ_IDX   AS reqIdx,
+            r.STATUS    AS status,
+            r.CREATED_AT AS createdAt
+        FROM ITM_SHARE_REQUEST r
+                 JOIN ITM_SHARE_INVITE i
+                      ON r.INV_IDX = i.INV_IDX AND i.DEL_YN = 'N'
+                 JOIN ITM_MEMBER m
+                      ON r.REQ_MEM_IDX = m.MEM_IDX
+                 JOIN ITM_MEMBER o
+                      ON i.REG_IDX = o.MEM_IDX
+                 JOIN ITM_GROUP g
+                      ON i.GRO_IDX = g.GRO_IDX
+        WHERE r.REQ_MEM_IDX = #{reqMemIdx}
+        ORDER BY rowNum DESC
+    </select>
+
+    <select id="selectRequestListCnt" parameterType="string" resultType="int">
+        SELECT
+            COUNT(*)
+        FROM ITM_SHARE_REQUEST r
+                 JOIN ITM_SHARE_INVITE i
+                      ON r.INV_IDX = i.INV_IDX AND i.DEL_YN = 'N'
+                 JOIN ITM_MEMBER m
+                      ON r.REQ_MEM_IDX = m.MEM_IDX
+                 JOIN ITM_MEMBER o
+                      ON i.REG_IDX = o.MEM_IDX
+                 JOIN ITM_GROUP g
+                      ON i.GRO_IDX = g.GRO_IDX
+        WHERE r.REQ_MEM_IDX = #{reqMemIdx}
+    </select>
+    <insert id="insertShareRequest" parameterType="shareRequestVO">
+        INSERT INTO
+            ITM_SHARE_REQUEST
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            INV_IDX,
+            REQ_MEM_IDX,
+            STATUS,
+            CREATED_AT,
+            <if test="reqNote != null and reqNote != ''">REQ_NOTE,</if>
+        </trim>
+            VALUES
+                <trim prefix="(" suffix=")" suffixOverrides=",">
+                    #{invIdx},
+                #{reqMemIdx},
+                #{status},
+                NOW(),
+                <if test="reqNote != null and reqNote != ''">#{reqNote},</if>
+                </trim>
+    </insert>
+    <select id="selectReceivedRequest" parameterType="string" resultType="shareRequestVO">
+        SELECT
+            r.REQ_IDX AS reqIdx,
+            r.REQ_MEM_IDX AS reqMemIdx,
+            m.MEM_NAME AS requesterName,
+            r.REQ_NOTE AS reqNote
+        FROM
+            ITM_SHARE_REQUEST r
+                LEFT JOIN ITM_MEMBER m ON m.MEM_IDX = r.REQ_MEM_IDX AND m.DEL_YN = 'N'
+        WHERE
+            r.REQ_IDX = #{reqIdx}
+    </select>
+    <update id="approvedRequest" parameterType="shareRequestVO">
+        UPDATE
+            ITM_SHARE_REQUEST
+        SET STATUS = #{status},
+            APPROVED_BY = #{approvedBy},
+            APPROVED_AT = NOW(),
+            <if test="note != null and note != ''">NOTE = #{note},</if>
+            UPDATED_AT = NOW()
+        WHERE REQ_IDX = #{reqIdx}
+    </update>
 </mapper>

@@ -1,6 +1,6 @@
 package egovframework.itman.share.shareHistory.service;
 
-public class ShareHistory {
+public class ShareHistoryVO {
     private String hisIdx;       // 히스토리 PK
     private String eventType;    // 이벤트 종류
 
@@ -22,7 +22,18 @@ public class ShareHistory {
     }
 
     public String getEventType() {
-        return eventType;
+        if (eventType == null) return "";
+        switch (eventType) {
+            case "INVITE_CREATED":   return "초대 생성";
+            case "INVITE_DELETED":   return "초대 삭제";
+            case "REQUEST_CREATED":  return "요청 생성";
+            case "REQUEST_APPROVED": return "요청 승인";
+            case "REQUEST_REJECTED": return "요청 거절";
+            case "PERMISSION_GRANTED": return "권한 부여";
+            case "PERMISSION_REVOKED": return "권한 회수";
+            case "PERMISSION_EXPIRED": return "권한 만료";
+            default: return eventType; // 혹시 모르는 값은 그대로
+        }
     }
 
     public void setEventType(String eventType) {

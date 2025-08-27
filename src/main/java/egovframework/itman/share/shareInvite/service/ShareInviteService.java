@@ -7,5 +7,7 @@ public interface ShareInviteService {
     List<ShareInviteVO> selectMyShareGroupList(ShareInviteVO shareInviteVO);
     int selectMyShareGroupListCnt(ShareInviteVO shareInviteVO);
     void insertShareInvite(ShareInviteVO shareInviteVO);
+    Boolean checkInviteCode(String inviteCode);
+    ShareInviteVO selectByInviteCode(String inviteCode);
 
 }

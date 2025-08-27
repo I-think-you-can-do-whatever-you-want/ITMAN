@@ -22,6 +22,15 @@ public class SharePermissionVO {
     private String rowNum;
     private String groName;
     private Searching searching;
+    private String memName;
+
+    public String getMemName() {
+        return memName;
+    }
+
+    public void setMemName(String memName) {
+        this.memName = memName;
+    }
 
     public SharePermissionVO() {
         this.searching = new Searching();
